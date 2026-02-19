@@ -29,6 +29,7 @@ test("README documentation links reference existing files", () => {
     "docs/BASELINE_TEST_RUN.md",
     "docs/GUARANTEES.md",
     "docs/STATUSQUO.md",
+    "docs/DEPENDENCY_RISK_REGISTER.md",
     "CONTRIBUTING.md",
     "SECURITY.md",
     "CHANGELOG.md"

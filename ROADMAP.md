@@ -175,7 +175,7 @@ Execution breakdown (planned before implementation):
   - deterministic malformed-query/decode handling
   - canonical page parameter validation (`page_parameter_invalid`)
   - contract tests for malformed encoding + page validation boundaries
-- `v0.9.2` (in progress):
+- `v0.9.2` (completed):
   - runtime-focused dependency audit gate in CI
   - workflow integrity hardening and explicit least-privilege permissions
   - governance checks/tests for workflow posture

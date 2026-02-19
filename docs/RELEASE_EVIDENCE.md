@@ -13,4 +13,29 @@ Use this file (or release artifacts linked from it) to track governance evidence
 
 ## Current Status
 
-- Baseline format established; entries to be added per release cycle.
+- Pre-GA evidence entries are tracked below.
+
+## Pre-GA Cycle Evidence
+
+### `v0.9.1` - Query/Error Determinism Hardening
+
+- Commit: `33b6604`
+- Scope:
+  - deterministic malformed query/decode handling
+  - canonical page validation + error mapping
+  - contract/leakage test expansion
+- Evidence:
+  - `npm run ci:check`: pass
+  - `npm run audit:runtime`: pass (`0` runtime vulnerabilities)
+
+### `v0.9.2` - CI/Workflow Hardening
+
+- Commit: `52ceea3`
+- Scope:
+  - runtime dependency audit gate in CI/release workflows
+  - explicit CI least-privilege permissions
+  - workflow action reference governance verification
+  - dependency risk register governance artifact
+- Evidence:
+  - `npm run ci:check`: pass
+  - `npm run audit:runtime`: pass (`0` runtime vulnerabilities)

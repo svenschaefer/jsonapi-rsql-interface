@@ -18,8 +18,17 @@ Tracks dependency security posture for pre-GA and release decisions.
     - remediate non-breaking updates when available
     - document explicit risk acceptance if residual advisories remain pre-GA
 
+## Audit Snapshot (`2026-02-19`)
+
+- Runtime audit (`npm audit --omit=dev --json`):
+  - vulnerabilities: `0`
+  - disposition: pass (release-blocking gate remains enabled)
+- Full tree audit (`npm audit --json`):
+  - vulnerabilities: `6` (`4` high, `2` moderate)
+  - affected chain: eslint dev-tooling stack
+  - disposition: accepted as dev-only pre-GA residual risk, tracked until compatible remediation path is available
+
 ## Update Rules
 
 - Update this file whenever audit posture, accepted risks, or remediation decisions change.
 - Each GA/patch release should reference current disposition in release evidence.
-
