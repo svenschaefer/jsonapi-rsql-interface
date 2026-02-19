@@ -4,15 +4,24 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-19
+
 ### Added
 
-- Policy-gated wildcard extension for string `==` filters (post-GA `v1.1.x` work-in-progress):
+- Policy-gated wildcard extension for string `==` filters:
   - supported forms: `*value*`, `value*`, `*value`
+  - wildcard metadata in compiled typed clauses for deterministic adapter handling
   - new deterministic wildcard error codes:
     - `wildcard_not_allowed`
     - `wildcard_operator_not_allowed`
     - `wildcard_type_not_supported`
     - `invalid_wildcard_pattern`
+
+### Changed
+
+- Wildcard semantics are now policy-gated at field level for `string` + `==` only.
+- Unsupported wildcard forms and disallowed wildcard usage now fail with stable deterministic error codes.
+- Contract tests expanded to lock wildcard allow/deny behavior and canonical error mapping.
 
 ## [1.0.0] - 2026-02-19
 
