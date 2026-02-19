@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.6.0` (cache/context safety + observability).
+- Current roadmap phase: `v0.7.0` (conformance and test-suite expansion).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -58,6 +58,12 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Policy/context/query-bound `plan_cache_key` is emitted for safe cache partitioning.
 - Contract tests enforce cache-key changes across policy version and context changes.
 
+## Conformance expansion status
+
+- Added leakage-guard integration tests for error surfaces.
+- Added limit-boundary integration tests (`limit` pass, `limit+1` fail).
+- Added fixture sanitizer tests to prevent secret-like fixture content.
+
 ## Dependency and release status
 
 - `package-lock.json` exists and CI uses `npm ci`.
@@ -66,5 +72,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Continue `v0.6.0` observability hardening and context-safety enforcement.
-- Start `v0.7.0` conformance-suite completion after cache/context cycle closure.
+- Continue `v0.7.0` by expanding conformance coverage against checklist matrix.
+- Start `v0.8.0` release/governance hardening after conformance cycle closure.
