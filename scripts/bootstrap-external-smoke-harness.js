@@ -84,7 +84,9 @@ function writeHarnessPackageJson(harnessDir) {
 
 function writeHarnessRunner(harnessDir) {
   const runnerPath = path.join(harnessDir, "smoke-runner.js");
-  const content = `const { spawnSync } = require("child_process");
+  const content = `const fs = require("fs");
+const path = require("path");
+const { spawnSync } = require("child_process");
 
 function getArg(flag) {
   const args = process.argv.slice(2);
@@ -103,6 +105,77 @@ function runInstall(spec) {
   const result = spawnSync(cmd, cmdArgs, { stdio: "inherit", shell: false });
   if (result.error) throw new Error(\`Install command failed to start: \${result.error.message}\`);
   if (result.status !== 0) throw new Error(\`Install command failed with exit code \${result.status}\`);
+}
+
+function resolveEntrypointRelativePath(pkgJson) {
+  if (typeof pkgJson.exports === "string" && pkgJson.exports.length > 0) {
+    return pkgJson.exports;
+  }
+  if (pkgJson.exports && typeof pkgJson.exports === "object") {
+    const rootExport = pkgJson.exports["."];
+    if (typeof rootExport === "string" && rootExport.length > 0) {
+      return rootExport;
+    }
+    if (rootExport && typeof rootExport === "object") {
+      if (typeof rootExport.require === "string" && rootExport.require.length > 0) {
+        return rootExport.require;
+      }
+      if (typeof rootExport.default === "string" && rootExport.default.length > 0) {
+        return rootExport.default;
+      }
+    }
+  }
+  if (typeof pkgJson.main === "string" && pkgJson.main.length > 0) {
+    return pkgJson.main;
+  }
+  throw new Error("Installed package does not declare resolvable exports/main entrypoint.");
+}
+
+function inspectInstalledArtifact(packageName) {
+  const packageDir = path.join(process.cwd(), "node_modules", packageName);
+  if (!fs.existsSync(packageDir) || !fs.statSync(packageDir).isDirectory()) {
+    throw new Error(\`Installed package directory not found: \${packageDir}\`);
+  }
+  const packageJsonPath = path.join(packageDir, "package.json");
+  if (!fs.existsSync(packageJsonPath)) {
+    throw new Error(\`Installed package.json not found: \${packageJsonPath}\`);
+  }
+  let pkgJson;
+  try {
+    pkgJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+  } catch (err) {
+    throw new Error(\`Installed package.json is not valid JSON: \${packageJsonPath}\`);
+  }
+  const entrypointRelative = resolveEntrypointRelativePath(pkgJson);
+  const resolvedEntrypoint = path.resolve(packageDir, entrypointRelative);
+  if (!fs.existsSync(resolvedEntrypoint)) {
+    throw new Error(\`Resolved package entrypoint does not exist: \${resolvedEntrypoint}\`);
+  }
+  const expectedPrefix = path.resolve(process.cwd(), "node_modules") + path.sep;
+  const resolvedPackageDir = path.resolve(packageDir);
+  if (!resolvedPackageDir.startsWith(expectedPrefix)) {
+    throw new Error(\`Resolved package directory escaped harness node_modules: \${resolvedPackageDir}\`);
+  }
+  return {
+    packageDir: resolvedPackageDir,
+    resolvedEntrypoint
+  };
+}
+
+function assertEnvelopeShape(out, label) {
+  if (!out || typeof out !== "object" || typeof out.ok !== "boolean") {
+    throw new Error(\`\${label} did not return a valid envelope with boolean ok.\`);
+  }
+  if (out.ok === true) {
+    const hasQueryPlan = "query_plan" in out && out.query_plan && typeof out.query_plan === "object";
+    const hasPlan = "plan" in out && out.plan && typeof out.plan === "object";
+    if (!hasQueryPlan && !hasPlan) {
+      throw new Error(\`\${label} ok=true envelope is missing plan/query_plan.\`);
+    }
+  }
+  if (out.ok === false && (!Array.isArray(out.errors) || out.errors.length === 0)) {
+    throw new Error(\`\${label} ok=false envelope is missing non-empty errors array.\`);
+  }
 }
 
 function assertPackageContract(packageName) {
@@ -153,8 +226,14 @@ function assertPackageContract(packageName) {
     }
   };
   const out = mod.compileRequestSafe(input);
-  if (!out || out.ok !== true) {
+  assertEnvelopeShape(out, "compileRequestSafe(happy_path)");
+  if (out.ok !== true) {
     throw new Error("compileRequestSafe smoke check failed.");
+  }
+  const sentinelNegative = mod.compileRequestSafe(null);
+  assertEnvelopeShape(sentinelNegative, "compileRequestSafe(sentinel_negative)");
+  if (sentinelNegative.ok !== false) {
+    throw new Error("compileRequestSafe sentinel negative check did not return ok=false.");
   }
 }
 
@@ -166,10 +245,37 @@ function main() {
   if (!phase || !version || !packageName) {
     throw new Error("Missing required smoke runner args (--phase, --version, --package).");
   }
-  const installSpec = phase === "pre" ? packageSource : \`\${packageName}@\${version}\`;
-  runInstall(installSpec);
+  if (phase === "pre" && !packageSource) {
+    throw new Error("Pre-publish smoke requires --package-source.");
+  }
+  if (phase === "pre") {
+    if (!fs.existsSync(packageSource)) {
+      throw new Error(\`Pre-publish package source does not exist: \${packageSource}\`);
+    }
+    const stat = fs.statSync(packageSource);
+    if (!stat.isFile()) {
+      throw new Error(\`Pre-publish package source must be a file: \${packageSource}\`);
+    }
+  }
+  const installedFrom = phase === "pre" ? packageSource : \`\${packageName}@\${version}\`;
+  runInstall(installedFrom);
+  const artifactInfo = inspectInstalledArtifact(packageName);
   assertPackageContract(packageName);
-  process.stdout.write(JSON.stringify({ ok: true, phase, version, package: packageName }, null, 2) + "\\n");
+  process.stdout.write(
+    JSON.stringify(
+      {
+        ok: true,
+        phase,
+        version,
+        package: packageName,
+        installed_from: installedFrom,
+        resolved_package_dir: artifactInfo.packageDir,
+        resolved_entrypoint: artifactInfo.resolvedEntrypoint
+      },
+      null,
+      2
+    ) + "\\n"
+  );
 }
 
 main();

@@ -31,4 +31,11 @@ test("bootstrap script creates harness package.json and runner", () => {
   const runnerPath = path.join(scoped, "smoke-runner.js");
   assert.equal(fs.existsSync(pkgPath), true);
   assert.equal(fs.existsSync(runnerPath), true);
+  const runnerText = fs.readFileSync(runnerPath, "utf8");
+  assert.match(runnerText, /Pre-publish smoke requires --package-source\./);
+  assert.match(runnerText, /installed_from/);
+  assert.match(runnerText, /resolved_package_dir/);
+  assert.match(runnerText, /resolved_entrypoint/);
+  assert.match(runnerText, /inspectInstalledArtifact/);
+  assert.match(runnerText, /compileRequestSafe\(sentinel_negative\)/);
 });
