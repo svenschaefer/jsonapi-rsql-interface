@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.4` (filter/parser semantic correctness hardening).
+- Current roadmap phase: `v0.9.5` (canonicalization/cache/safe-API hardening).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -32,6 +32,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - sort precedence is preserved in normalized plan semantics
   - cache key format moved to collision-safe tuple encoding
   - `compileRequestSafe` now returns deterministic query-shape errors
+- `v0.9.5` progress implemented:
+  - pre-parse query length/pair guardrails are enforced before parsing raw query text
+  - `compileRequestSafe` now maps unexpected exceptions to deterministic `internal_error`
+  - error catalog now includes explicit `internal_error` contract entry
 
 ## Quality status
 

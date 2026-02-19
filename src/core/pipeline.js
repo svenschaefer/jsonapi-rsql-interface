@@ -115,7 +115,16 @@ function compileRequestSafe(input) {
     if (err instanceof CompilationError) {
       return { ok: false, errors: [err.toJSON()] };
     }
-    throw err;
+    return {
+      ok: false,
+      errors: [
+        {
+          code: "internal_error",
+          status: "500",
+          title: "Internal compilation error"
+        }
+      ]
+    };
   }
 }
 

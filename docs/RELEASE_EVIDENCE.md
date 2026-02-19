@@ -61,3 +61,14 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - deterministic safe-envelope behavior for invalid compile input shape
 - Evidence:
   - `npm run ci:check`: pass
+
+### `v0.9.5` - Canonicalization/Cache/Safe-API Hardening (in progress)
+
+- Commit: pending
+- Scope:
+  - preserve sort precedence in normalized query semantics
+  - pre-parse guardrail enforcement before raw query parse/decode
+  - collision-safe plan cache key encoding
+  - deterministic safe-envelope behavior for unexpected compiler exceptions (`internal_error`)
+- Evidence:
+  - `npm run ci:check`: pass

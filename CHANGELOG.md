@@ -22,3 +22,5 @@ All notable changes to this project are documented in this file.
 - Query normalization preserves `sort` precedence order in plan semantics.
 - Plan cache keys now use collision-safe tuple encoding.
 - `compileRequestSafe` now returns deterministic invalid-query errors for bad input shapes.
+- `compileRequestSafe` now maps unexpected internal exceptions to deterministic `internal_error`.
+- Error catalog includes explicit `internal_error` contract code (`500`).

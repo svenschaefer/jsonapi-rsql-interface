@@ -21,6 +21,7 @@ This catalog defines stable `code -> status -> title` mappings that are treated 
 | `fields_not_allowed` | `400` | Fields not allowed |
 | `page_parameter_invalid` | `400` | Invalid page parameter |
 | `security_predicate_required` | `500` | Security predicate required |
+| `internal_error` | `500` | Internal compilation error |
 
 ## Serialization Rules
 

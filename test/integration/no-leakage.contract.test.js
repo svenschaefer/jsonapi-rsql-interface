@@ -83,3 +83,18 @@ test("error output does not leak internals for malformed query encoding", () => 
   assert.equal(out.ok, false);
   assertNoLeakage(out.errors[0]);
 });
+
+test("error output does not leak internals for unexpected compiler exceptions", () => {
+  const out = compileRequestSafe({
+    ...baseInput("filter=status==active"),
+    policy: {
+      ...baseInput("filter=status==active").policy,
+      get fields() {
+        throw new Error("boom from test");
+      }
+    }
+  });
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "internal_error");
+  assertNoLeakage(out.errors[0]);
+});

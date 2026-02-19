@@ -36,7 +36,8 @@ const ERROR_CATALOG = Object.freeze({
   include_not_allowed: { status: 400, title: "Include not allowed" },
   fields_not_allowed: { status: 400, title: "Fields not allowed" },
   page_parameter_invalid: { status: 400, title: "Invalid page parameter" },
-  security_predicate_required: { status: 500, title: "Security predicate required" }
+  security_predicate_required: { status: 500, title: "Security predicate required" },
+  internal_error: { status: 500, title: "Internal compilation error" }
 });
 
 function throwCompilationError(code, detail, source, meta) {

@@ -61,7 +61,8 @@ test("error catalog baseline codes remain present", () => {
     "include_not_allowed",
     "fields_not_allowed",
     "page_parameter_invalid",
-    "security_predicate_required"
+    "security_predicate_required",
+    "internal_error"
   ];
   for (const code of expected) {
     assert.equal(typeof ERROR_CATALOG[code], "object", `missing error catalog code: ${code}`);
