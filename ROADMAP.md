@@ -307,10 +307,10 @@ Execution breakdown (planned before implementation):
   - add explicit external smoke-harness integration contract (docs + tooling hook)
   - define deterministic invocation shape (`phase`, `version`, harness path)
   - keep CI unaffected (manual release-time invocation only)
-- `v1.0.0.2` (in progress):
+- `v1.0.0.2` (completed):
   - finalize GA evidence bundle (`CHANGELOG`, `RELEASE_EVIDENCE`, release notes template instance)
   - freeze `v1.0.0` compatibility statement and migration note (if needed)
-- `v1.0.0.3` (planned):
+- `v1.0.0.3` (in progress):
   - execute final release flow (`release:check`, version bump, tag alignment)
   - run pre/post publish smoke runs via external harness and capture evidence pointers
 

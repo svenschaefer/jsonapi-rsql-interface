@@ -262,7 +262,9 @@ Repository workflow and release baseline documents:
 - `docs/TEST_REQUIREMENTS.md`
 - `docs/ERROR_CATALOG.md`
 - `docs/COMPATIBILITY_POLICY.md`
+- `docs/MIGRATION_0.x_TO_1.0.0.md`
 - `docs/RELEASE_EVIDENCE.md`
+- `docs/releases/v1.0.0.md`
 - `docs/DEPENDENCY_RISK_REGISTER.md`
 - `CODEX_CONTEXT.md`
 - `TODO.md`

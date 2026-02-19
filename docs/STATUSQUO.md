@@ -45,6 +45,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - `v1.0.0` GA handoff progress implemented:
   - external versioned smoke harness runner is available via `npm run smoke:external`
   - release docs now define pre/post publish smoke flow against `C:\code\jsonapi-rsql-interface-smoke-test`
+  - GA release-notes draft and migration guide artifacts are now present:
+    - `docs/releases/v1.0.0.md`
+    - `docs/MIGRATION_0.x_TO_1.0.0.md`
 
 ## Quality status
 
@@ -113,7 +116,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Execute `v1.0.0` readiness package:
-  - final compatibility/conformance review pass
-  - release evidence and release notes finalization
+  - execute final release flow checks (`release:check`, version/tag alignment workflow)
   - execute external pre/post publish smoke runs for target GA version and record results
+  - finalize GA evidence block with concrete release commit/tag/publish outcomes
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.

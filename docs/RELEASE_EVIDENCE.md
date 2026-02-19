@@ -121,3 +121,24 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - contract/unit tests for argument parsing and command construction
   - `npm run ci:check`: pass
+
+### `v1.0.0.2` - GA Evidence/Migration Bundle (completed)
+
+- Scope:
+  - materialize concrete GA release-notes draft artifact
+  - publish explicit `0.x -> 1.0.0` migration guidance
+  - wire release docs references in `README.md`
+- Evidence:
+  - release notes draft: `docs/releases/v1.0.0.md`
+  - migration guide: `docs/MIGRATION_0.x_TO_1.0.0.md`
+  - `npm run ci:check`: pass
+
+### `v1.0.0.3` - GA Release Execution (in progress)
+
+- Scope:
+  - execute final release flow steps (release checks, version/tag alignment, publish flow)
+  - execute external pre/post smoke runs with target GA version and capture results
+- Evidence:
+  - `npm run release:check`: pending
+  - external pre-smoke (`phase=pre`): pending
+  - external post-smoke (`phase=post`): pending
