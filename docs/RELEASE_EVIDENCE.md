@@ -202,6 +202,8 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - `assembleSelectSql(...)`
   - adapter contract tests added:
     - `test/unit/adapter-pg.contract.test.js`
+  - adapter golden/error-hygiene tests added:
+    - `test/unit/adapter-pg-golden.contract.test.js`
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass

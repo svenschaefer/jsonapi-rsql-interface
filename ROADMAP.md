@@ -434,7 +434,7 @@ Execution breakdown (planned before implementation):
   - implement root-table-only `compileSelect`
   - implement optional assembly-only helper `assembleSelectSql(...)`
   - enforce strict fragment-shape validation, deterministic placeholder renumbering, and adapter-side caps
-- `v1.2.3` (in progress):
+- `v1.2.3` (completed):
   - add unit/golden/negative tests for adapter behavior and leakage constraints
   - finalize adapter docs and compatibility notes
   - run full repo quality gates and close `v1.2.x` phase block
