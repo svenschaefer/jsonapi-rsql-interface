@@ -420,6 +420,25 @@ Exit:
 - unsupported features are rejected deterministically (never ignored)
 - adapter package tests and cross-package compatibility checks are green
 
+Execution breakdown (planned before implementation):
+
+- `v1.2.1` (completed):
+  - create workspace package skeleton (`packages/adapter-pg`)
+  - implement closed adapter error namespace + mapping/plan validation primitives
+  - implement deterministic compile surfaces:
+    - `compileWhere`
+    - `compileOrderBy`
+    - `compileLimitOffset`
+    - `compileSecurityPredicate`
+- `v1.2.2` (completed):
+  - implement root-table-only `compileSelect`
+  - implement optional assembly-only helper `assembleSelectSql(...)`
+  - enforce strict fragment-shape validation, deterministic placeholder renumbering, and adapter-side caps
+- `v1.2.3` (in progress):
+  - add unit/golden/negative tests for adapter behavior and leakage constraints
+  - finalize adapter docs and compatibility notes
+  - run full repo quality gates and close `v1.2.x` phase block
+
 ## Per-Cycle Execution Rules
 
 - Each cycle must end with:

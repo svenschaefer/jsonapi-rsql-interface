@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/svenschaefer/jsonapi-rsql-interface#readme",
   "private": false,
+  "workspaces": [
+    "packages/*"
+  ],
   "type": "commonjs",
   "main": "./src/index.js",
   "exports": {
@@ -44,7 +47,7 @@
   "packageManager": "npm@10.9.2",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src bin test scripts",
+    "lint": "eslint src bin test scripts packages",
     "test": "node --test \"test/**/*.test.js\"",
     "test:unit": "node --test \"test/unit/**/*.test.js\"",
     "test:integration": "node --test \"test/integration/**/*.test.js\"",

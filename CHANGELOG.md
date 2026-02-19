@@ -8,6 +8,20 @@ All notable changes to this project are documented in this file.
 
 - Deprecated npm package version `1.0.0` with upgrade guidance to `>=1.1.0`.
 
+### Added
+
+- `v1.2.x` adapter track (in progress):
+  - workspace package scaffold for `@jsonapi-rsql/pg` at `packages/adapter-pg`
+  - deterministic PostgreSQL compile surfaces:
+    - `compileWhere`
+    - `compileOrderBy`
+    - `compileLimitOffset`
+    - `compileSecurityPredicate`
+    - `compileSelect` (root-table-only)
+  - optional assembly-only helper:
+    - `assembleSelectSql(...)`
+  - stable adapter error namespace and contract tests in `test/unit/adapter-pg.contract.test.js`
+
 ## [1.1.0] - 2026-02-19
 
 ### Added

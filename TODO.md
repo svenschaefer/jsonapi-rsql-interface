@@ -302,6 +302,19 @@ Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-i
 Authoritative adapter constraints for `v1.2.x`:
 - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
 
+Progress (`v1.2.x`):
+- Workspace package skeleton implemented at `packages/adapter-pg/`.
+- Implemented compile surfaces:
+  - `compileWhere`
+  - `compileOrderBy`
+  - `compileLimitOffset`
+  - `compileSecurityPredicate`
+  - `compileSelect` (root-table-only scope)
+- Implemented optional assembly-only helper:
+  - `assembleSelectSql(...)`
+- Added stable adapter error namespace and deterministic fragment/mapping validation.
+- Added adapter contract tests in `test/unit/adapter-pg.contract.test.js`.
+
 - Scope:
   - new package `@jsonapi-rsql/pg`
   - depends on `jsonapi-rsql-interface` core

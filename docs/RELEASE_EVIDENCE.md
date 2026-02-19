@@ -184,6 +184,28 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - command: `npm deprecate jsonapi-rsql-interface@1.0.0 "Deprecated: please upgrade to >=1.1.0."`
     - verification: `npm view jsonapi-rsql-interface@1.0.0 deprecated` -> `Deprecated: please upgrade to >=1.1.0.`
 
+### `v1.2.x` - PostgreSQL Adapter Execution Track (in progress)
+
+- Scope:
+  - implement `@jsonapi-rsql/pg` adapter package in workspace
+  - implement deterministic compile surfaces and assembly-only helper
+  - enforce locked adapter security/performance constraints
+- Progress:
+  - workspace package created: `packages/adapter-pg`
+  - compile surfaces implemented:
+    - `compileWhere`
+    - `compileOrderBy`
+    - `compileLimitOffset`
+    - `compileSecurityPredicate`
+    - `compileSelect` (root-table-only scope)
+  - optional helper implemented:
+    - `assembleSelectSql(...)`
+  - adapter contract tests added:
+    - `test/unit/adapter-pg.contract.test.js`
+- Evidence:
+  - `npm test`: pass
+  - `npm run ci:check`: pass
+
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 
 - Scope:

@@ -70,6 +70,11 @@ Repository-level standards:
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
 - Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
 - Active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
+- `v1.2.x` current implementation progress:
+  - workspace package exists at `packages/adapter-pg`
+  - deterministic compile surfaces implemented (`compileWhere`, `compileOrderBy`, `compileLimitOffset`, `compileSecurityPredicate`, `compileSelect`)
+  - optional assembly-only helper implemented: `assembleSelectSql(...)`
+  - adapter contract tests implemented in `test/unit/adapter-pg.contract.test.js`
 - CI baseline currently green via `npm run ci:check`.
 - Package `jsonapi-rsql-interface@1.1.0` is published, with external pre/post publish smoke evidence captured.
 
