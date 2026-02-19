@@ -2,6 +2,7 @@ const { CompilationError } = require("../errors");
 const { parseQueryString } = require("./parse");
 const { normalizeQuery } = require("./normalize");
 const { parseFilterExpression } = require("./filter");
+const { validatePolicySecurityArtifacts } = require("./security");
 const {
   enforceDuplicatePolicy,
   enforceEmptyInListRule,
@@ -37,6 +38,7 @@ function compileRequest(input) {
   const params = queryObject || parseQueryString(rawQuery);
   const limits = (input.policy && input.policy.limits) || {};
 
+  validatePolicySecurityArtifacts(input.policy);
   enforceStringLimits(rawQuery, limits);
   enforceDuplicatePolicy(params);
 

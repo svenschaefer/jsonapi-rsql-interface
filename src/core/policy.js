@@ -1,5 +1,6 @@
 const { throwCompilationError } = require("../errors");
 const { parseByType } = require("./types");
+const { useHardenedFieldErrors } = require("./security");
 
 function asLimit(value, fallback) {
   return Number.isInteger(value) && value > 0 ? value : fallback;
@@ -218,6 +219,7 @@ function enforceNoWildcardSemantics(clauses) {
 
 function typeCheckFilterClauses(clauses, policy) {
   const fields = (policy && policy.fields) || {};
+  const hardenedFieldErrors = useHardenedFieldErrors(policy);
   const typed = [];
   const bindings = [];
   let bindIndex = 1;
@@ -226,8 +228,10 @@ function typeCheckFilterClauses(clauses, policy) {
     const fieldDef = fields[clause.field];
     if (!fieldDef) {
       throwCompilationError(
-        "unknown_field",
-        `Unknown field: ${clause.field}.`,
+        hardenedFieldErrors ? "field_not_allowed" : "unknown_field",
+        hardenedFieldErrors
+          ? "Field is not allowed."
+          : `Unknown field: ${clause.field}.`,
         { parameter: "filter" },
         { field: clause.field }
       );

@@ -40,6 +40,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - `docs/PERFORMANCE_INVARIANTS.md`
 - Conformance checklist documented in `docs/CONFORMANCE_TEST_CHECKLIST.md`.
 - Error catalog is published in `docs/ERROR_CATALOG.md` and locked by contract tests.
+- Security hardening baseline implemented:
+  - optional policy artifact validation for sensitive-field/read-write misconfiguration checks
+  - hardened-mode field error behavior for existence-leak minimization
 - Full executable conformance suites are not complete yet (tracked in `TODO.md` and `ROADMAP.md`).
 
 ## Dependency and release status
