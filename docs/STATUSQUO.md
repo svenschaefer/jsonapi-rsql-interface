@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.5` (canonicalization/cache/safe-API hardening).
+- Current roadmap phase: `v0.9.6` (governance/tooling robustness hardening).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -36,6 +36,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - pre-parse query length/pair guardrails are enforced before parsing raw query text
   - `compileRequestSafe` now maps unexpected exceptions to deterministic `internal_error`
   - error catalog now includes explicit `internal_error` contract entry
+- `v0.9.6` progress implemented:
+  - governance permission checks are less brittle to workflow formatting variation
+  - runtime audit script has stricter tool-output and execution-failure handling
+  - policy validation now supports explicit `sensitive: true` and reduced generic token false positives
 
 ## Quality status
 

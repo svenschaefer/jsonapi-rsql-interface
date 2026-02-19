@@ -14,6 +14,25 @@ function assertPattern(text, pattern, label) {
   }
 }
 
+function extractTopSection(text, marker) {
+  const idx = text.indexOf(marker);
+  if (idx < 0) return text;
+  return text.slice(0, idx);
+}
+
+function extractJobSection(workflowText, jobName) {
+  const re = new RegExp(`\\n\\s{2}${jobName}:([\\s\\S]+)`);
+  const match = workflowText.match(re);
+  return match ? match[1] : "";
+}
+
+function assertPermission(text, permission, value, label) {
+  const re = new RegExp(`${permission}:\\s*${value}\\b`);
+  if (!re.test(text)) {
+    throw new Error(`Governance check failed: ${label}`);
+  }
+}
+
 function main() {
   const root = path.resolve(__dirname, "..");
   const roadmap = readFileOrFail(path.join(root, "ROADMAP.md"));
@@ -28,15 +47,32 @@ function main() {
   assertPattern(roadmap, /## Execution Ledger/, "ROADMAP.md must include execution ledger");
   assertPattern(todo, /## Status Snapshot/, "TODO.md must include status snapshot");
   assertPattern(changelog, /^## \[?Unreleased\]?\s*$/m, "CHANGELOG.md must include Unreleased section");
-  assertPattern(
-    ciWorkflow,
-    /^permissions:\s*\n\s+contents:\s*read\s*$/m,
-    "CI workflow must define least-privilege top-level permissions"
+  const ciTopSection = extractTopSection(ciWorkflow, "\njobs:");
+  assertPattern(ciTopSection, /permissions:\s*/m, "CI workflow must define top-level permissions block");
+  assertPermission(
+    ciTopSection,
+    "contents",
+    "read",
+    "CI workflow must define least-privilege contents: read"
   );
+
+  const releaseJobSection = extractJobSection(releaseWorkflow, "release-check");
   assertPattern(
-    releaseWorkflow,
-    /^\s+permissions:\s*\n\s+contents:\s*read\s*\n\s+id-token:\s*write\s*$/m,
-    "Release workflow must define explicit job permissions"
+    releaseJobSection,
+    /\n\s+permissions:\s*/m,
+    "Release workflow must define explicit job permissions block"
+  );
+  assertPermission(
+    releaseJobSection,
+    "contents",
+    "read",
+    "Release workflow job must set contents: read"
+  );
+  assertPermission(
+    releaseJobSection,
+    "id-token",
+    "write",
+    "Release workflow job must set id-token: write"
   );
 
   const allowedActions = new Set([

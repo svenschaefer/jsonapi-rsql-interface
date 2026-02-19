@@ -26,7 +26,15 @@ function main() {
     shell: false
   });
 
-  const output = result.stdout && result.stdout.trim().length > 0 ? result.stdout : "{}";
+  if (result.error) {
+    throw new Error(`Failed to execute npm audit: ${result.error.message}`);
+  }
+
+  const output = result.stdout && result.stdout.trim().length > 0 ? result.stdout.trim() : "";
+  if (!output) {
+    throw new Error("npm audit returned no JSON output.");
+  }
+
   const payload = parseAuditJson(output);
   const total = countVulnerabilities(payload);
 
@@ -37,10 +45,14 @@ function main() {
     process.exit(1);
   }
 
+  if (result.status !== 0) {
+    process.stderr.write("Runtime dependency audit failed due to npm audit execution error.\n");
+    process.exit(1);
+  }
+
   process.stdout.write(
     `${JSON.stringify({ ok: true, vulnerabilities: 0, mode: "runtime_only" }, null, 2)}\n`
   );
 }
 
 main();
-

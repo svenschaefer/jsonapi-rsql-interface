@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.5`: current active cycle
+  - `v0.9.6`: current active cycle
 
 ## Versioning Model
 
@@ -31,8 +31,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.2`: completed (CI supply-chain/workflow hardening)
 - `v0.9.3`: completed (pre-GA evidence and docs closure baseline)
 - `v0.9.4`: completed (filter/parser semantic correctness hardening baseline)
-- `v0.9.5`: in progress (canonicalization/cache/safe-API hardening)
-- `v0.9.6`: planned (governance/tooling robustness hardening)
+- `v0.9.5`: completed (canonicalization/cache/safe-API hardening baseline)
+- `v0.9.6`: in progress (governance/tooling robustness hardening)
 - `v1.0.0`: planned GA
 
 ## Cycle Plan
@@ -193,7 +193,7 @@ Execution breakdown (planned before implementation):
   - align wildcard rejection across operators (including string membership values)
   - remove/parameterize version-specific wildcard error messaging (`49`)
   - lock parser behavior for quoted separators/operator-token edge cases
-- `v0.9.5` (in progress):
+- `v0.9.5` (completed):
   - prevent semantic mutation of `sort` order in plans
   - separate canonicalization-for-cache from requested-order semantics where needed
   - harden pre-parse gates (raw length and cheap pair-count before decode/parse)
@@ -204,7 +204,7 @@ Execution breakdown (planned before implementation):
   - ensure invalid input-shape errors return deterministic safe envelope (`50`)
   - normalize context fingerprint missing-value handling and expand determinism tests
   - remove `"undefined"` fingerprint sentinel states (`52`)
-- `v0.9.6` (planned):
+- `v0.9.6` (in progress):
   - refine sensitive-field validation approach (heuristics vs explicit policy flags)
   - harden audit/governance scripts against tool output and formatting brittleness
   - define explicit audit-disposition policy and CI toolchain pinning strategy

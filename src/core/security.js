@@ -1,6 +1,13 @@
 const { throwCompilationError } = require("../errors");
 
-const DEFAULT_SENSITIVE_PATTERNS = ["password", "password_hash", "secret", "token", "api_key"];
+const DEFAULT_SENSITIVE_PATTERNS = [
+  "password",
+  "password_hash",
+  "secret",
+  "api_key",
+  "access_token",
+  "refresh_token"
+];
 const WRITE_POLICY_KEYS = ["writable", "writeable", "updatable", "mutable", "createable"];
 
 function shouldValidate(policy) {
@@ -18,9 +25,20 @@ function getSensitivePatterns(policy) {
   return configured.map((p) => String(p).toLowerCase());
 }
 
+function useNameHeuristics(policy) {
+  return !(policy && policy.security && policy.security.use_name_heuristics === false);
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function fieldNameLooksSensitive(fieldName, patterns) {
   const lower = String(fieldName).toLowerCase();
-  return patterns.some((pattern) => lower.includes(pattern));
+  return patterns.some((pattern) => {
+    const re = new RegExp(`(^|[^a-z0-9])${escapeRegExp(pattern)}([^a-z0-9]|$)`);
+    return re.test(lower);
+  });
 }
 
 function validatePolicySecurityArtifacts(policy) {
@@ -42,10 +60,10 @@ function validatePolicySecurityArtifacts(policy) {
       }
     }
 
-    if (
-      fieldNameLooksSensitive(fieldName, patterns) &&
-      (fieldDef.filterable === true || fieldDef.selectable === true || fieldDef.sortable === true)
-    ) {
+    const explicitlySensitive = fieldDef.sensitive === true;
+    const sensitiveByName = useNameHeuristics(policy) && fieldNameLooksSensitive(fieldName, patterns);
+    if ((explicitlySensitive || sensitiveByName) &&
+        (fieldDef.filterable === true || fieldDef.selectable === true || fieldDef.sortable === true)) {
       throwCompilationError(
         "field_not_allowed",
         `Sensitive field exposure is blocked by policy validation: ${fieldName}.`,

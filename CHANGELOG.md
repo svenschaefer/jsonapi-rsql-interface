@@ -24,3 +24,6 @@ All notable changes to this project are documented in this file.
 - `compileRequestSafe` now returns deterministic invalid-query errors for bad input shapes.
 - `compileRequestSafe` now maps unexpected internal exceptions to deterministic `internal_error`.
 - Error catalog includes explicit `internal_error` contract code (`500`).
+- Governance workflow permission checks are now less brittle to benign formatting changes.
+- Runtime audit script has stricter handling for empty/invalid npm audit JSON output.
+- Policy security validation supports explicit `sensitive: true` and reduced generic-token false positives.

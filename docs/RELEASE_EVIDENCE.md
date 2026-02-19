@@ -72,3 +72,13 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - deterministic safe-envelope behavior for unexpected compiler exceptions (`internal_error`)
 - Evidence:
   - `npm run ci:check`: pass
+
+### `v0.9.6` - Governance/Tooling Robustness Hardening (in progress)
+
+- Commit: pending
+- Scope:
+  - governance workflow permission checks hardened for formatting resilience
+  - runtime dependency audit script hardened for execution/output variance
+  - policy security validation refined with explicit sensitivity support and lower false-positive risk
+- Evidence:
+  - `npm run ci:check`: pass

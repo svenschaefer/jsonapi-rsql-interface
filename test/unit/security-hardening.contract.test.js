@@ -99,3 +99,43 @@ test("policy security validation blocks write flags in read policy artifact", ()
   assert.equal(out.ok, false);
   assert.equal(out.errors[0].code, "field_not_allowed");
 });
+
+test("policy security validation supports explicit sensitive flag", () => {
+  const policy = {
+    ...basePolicy(),
+    fields: {
+      ...basePolicy().fields,
+      custom_field: {
+        type: "string",
+        filterable: true,
+        operators: ["=="],
+        sensitive: true
+      }
+    },
+    security: {
+      validate_artifacts: true
+    }
+  };
+  const out = compileRequestSafe(input("filter=status==active", policy));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "field_not_allowed");
+});
+
+test("policy security validation avoids generic token false positives by default", () => {
+  const policy = {
+    ...basePolicy(),
+    fields: {
+      ...basePolicy().fields,
+      token_count: {
+        type: "int",
+        filterable: true,
+        operators: ["=="]
+      }
+    },
+    security: {
+      validate_artifacts: true
+    }
+  };
+  const out = compileRequestSafe(input("filter=status==active", policy));
+  assert.equal(out.ok, true);
+});
