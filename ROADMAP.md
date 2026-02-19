@@ -315,6 +315,9 @@ Execution breakdown (planned before implementation):
   - run pre/post publish smoke runs via external harness and capture evidence pointers
   - harness resolution rule:
     - resolve execution from installed harness package when root path has no `package.json`
+- `v1.0.0.4` (completed):
+  - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
+  - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

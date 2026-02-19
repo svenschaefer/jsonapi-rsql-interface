@@ -142,3 +142,13 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - `npm run release:check`: pass
   - external pre-smoke (`phase=pre`): pending (runner now resolves installed harness package location)
   - external post-smoke (`phase=post`): pending
+
+### `v1.0.0.4` - Harness Provisioning Step (completed)
+
+- Scope:
+  - add deterministic harness provisioning command to install/update harness package for target version
+  - update release/process docs to run provisioning before pre/post smoke execution
+- Evidence:
+  - provisioning helper: `npm run smoke:external:prepare`
+  - contract tests: pass
+  - `npm run ci:check`: pass

@@ -52,6 +52,7 @@
     "dev:report:metrics": "node scripts/dev-report-metrics.js",
     "dev:report:maturity": "node scripts/dev-report-maturity.js",
     "audit:runtime": "node scripts/audit-runtime.js",
+    "smoke:external:prepare": "node scripts/prepare-external-smoke.js",
     "smoke:external": "node scripts/run-external-smoke.js",
     "gov:check": "node scripts/check-governance.js",
     "pack:check": "npm pack --dry-run",

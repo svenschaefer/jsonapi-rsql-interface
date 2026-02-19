@@ -101,7 +101,8 @@ Repository-level standards:
 - `npm test`
 - `npm run ci:check`
 - `npm run smoke:release`
-- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --package-name jsonapi-rsql-interface` (release-time external harness)
+- `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface` (release-time external harness)
 
 ## 9) Known Follow-up
 

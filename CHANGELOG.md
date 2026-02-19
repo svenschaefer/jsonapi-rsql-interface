@@ -11,6 +11,7 @@ All notable changes to this project are documented in this file.
 - Runtime dependency audit script (`npm run audit:runtime`) and CI/release workflow gate.
 - Dependency risk register (`docs/DEPENDENCY_RISK_REGISTER.md`).
 - External release smoke helper (`npm run smoke:external`) with deterministic `phase/version` invocation.
+- External smoke harness provisioning helper (`npm run smoke:external:prepare`) for versioned harness installation.
 - GA release-notes draft artifact: `docs/releases/v1.0.0.md`.
 - Migration guide artifact: `docs/MIGRATION_0.x_TO_1.0.0.md`.
 

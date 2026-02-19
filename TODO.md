@@ -118,6 +118,7 @@
   - harness path baseline: `C:\code\jsonapi-rsql-interface-smoke-test`
   - deterministic run dimensions: `phase` (`pre`/`post`) + `version`
   - smoke runner must resolve harness from installed package location when root path is empty
+  - deterministic harness provisioning step must install/update harness package by target version before smoke run
   - release docs must capture how to invoke and where evidence is stored
 - Ensure external smoke harness invocation is explicit/manual release workflow step (not default CI gate).
 - Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.

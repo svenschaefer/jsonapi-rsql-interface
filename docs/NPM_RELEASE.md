@@ -19,14 +19,16 @@ Both streams should point to the same version and release commit.
 2. update `CHANGELOG.md`
 3. `npm version <x.y.z> --no-git-tag-version`
 4. `npm run ci:check`
-5. run external **pre-publish** smoke harness for the target version:
+5. provision/update external smoke harness package for the target version:
+   - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+6. run external **pre-publish** smoke harness for the target version:
    - harness baseline path: `C:\code\jsonapi-rsql-interface-smoke-test`
    - resolution rule: if root path has no `package.json`, run from installed harness package under `node_modules`
    - command:
      - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
-6. commit release files with explicit paths (no `git add -A`)
-7. tag and push
-8. publish and verify registry propagation
-9. run external **post-publish** smoke harness for the same version:
+7. commit release files with explicit paths (no `git add -A`)
+8. tag and push
+9. publish and verify registry propagation
+10. run external **post-publish** smoke harness for the same version:
    - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
-10. record pre/post smoke outcomes in `docs/RELEASE_EVIDENCE.md`
+11. record pre/post smoke outcomes in `docs/RELEASE_EVIDENCE.md`
