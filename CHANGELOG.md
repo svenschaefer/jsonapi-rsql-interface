@@ -26,6 +26,7 @@ All notable changes to this project are documented in this file.
 - Error catalog includes explicit `internal_error` contract code (`500`).
 - Governance workflow permission checks are now less brittle to benign formatting changes.
 - Runtime audit script has stricter handling for empty/invalid npm audit JSON output.
+- Runtime audit script now uses Windows-safe `cmd.exe` invocation to avoid `spawnSync npm.cmd EINVAL` failures.
 - Policy security validation supports explicit `sensitive: true` and reduced generic-token false positives.
 - Policy security validation now supports `security.sensitive_field_allowlist` overrides for heuristic exceptions.
 - Governance checks now enforce explicit npm toolchain pinning via `packageManager`.

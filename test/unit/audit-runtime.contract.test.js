@@ -2,10 +2,18 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 
 const {
+  getAuditCommandSpec,
   extractJsonCandidate,
   parseAuditJson,
   countVulnerabilities
 } = require("../../scripts/audit-runtime.js");
+
+test("getAuditCommandSpec uses cmd.exe wrapping on win32", () => {
+  const spec = getAuditCommandSpec("win32");
+  assert.equal(spec.command, "cmd.exe");
+  assert.equal(spec.args[0], "/d");
+  assert.match(spec.args[3], /npm audit --omit=dev --json/);
+});
 
 test("extractJsonCandidate returns direct JSON payloads", () => {
   const src = '{"metadata":{"vulnerabilities":{"low":0}}}';
@@ -36,4 +44,3 @@ test("countVulnerabilities sums known severity levels deterministically", () => 
   });
   assert.equal(total, 15);
 });
-

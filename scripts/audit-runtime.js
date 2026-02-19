@@ -1,7 +1,16 @@
 const { spawnSync } = require("child_process");
 
-function getNpmCommand() {
-  return process.platform === "win32" ? "npm.cmd" : "npm";
+function getAuditCommandSpec(platform = process.platform) {
+  if (platform === "win32") {
+    return {
+      command: "cmd.exe",
+      args: ["/d", "/s", "/c", "npm audit --omit=dev --json"]
+    };
+  }
+  return {
+    command: "npm",
+    args: ["audit", "--omit=dev", "--json"]
+  };
 }
 
 function extractJsonCandidate(text) {
@@ -41,7 +50,8 @@ function countVulnerabilities(payload) {
 }
 
 function main() {
-  const result = spawnSync(getNpmCommand(), ["audit", "--omit=dev", "--json"], {
+  const spec = getAuditCommandSpec();
+  const result = spawnSync(spec.command, spec.args, {
     encoding: "utf8",
     shell: false
   });
@@ -95,7 +105,7 @@ if (require.main === module) {
 }
 
 module.exports = {
-  getNpmCommand,
+  getAuditCommandSpec,
   extractJsonCandidate,
   parseAuditJson,
   countVulnerabilities,

@@ -89,11 +89,23 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm run ci:check`: pass
 
-### `v0.9.7` - Pre-GA Dependency/Evidence Closure (active)
+### `v0.9.7` - Pre-GA Dependency/Evidence Closure (completed)
 
+- Commit: `c918766`
 - Scope:
   - finalize explicit dependency-risk disposition policy (runtime zero-tolerance, expiry-bounded dev-only acceptance)
   - complete synchronized pre-GA status/evidence closure across planning/state docs
 - Evidence:
   - `npm audit --omit=dev --json`: pass (`0` runtime vulnerabilities)
   - `npm audit --json`: `6` dev-only vulnerabilities (eslint chain), covered by active dated disposition entry
+
+### `v0.9.8` - Final `0.x` GA-Readiness Closure (completed)
+
+- Scope:
+  - final pre-GA quality/governance/runtime-audit dry-run
+  - latest-commit evidence refresh and docs-state freeze before GA planning handoff
+  - runtime audit command invocation hardened for Windows host compatibility (`cmd.exe` wrapper)
+- Evidence:
+  - `npm run ci:check`: pass
+  - `npm run gov:check`: pass
+  - `npm run audit:runtime`: pass (`0` runtime vulnerabilities)

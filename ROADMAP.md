@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.7`: current active cycle
+  - `v1.0.0`: current active cycle
 
 ## Versioning Model
 
@@ -33,7 +33,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.4`: completed (filter/parser semantic correctness hardening baseline)
 - `v0.9.5`: completed (canonicalization/cache/safe-API hardening baseline)
 - `v0.9.6`: completed (governance/tooling robustness hardening)
-- `v0.9.7`: in progress (pre-GA dependency/evidence closure)
+- `v0.9.7`: completed (pre-GA dependency/evidence closure)
+- `v0.9.8`: completed (final 0.x GA-readiness closure)
 - `v1.0.0`: planned GA
 - `v1.1.x`: planned (post-GA wildcard semantics)
 - `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
@@ -217,10 +218,14 @@ Execution breakdown (planned before implementation):
     - `v0.9.6.2`: completed (runtime audit script hardening + expiry-bounded disposition policy)
     - `v0.9.6.3`: completed (governance-check robustness hardening + integration tests)
     - `v0.9.6.4`: completed (determinism-helper conformance tests + status/evidence refresh)
-- `v0.9.7` (in progress):
+- `v0.9.7` (completed):
   - finalize pre-GA dependency-risk disposition evidence with explicit expiry-bounded acceptance
   - complete final `0.x` release-evidence closure package before `v1.0.0`
   - run final docs/state synchronization pass for GA readiness
+- `v0.9.8` (completed):
+  - run final `0.x` readiness dry-run (quality, governance, runtime-audit)
+  - publish final pre-GA evidence snapshot tied to latest 0.x commit
+  - freeze remaining 0.x roadmap/todo state ahead of `v1.0.0` planning handoff
 
 ### Cycle 8.4 - `v0.9.4` (Filter/parser semantic correctness hardening)
 
@@ -270,6 +275,18 @@ Exit:
 - dependency-risk disposition is explicit, current, and governance-checked
 - `TODO.md`, `ROADMAP.md`, `docs/STATUSQUO.md`, and `docs/RELEASE_EVIDENCE.md` are synchronized
 - `npm run ci:check` remains green after documentation/governance updates
+
+### Cycle 8.8 - `v0.9.8` (Final 0.x GA-Readiness Closure)
+
+Scope:
+- execute final `0.x` gate dry-run (`ci:check`, governance checks, runtime-only audit)
+- refresh release evidence with concrete latest-commit proof points
+- freeze planning/state docs for `0.x` completion and `v1.0.0` handoff
+
+Exit:
+- final `0.x` evidence block is complete and references latest stable commit
+- planning/state docs are synchronized and explicitly point to GA handoff state
+- no unresolved `0.x` blocker remains in roadmap execution notes
 
 ### Cycle 9 - `v1.0.0` (GA release)
 

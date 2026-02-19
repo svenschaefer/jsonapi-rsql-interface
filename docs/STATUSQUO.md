@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.7` (pre-GA dependency/evidence closure).
+- Current roadmap phase: `v1.0.0` (GA release handoff).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -38,7 +38,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - error catalog now includes explicit `internal_error` contract entry
 - `v0.9.6` progress implemented:
   - governance permission checks are less brittle to workflow formatting variation
-  - runtime audit script has stricter tool-output and execution-failure handling
+  - runtime audit script has stricter tool-output handling and Windows-safe invocation behavior
   - policy validation now supports explicit `sensitive: true`, plus allowlist overrides for safe heuristic exceptions
   - package-manager pinning is governance-validated (`packageManager: npm@10.9.2`)
   - determinism helper modules are covered by explicit contract tests
@@ -108,10 +108,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Close remaining `v0.9.7` hardening scope:
-  - finalize pre-GA dependency-risk disposition evidence for residual dev-only advisories
-  - complete final pre-GA evidence entry for `0.x` closure
-- Prepare `v1.0.0` readiness package:
+- Execute `v1.0.0` readiness package:
   - final compatibility/conformance review pass
   - release evidence and release notes finalization
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.
