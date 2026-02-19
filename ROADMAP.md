@@ -316,9 +316,12 @@ Execution breakdown (planned before implementation):
   - harness resolution rule:
     - resolve execution from installed harness package when root path has no `package.json`
   - progress:
-    - pre-publish smoke executed successfully against local packed artifact
+    - package version bumped to `1.0.0` (pre-tag)
+    - release gates (`release:check` / `ci:check`) executed successfully on `1.0.0`
+    - pre-publish smoke executed successfully against local packed artifact (`jsonapi-rsql-interface-1.0.0.tgz`)
   - remaining:
-    - post-publish smoke remains pending until package publish step is executed
+    - npm publish (auth-required interactive step)
+    - post-publish smoke remains pending until publish step is executed
 - `v1.0.0.4` (completed):
   - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
   - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory

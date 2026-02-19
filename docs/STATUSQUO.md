@@ -111,6 +111,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - `package-lock.json` exists and CI uses `npm ci`.
 - Release workflow includes tag/version checks, tarball artifact, and optional publish path.
+- Release prepublish closure for `1.0.0` is complete:
+  - package version set to `1.0.0` (pre-tag/publish)
+  - release/quality gates and external pre-publish smoke are passing
 - Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); disposition is recorded as active, expiry-bounded acceptance in `docs/DEPENDENCY_RISK_REGISTER.md`.
 - Runtime dependency audit gate is implemented in CI/release workflows via `npm run audit:runtime` (`npm audit --omit=dev`).
 - Runtime dependency audit currently passes with `0` vulnerabilities.
@@ -122,9 +125,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Execute `v1.0.0` readiness package:
-  - execute final release flow checks (`release:check`, version/tag alignment workflow)
-  - execute external pre/post publish smoke runs for target GA version and record results
+  - perform npm publish (`1.0.0`) with interactive auth
+  - run external post-publish smoke for `1.0.0` and record outcomes
   - finalize GA evidence block with concrete release commit/tag/publish outcomes
-  - use installed-harness resolution path when root harness directory is initially empty
-  - post-publish smoke remains pending until publish step is executed for target GA version
-- Keep version line on `0.x` until all pre-GA checklist topics are closed.
+- Version line is now set to `1.0.0` for GA release execution.

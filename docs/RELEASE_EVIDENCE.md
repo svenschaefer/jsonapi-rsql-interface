@@ -140,7 +140,12 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - execute external pre/post smoke runs with target GA version and capture results
 - Evidence:
   - `npm run release:check`: pass
+  - package version bumped to `1.0.0` (pre-tag/publish)
+  - `npm run ci:check` on `1.0.0`: pass
   - external pre-smoke (`phase=pre`): pass (local tarball artifact via harness)
+    - artifact: `jsonapi-rsql-interface-1.0.0.tgz`
+    - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-interface-1.0.0.tgz`
+    - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T215947Z-pre-1.0.0\node_modules\jsonapi-rsql-interface`
   - external post-smoke (`phase=post`): pending
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)

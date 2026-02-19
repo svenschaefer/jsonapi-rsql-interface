@@ -6,6 +6,12 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- No changes yet.
+
+## [1.0.0] - 2026-02-19
+
+### Added
+
 - Deterministic malformed query/decode handling with canonical `invalid_query_string`.
 - Canonical `page[size]` / `page[number]` validation with `page_parameter_invalid`.
 - Runtime dependency audit script (`npm run audit:runtime`) and CI/release workflow gate.

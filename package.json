@@ -1,6 +1,6 @@
 {
   "name": "jsonapi-rsql-interface",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Deterministic compiler-style API from JSON:API + RSQL/FIQL query input to governed query plans.",
   "keywords": [
     "jsonapi",
@@ -18,7 +18,7 @@
     "url": "https://github.com/svenschaefer/jsonapi-rsql-interface/issues"
   },
   "homepage": "https://github.com/svenschaefer/jsonapi-rsql-interface#readme",
-  "private": true,
+  "private": false,
   "type": "commonjs",
   "main": "./src/index.js",
   "exports": {

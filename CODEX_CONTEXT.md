@@ -70,6 +70,7 @@ Repository-level standards:
 - Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
 - Active roadmap cycle: `v1.0.0` (GA release handoff).
 - CI baseline currently green via `npm run ci:check`.
+- Package metadata is now set to release target version `1.0.0` (pre-publish state).
 
 ## 6) Decision Baselines (Must Hold)
 
