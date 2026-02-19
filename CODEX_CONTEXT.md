@@ -105,3 +105,7 @@ Repository-level standards:
   - deterministic malformed query/decode failure handling to canonical `invalid_query_string`
   - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
   - CI supply-chain and workflow least-privilege hardening gates (implemented baseline)
+- Deep-review hardening backlog is scheduled in `ROADMAP.md` as:
+  - `v0.9.4` filter/parser semantic correctness hardening
+  - `v0.9.5` canonicalization/cache/safe-API hardening
+  - `v0.9.6` governance/tooling robustness hardening

@@ -91,9 +91,13 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Continue `v0.9.0` with:
-  - dependency remediation/risk disposition for residual dev-only advisories
-  - release-evidence completion and closure checks
-  - final docs alignment for GA-readiness baseline
+- Close `v0.9.3` pre-GA evidence cycle:
+  - finalize dependency-risk disposition for residual dev-only advisories
+  - add final `0.x` pre-GA release evidence entry
+  - complete final docs alignment for GA-readiness baseline
+- Execute planned deep-review hardening cycles:
+  - `v0.9.4` filter/parser semantic correctness hardening
+  - `v0.9.5` canonicalization/cache/safe-API hardening
+  - `v0.9.6` governance/tooling robustness hardening
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.
 - Prepare `v1.0.0` release evidence once pre-GA stabilization closes.
