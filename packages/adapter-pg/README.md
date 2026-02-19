@@ -91,6 +91,7 @@ Missing value fails deterministically with `pg_security_predicate_required`.
 ```
 
 Behavior:
+- `table` must be the exact value from `getTableSql(mapping)` (mapping-derived only)
 - strict fragment-shape validation
 - deterministic placeholder renumbering to contiguous `$1..$n`
 - deterministic left-to-right value ordering

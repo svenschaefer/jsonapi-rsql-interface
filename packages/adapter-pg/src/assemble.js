@@ -2,11 +2,18 @@ const { throwAdapterError } = require("./errors");
 const { ensurePreparedMapping } = require("./mapping");
 const { renumberFragmentPlaceholders, validateFragmentShape } = require("./placeholder");
 
-function requireTable(tableValue) {
+function requireTable(tableValue, preparedMapping) {
   if (typeof tableValue !== "string" || tableValue.trim().length === 0) {
     throwAdapterError("pg_fragment_invalid", "assembleSelectSql requires non-empty table.");
   }
-  return tableValue.trim();
+  const table = tableValue.trim();
+  if (table !== preparedMapping.resource.table) {
+    throwAdapterError(
+      "pg_fragment_invalid",
+      "assembleSelectSql table must come from getTableSql(mapping)."
+    );
+  }
+  return table;
 }
 
 function requireFragment(name, fragment, limits) {
@@ -34,7 +41,7 @@ function assembleSelectSql(input, mapping) {
 
   const preparedMapping = ensurePreparedMapping(mapping);
   const limits = preparedMapping.limits;
-  const table = requireTable(input.table);
+  const table = requireTable(input.table, preparedMapping);
   const select = requireFragment("select", input.select, limits);
   const where = maybeFragment("where", input.where, limits);
   const security = maybeFragment("security", input.security, limits);

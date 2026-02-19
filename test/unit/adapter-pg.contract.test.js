@@ -165,6 +165,24 @@ test("assembleSelectSql rejects non-canonical placeholders", () => {
   );
 });
 
+test("assembleSelectSql rejects table not derived from mapping", () => {
+  const plan = makePlan("filter=status==active");
+  const mapping = baseMapping();
+  const select = pgAdapter.compileSelect(plan, mapping);
+
+  assert.throws(
+    () =>
+      pgAdapter.assembleSelectSql(
+        {
+          table: "\"other_table\"",
+          select
+        },
+        mapping
+      ),
+    (error) => error && error.code === "pg_fragment_invalid"
+  );
+});
+
 test("expression mapping requires explicit trusted flag", () => {
   const mapping = baseMapping();
   mapping.fields.slug = {
