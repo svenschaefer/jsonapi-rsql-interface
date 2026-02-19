@@ -139,6 +139,6 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - execute final release flow steps (release checks, version/tag alignment, publish flow)
   - execute external pre/post smoke runs with target GA version and capture results
 - Evidence:
-  - `npm run release:check`: pending
-  - external pre-smoke (`phase=pre`): pending
+  - `npm run release:check`: pass
+  - external pre-smoke (`phase=pre`): blocked (`C:\code\jsonapi-rsql-interface-smoke-test\package.json` missing)
   - external post-smoke (`phase=post`): pending

@@ -313,6 +313,8 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.3` (in progress):
   - execute final release flow (`release:check`, version bump, tag alignment)
   - run pre/post publish smoke runs via external harness and capture evidence pointers
+  - current blocker:
+    - external harness directory exists but is not initialized (`C:\code\jsonapi-rsql-interface-smoke-test\package.json` missing)
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

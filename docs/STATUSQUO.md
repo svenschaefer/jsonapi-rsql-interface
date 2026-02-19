@@ -119,4 +119,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - execute final release flow checks (`release:check`, version/tag alignment workflow)
   - execute external pre/post publish smoke runs for target GA version and record results
   - finalize GA evidence block with concrete release commit/tag/publish outcomes
+  - unblock smoke harness path `C:\code\jsonapi-rsql-interface-smoke-test` by adding required `package.json` + smoke scripts
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.
