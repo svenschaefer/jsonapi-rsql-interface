@@ -67,6 +67,7 @@ Repository-level standards:
 
 - Baseline scaffold is implemented (`v0.1.x` complete).
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
+- Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
 - Active roadmap cycle: `v1.0.0` (GA release handoff).
 - CI baseline currently green via `npm run ci:check`.
 
@@ -104,7 +105,8 @@ Repository-level standards:
 ## 9) Known Follow-up
 
 - `npm audit` still reports residual dev-toolchain advisories (eslint dependency chain).
-- Final pre-GA disposition required before `v1.0.0` (remediate where feasible; explicitly accept residual dev-only risk if needed).
+- Runtime dependency posture is zero-vulnerability gate (`npm audit --omit=dev`) and currently passing.
+- Dev-only advisory disposition is explicitly documented with owner/expiry in `docs/DEPENDENCY_RISK_REGISTER.md` and must be renewed or remediated before expiry.
 - `v0.9.x` pre-GA hardening also includes:
   - deterministic malformed query/decode failure handling to canonical `invalid_query_string`
   - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`

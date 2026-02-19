@@ -99,8 +99,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - `package-lock.json` exists and CI uses `npm ci`.
 - Release workflow includes tag/version checks, tarball artifact, and optional publish path.
-- Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); tracked for pre-`v1.0.0` remediation/acceptance decision.
+- Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); disposition is recorded as active, expiry-bounded acceptance in `docs/DEPENDENCY_RISK_REGISTER.md`.
 - Runtime dependency audit gate is implemented in CI/release workflows via `npm run audit:runtime` (`npm audit --omit=dev`).
+- Runtime dependency audit currently passes with `0` vulnerabilities.
 - Additional `v0.9.x` hardening tasks are now tracked:
   - deterministic malformed query/decode failure mapping to `invalid_query_string`
   - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
