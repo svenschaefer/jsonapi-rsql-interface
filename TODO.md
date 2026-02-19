@@ -95,86 +95,11 @@
 
 ## 7.1) Unit test coverage requirements (leakage guardrails)
 
-- Add/verify tests that error objects never leak internal execution/environment details across all rejection paths (parse, type, policy, limits).
-- Add pattern-based SQL leakage assertions for serialized errors, including:
-  - `SELECT ... FROM`
-  - `INSERT INTO ...`
-  - `UPDATE ... SET`
-  - `DELETE FROM ...`
-  - `JOIN ...`
-  - `WHERE ...`
-- Add stacktrace/internals leakage assertions, including:
-  - stack-frame patterns (`at fn (file:line:col)`)
-  - `Error:` plus frame blocks
-  - `node_modules` frame references
-- Add filesystem path leakage assertions, including:
-  - Windows paths (`C:\\...`, `C:/...`)
-  - Linux/macOS paths (`/home/...`, `/usr/...`, `/var/...`, `/Users/...`)
-  - `node_modules` path segments
-- Add schema/identifier leakage assertions:
-  - no table/column/alias leakage
-  - no raw SQL fragments or quoted SQL identifiers
-  - API-level field names only (if present), plus stable error codes
-- Add raw-literal echo guardrails for default mode:
-  - no verbatim echo of user literals (values, emails, UUIDs, long strings) in `title`, `detail`, or `meta`
-  - if diagnostics mode is enabled, test separately and keep explicit opt-in
-- Add deterministic safe error-shape assertions:
-  - required: `code`, `status` (string), `title`, `source.parameter`
-  - optional fields must still satisfy leakage restrictions
-- Ensure leakage assertions cover at least one case per failure class:
-  - invalid query string / decoding
-  - invalid filter syntax
-  - unknown field
-  - field/operator denied
-  - type mismatch
-  - complexity exceeded
-  - include/fields/sort denied
-  - missing mandatory security predicate
+- Implement/verify all leakage-guardrail requirements defined in `docs/TEST_REQUIREMENTS.md` section `1) Leakage Guardrails`.
 
 ## 7.2) Additional explicit unit test requirements
 
-- Canonicalization and duplicate-parameter handling:
-  - lock percent-decoding and `+` handling behavior
-  - lock duplicate handling for `filter`, `sort`, `page[size]`, `fields[type]`, `include`
-  - keep deterministic rule explicitly tested (baseline: reject duplicates)
-- Deterministic error mapping:
-  - lock a single canonical error code per finalized scenario
-  - assert error-code stability policy and `status` string serialization
-- Security predicate injection invariants:
-  - fail without mandatory tenant/org scope
-  - user input cannot negate or override mandatory predicate
-  - compiled plan always ANDs mandatory predicate with user filters
-  - mandatory predicate mechanism is not user-addressable unless explicitly allowed
-- Allowlist deny-by-default:
-  - unknown fields rejected
-  - known-but-disallowed fields rejected
-  - deny-by-default on `filter`, `sort`, `fields`, `include`
-  - no silent ignore unless explicit policy mode exists and is tested
-- Strict/stable type parsing coverage:
-  - `int` bounds + base-10 only
-  - `float` strict decimal (no scientific notation in v1)
-  - `bool` strict `true|false`
-  - `date` strict `YYYY-MM-DD`
-  - `datetime` explicit offset + stable UTC normalization
-  - `uuid` strict format
-  - `enum` case-sensitive
-- Pre-execution complexity/size boundary tests (`limit-1` pass, `limit+1` fail):
-  - query length
-  - literal length
-  - AST depth
-  - AST node count
-  - `=in=` list size
-  - sort key count
-  - include count/path length
-  - sparse field count
-- Plan determinism:
-  - semantically equivalent inputs produce identical normalized plan (or hash)
-  - normalized ordering for applicable dimensions
-  - no nondeterministic plan fields (timestamps/random IDs)
-- Diagnostics mode separation:
-  - default mode safe
-  - diagnostics mode explicit and separately tested
-  - diagnostics mode still forbids SQL/schema/stack/path leakage
+- Implement/verify all explicit unit-test requirements defined in `docs/TEST_REQUIREMENTS.md` section `2) Additional Explicit Unit Test Requirements`.
 
 ## 8) Release and governance gates (enterprise readiness)
 

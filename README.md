@@ -223,6 +223,7 @@ Repository workflow and release baseline documents:
 - `docs/SECURITY_INVARIANTS.md`
 - `docs/PERFORMANCE_INVARIANTS.md`
 - `docs/CONFORMANCE_TEST_CHECKLIST.md`
+- `docs/TEST_REQUIREMENTS.md`
 - `docs/ERROR_CATALOG.md`
 - `docs/COMPATIBILITY_POLICY.md`
 - `docs/RELEASE_EVIDENCE.md`
