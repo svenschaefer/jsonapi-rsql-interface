@@ -32,10 +32,13 @@ The JavaScript API exists to:
 
 `jsonapi-rsql-interface` targets an **RSQL-compatible core** for filter grammar and operator semantics.
 
+At the JSON:API side, compatibility is targeted at the **query interface surface only**.
+
 Contract framing for `v1+`:
 
 - Core compatibility target: RSQL-style filtering syntax and semantics.
 - Intentional divergence: wildcard matching is an explicit extension, version-gated, and represented explicitly in plan/policy behavior.
+- JSON:API compatibility target: query parameter conventions only (`page[size]`, `page[number]`, `sort`, `include`, `fields[resource]`).
 - Execution boundary: this package validates/compiles into a plan; SQL execution semantics belong to execution adapters (for example `@jsonapi-rsql/pg`).
 
 Compatibility summary:
@@ -46,6 +49,14 @@ Compatibility summary:
   - deterministic parse/validate/compile pipeline
 - Intentionally different:
   - wildcard behavior is not implicit in `==`; it is treated as an explicit extension capability with version/policy gating
+  - stricter validation and policy gating are intentional and documented
+
+JSON:API boundary statement:
+
+- This package does **not** claim full JSON:API specification compliance.
+- It is **not** a JSON:API server implementation.
+- It does **not** enforce JSON:API media types, links, relationships, or response document semantics.
+- It provides a JSON:API-compatible **query parameter interface** that compiles into deterministic plans.
 
 ---
 

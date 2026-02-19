@@ -26,6 +26,20 @@ The following are compatibility-critical:
   - later `v1.x`: wildcard extension may be introduced explicitly with documented policy/plan semantics.
 - Boundary rule: this package owns parse/validate/compile contract; execution behavior belongs to adapter packages (for example `@jsonapi-rsql/pg`).
 
+## JSON:API Compatibility Position
+
+- Compatibility target is the JSON:API **query parameter interface** only:
+  - `page[size]`, `page[number]`
+  - `sort`
+  - `include`
+  - `fields[resource]`
+- This project does not claim full JSON:API specification compliance.
+- Non-goals for compatibility claims:
+  - JSON:API server implementation
+  - JSON:API media type enforcement
+  - JSON:API links/relationships/response document semantics enforcement
+- Deviations/restrictions at query level (for example stricter validation, policy gating, deterministic normalization rules) are intentional and must be documented.
+
 ## Breaking-Change Process
 
 Any semantic breaking change requires:
