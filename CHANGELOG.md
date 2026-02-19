@@ -10,6 +10,7 @@ All notable changes to this project are documented in this file.
 - Canonical `page[size]` / `page[number]` validation with `page_parameter_invalid`.
 - Runtime dependency audit script (`npm run audit:runtime`) and CI/release workflow gate.
 - Dependency risk register (`docs/DEPENDENCY_RISK_REGISTER.md`).
+- External release smoke helper (`npm run smoke:external`) with deterministic `phase/version` invocation.
 
 ### Changed
 
@@ -31,3 +32,4 @@ All notable changes to this project are documented in this file.
 - Policy security validation now supports `security.sensitive_field_allowlist` overrides for heuristic exceptions.
 - Governance checks now enforce explicit npm toolchain pinning via `packageManager`.
 - Added deterministic helper contract tests for `sortStrings`, `stableObject`, and normalized query key stability.
+- Release docs now include external pre/post publish smoke flow via `C:\code\jsonapi-rsql-interface-smoke-test`.

@@ -50,6 +50,8 @@ Required quality/governance gates before closing a change:
 - `npm run gov:check`
 - `npm run audit:runtime`
 - `npm run ci:check` for cycle/release-ready phases
+- release-time external harness smoke:
+  - `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --package-name jsonapi-rsql-interface`
 
 Release/process discipline:
 

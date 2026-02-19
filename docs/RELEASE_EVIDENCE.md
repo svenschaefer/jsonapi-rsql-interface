@@ -109,3 +109,15 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - `npm run ci:check`: pass
   - `npm run gov:check`: pass
   - `npm run audit:runtime`: pass (`0` runtime vulnerabilities)
+
+### `v1.0.0.1` - External Smoke Harness Integration (completed)
+
+- Scope:
+  - integrate release-time external smoke harness invocation by version/phase
+  - lock release docs with explicit pre/post publish commands and evidence expectations
+- Harness baseline:
+  - path: `C:\code\jsonapi-rsql-interface-smoke-test`
+  - command surface: `npm run smoke:external -- --phase <pre|post> --version <x.y.z> ...`
+- Evidence:
+  - contract/unit tests for argument parsing and command construction
+  - `npm run ci:check`: pass

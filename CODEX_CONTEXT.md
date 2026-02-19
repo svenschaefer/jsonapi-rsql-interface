@@ -101,6 +101,7 @@ Repository-level standards:
 - `npm test`
 - `npm run ci:check`
 - `npm run smoke:release`
+- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --package-name jsonapi-rsql-interface` (release-time external harness)
 
 ## 9) Known Follow-up
 
@@ -117,3 +118,5 @@ Repository-level standards:
   - `v0.9.6` governance/tooling robustness hardening
 - Safe API baseline now includes deterministic fallback:
   - unexpected internal failures in `compileRequestSafe` map to stable `internal_error`.
+- `v1.0.0` release flow now includes external versioned smoke runs via:
+  - `C:\code\jsonapi-rsql-interface-smoke-test` (pre-publish + post-publish).

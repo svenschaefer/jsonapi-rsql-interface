@@ -42,6 +42,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - policy validation now supports explicit `sensitive: true`, plus allowlist overrides for safe heuristic exceptions
   - package-manager pinning is governance-validated (`packageManager: npm@10.9.2`)
   - determinism helper modules are covered by explicit contract tests
+- `v1.0.0` GA handoff progress implemented:
+  - external versioned smoke harness runner is available via `npm run smoke:external`
+  - release docs now define pre/post publish smoke flow against `C:\code\jsonapi-rsql-interface-smoke-test`
 
 ## Quality status
 
@@ -112,4 +115,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Execute `v1.0.0` readiness package:
   - final compatibility/conformance review pass
   - release evidence and release notes finalization
+  - execute external pre/post publish smoke runs for target GA version and record results
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.

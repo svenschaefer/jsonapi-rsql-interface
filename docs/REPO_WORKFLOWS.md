@@ -14,12 +14,17 @@
 2. Update `CHANGELOG.md`.
 3. Bump version (no tag yet): `npm version <x.y.z> --no-git-tag-version`.
 4. Re-run gates: `npm run ci:check`.
-5. Commit release files on a release branch.
-6. Merge to `main`.
-7. Create annotated tag on `main`: `git tag -a v<x.y.z> -m "v<x.y.z>"`.
-8. Push commit and tag.
-9. Publish to npm: `npm publish --access public`.
-10. Verify npm propagation and run post-publish smoke checks.
+5. Run external pre-publish smoke harness for target version:
+   - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --package-name jsonapi-rsql-interface`
+6. Commit release files on a release branch.
+7. Merge to `main`.
+8. Create annotated tag on `main`: `git tag -a v<x.y.z> -m "v<x.y.z>"`.
+9. Push commit and tag.
+10. Publish to npm: `npm publish --access public`.
+11. Verify npm propagation.
+12. Run external post-publish smoke harness:
+   - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --package-name jsonapi-rsql-interface`
+13. Record both smoke outcomes in release evidence.
 
 Rules:
 

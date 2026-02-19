@@ -11,6 +11,8 @@ These scripts are for local quality analysis and CI hygiene:
 - `npm run dev:report:metrics`
 - `npm run dev:report:maturity`
 - `npm run audit:runtime` (runtime dependency audit gate used by CI/release workflows)
+- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> [--harness-dir <path>]`
+  - release-only helper for external smoke harness invocation by target version
 
 ## Contract Boundary
 

@@ -35,7 +35,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.6`: completed (governance/tooling robustness hardening)
 - `v0.9.7`: completed (pre-GA dependency/evidence closure)
 - `v0.9.8`: completed (final 0.x GA-readiness closure)
-- `v1.0.0`: planned GA
+- `v1.0.0`: in progress (GA release execution)
 - `v1.1.x`: planned (post-GA wildcard semantics)
 - `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
@@ -294,9 +294,25 @@ Scope:
 - tag and publish first stable contract release
 - publish release notes with evidence
 - lock v1 compatibility expectations
+- integrate external versioned pre/post publish smoke harness:
+  - `C:\code\jsonapi-rsql-interface-smoke-test`
+  - deterministic pre-publish and post-publish run hooks by target version
 
 Exit:
 - `v1.0.0` released with full gate compliance
+
+Execution breakdown (planned before implementation):
+
+- `v1.0.0.1` (completed):
+  - add explicit external smoke-harness integration contract (docs + tooling hook)
+  - define deterministic invocation shape (`phase`, `version`, harness path)
+  - keep CI unaffected (manual release-time invocation only)
+- `v1.0.0.2` (in progress):
+  - finalize GA evidence bundle (`CHANGELOG`, `RELEASE_EVIDENCE`, release notes template instance)
+  - freeze `v1.0.0` compatibility statement and migration note (if needed)
+- `v1.0.0.3` (planned):
+  - execute final release flow (`release:check`, version bump, tag alignment)
+  - run pre/post publish smoke runs via external harness and capture evidence pointers
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

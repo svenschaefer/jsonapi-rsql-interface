@@ -112,6 +112,15 @@
 - Version policy artifacts and retain traceable change history (`who/what/when/why`).
 - Preserve conformance/security evidence as release artifacts.
 
+## 8.3) GA release execution (`v1.0.0`)
+
+- Integrate external smoke harness for versioned pre/post publish checks:
+  - harness path baseline: `C:\code\jsonapi-rsql-interface-smoke-test`
+  - deterministic run dimensions: `phase` (`pre`/`post`) + `version`
+  - release docs must capture how to invoke and where evidence is stored
+- Ensure external smoke harness invocation is explicit/manual release workflow step (not default CI gate).
+- Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.
+
 ## 8.1) Pre-GA stabilization (v0.9.x)
 
 - Complete dependency-risk disposition:
