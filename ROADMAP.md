@@ -4,7 +4,7 @@ This roadmap schedules `TODO.md` into implementation cycles from baseline throug
 
 ## Current Baseline
 
-- Current status: `v1.2.x` planning (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
+- Current status: `v1.2.x` in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 - Present: GA (`v1.0.0`) released with external pre/post smoke evidence and full baseline compiler/security/performance/governance gates
 - Not complete: `v1.2.x` implementation cycles for adapter package delivery
 - Cycle status:

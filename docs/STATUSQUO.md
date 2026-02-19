@@ -118,6 +118,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - package `jsonapi-rsql-interface@1.1.0` published to npm
   - external pre-publish smoke (tarball): passing
   - external post-publish smoke (registry): passing
+  - prior GA baseline `1.0.0` is now deprecated on npm with upgrade guidance to `>=1.1.0`
 - Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); disposition is recorded as active, expiry-bounded acceptance in `docs/DEPENDENCY_RISK_REGISTER.md`.
 - Runtime dependency audit gate is implemented in CI/release workflows via `npm run audit:runtime` (`npm audit --omit=dev`).
 - Runtime dependency audit currently passes with `0` vulnerabilities.
@@ -131,4 +132,4 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Start `v1.2.x` implementation:
   - create workspace package skeleton for `@jsonapi-rsql/pg`
   - implement deterministic adapter compile surfaces and contract tests
-- Version line is set to `1.0.0` (GA released).
+- Current release line is `1.1.0` (published) with `1.0.0` deprecated.

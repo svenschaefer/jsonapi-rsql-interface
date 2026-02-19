@@ -180,6 +180,9 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - external post-smoke (`phase=post`): pass
     - installed_from: `jsonapi-rsql-interface@1.1.0`
     - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T224500Z-post-1.1.0\node_modules\jsonapi-rsql-interface`
+  - npm deprecation applied to prior GA baseline:
+    - command: `npm deprecate jsonapi-rsql-interface@1.0.0 "Deprecated: please upgrade to >=1.1.0."`
+    - verification: `npm view jsonapi-rsql-interface@1.0.0 deprecated` -> `Deprecated: please upgrade to >=1.1.0.`
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 

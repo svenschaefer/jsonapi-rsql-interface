@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Deprecated npm package version `1.0.0` with upgrade guidance to `>=1.1.0`.
+
 ## [1.1.0] - 2026-02-19
 
 ### Added
