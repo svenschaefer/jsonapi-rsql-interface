@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.2`: current active cycle
+  - `v0.9.3`: current active cycle
 
 ## Versioning Model
 
@@ -28,8 +28,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.8.0`: completed (governance gate baseline)
 - `v0.9.0`: in progress (umbrella pre-GA stabilization cycle)
 - `v0.9.1`: completed (query/error determinism hardening)
-- `v0.9.2`: in progress (CI supply-chain/workflow hardening)
-- `v0.9.3`: planned (pre-GA evidence closure)
+- `v0.9.2`: completed (CI supply-chain/workflow hardening)
+- `v0.9.3`: in progress (pre-GA evidence closure)
 - `v1.0.0`: planned GA
 
 ## Cycle Plan
@@ -179,7 +179,7 @@ Execution breakdown (planned before implementation):
   - runtime-focused dependency audit gate in CI
   - workflow integrity hardening and explicit least-privilege permissions
   - governance checks/tests for workflow posture
-- `v0.9.3`:
+- `v0.9.3` (in progress):
   - pre-GA evidence updates and closure checks
   - final docs alignment and upgrade/compatibility review
 

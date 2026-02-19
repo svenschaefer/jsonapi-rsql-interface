@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.2` (pre-GA CI/workflow hardening).
+- Current roadmap phase: `v0.9.3` (pre-GA evidence closure).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -73,12 +73,17 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Compatibility policy is documented in `docs/COMPATIBILITY_POLICY.md`.
 - Release evidence template is documented in `docs/RELEASE_EVIDENCE.md`.
 - Governance gate script (`npm run gov:check`) is wired into `ci:check`.
+- Workflow governance hardening implemented:
+  - CI workflow has explicit least-privilege permissions
+  - workflow action references are verified by governance checks
+  - dependency risk register is required governance artifact
 
 ## Dependency and release status
 
 - `package-lock.json` exists and CI uses `npm ci`.
 - Release workflow includes tag/version checks, tarball artifact, and optional publish path.
 - Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); tracked for pre-`v1.0.0` remediation/acceptance decision.
+- Runtime dependency audit gate is implemented in CI/release workflows via `npm run audit:runtime` (`npm audit --omit=dev`).
 - Additional `v0.9.x` hardening tasks are now tracked:
   - deterministic malformed query/decode failure mapping to `invalid_query_string`
   - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
@@ -87,9 +92,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Continue `v0.9.0` with:
-  - dependency remediation/risk disposition
-  - malformed query/decode error determinism hardening
-  - canonical page parameter validation hardening
-  - CI workflow integrity and least-privilege permission hardening
+  - dependency remediation/risk disposition for residual dev-only advisories
+  - release-evidence completion and closure checks
+  - final docs alignment for GA-readiness baseline
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.
 - Prepare `v1.0.0` release evidence once pre-GA stabilization closes.

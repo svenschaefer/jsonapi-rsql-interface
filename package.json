@@ -50,6 +50,7 @@
     "dev:check": "node scripts/dev-check.js",
     "dev:report:metrics": "node scripts/dev-report-metrics.js",
     "dev:report:maturity": "node scripts/dev-report-maturity.js",
+    "audit:runtime": "node scripts/audit-runtime.js",
     "gov:check": "node scripts/check-governance.js",
     "pack:check": "npm pack --dry-run",
     "smoke:release": "node scripts/release-smoke-check.js",

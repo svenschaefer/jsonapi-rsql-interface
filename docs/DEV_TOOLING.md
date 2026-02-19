@@ -10,6 +10,7 @@ These scripts are for local quality analysis and CI hygiene:
 - `npm run dev:check`
 - `npm run dev:report:metrics`
 - `npm run dev:report:maturity`
+- `npm run audit:runtime` (runtime dependency audit gate used by CI/release workflows)
 
 ## Contract Boundary
 

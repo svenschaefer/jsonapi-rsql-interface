@@ -67,7 +67,7 @@ Repository-level standards:
 
 - Baseline scaffold is implemented (`v0.1.x` complete).
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
-- Active roadmap cycle: `v0.9.2` (pre-GA CI/workflow hardening).
+- Active roadmap cycle: `v0.9.3` (pre-GA evidence closure).
 - CI baseline currently green via `npm run ci:check`.
 
 ## 6) Decision Baselines (Must Hold)
@@ -104,4 +104,4 @@ Repository-level standards:
 - `v0.9.x` pre-GA hardening also includes:
   - deterministic malformed query/decode failure handling to canonical `invalid_query_string`
   - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
-  - CI supply-chain and workflow least-privilege hardening gates
+  - CI supply-chain and workflow least-privilege hardening gates (implemented baseline)

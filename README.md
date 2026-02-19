@@ -227,6 +227,7 @@ Repository workflow and release baseline documents:
 - `docs/ERROR_CATALOG.md`
 - `docs/COMPATIBILITY_POLICY.md`
 - `docs/RELEASE_EVIDENCE.md`
+- `docs/DEPENDENCY_RISK_REGISTER.md`
 - `CODEX_CONTEXT.md`
 - `TODO.md`
 - `ROADMAP.md`
