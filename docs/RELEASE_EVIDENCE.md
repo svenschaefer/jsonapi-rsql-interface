@@ -140,7 +140,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - execute external pre/post smoke runs with target GA version and capture results
 - Evidence:
   - `npm run release:check`: pass
-  - external pre-smoke (`phase=pre`): blocked (`npm install` returned `E404` for `jsonapi-rsql-interface-smoke-test@1.0.0` on `https://registry.npmjs.org/`)
+  - external pre-smoke (`phase=pre`): pass (local tarball artifact via harness)
   - external post-smoke (`phase=post`): pending
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
@@ -162,3 +162,13 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - provisioning helper supports `--harness-install-spec`: implemented
   - contract tests for override behavior: pass
   - `npm run ci:check`: pass
+
+### `v1.0.0.6` - Local Harness Bootstrap + Prepublish Smoke (completed)
+
+- Scope:
+  - bootstrap local external harness package workspace when not pre-existing
+  - execute one-shot prepublish flow (`pack -> bootstrap -> external pre smoke`)
+- Evidence:
+  - command: `npm run smoke:external:prepublish -- --version 1.0.0 --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
+  - result: pass
+  - artifact under test: `jsonapi-rsql-interface-0.1.0.tgz`

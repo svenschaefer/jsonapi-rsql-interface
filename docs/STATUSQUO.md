@@ -46,6 +46,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - external versioned smoke harness runner is available via `npm run smoke:external`
   - external harness provisioning helper is available via `npm run smoke:external:prepare`
   - provisioning supports explicit harness source override via `--harness-install-spec`
+  - harness bootstrap helper is available via `npm run smoke:external:bootstrap`
+  - one-shot local prepublish flow is available via `npm run smoke:external:prepublish`
   - release docs now define pre/post publish smoke flow against `C:\code\jsonapi-rsql-interface-smoke-test`
   - GA release-notes draft and migration guide artifacts are now present:
     - `docs/releases/v1.0.0.md`
@@ -122,5 +124,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - execute external pre/post publish smoke runs for target GA version and record results
   - finalize GA evidence block with concrete release commit/tag/publish outcomes
   - use installed-harness resolution path when root harness directory is initially empty
-  - confirm external harness package publication/access/source (current install attempt `jsonapi-rsql-interface-smoke-test@1.0.0` returns `E404` on npmjs)
+  - post-publish smoke remains pending until publish step is executed for target GA version
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.

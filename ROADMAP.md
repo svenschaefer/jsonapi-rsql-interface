@@ -315,14 +315,19 @@ Execution breakdown (planned before implementation):
   - run pre/post publish smoke runs via external harness and capture evidence pointers
   - harness resolution rule:
     - resolve execution from installed harness package when root path has no `package.json`
-  - current blocker:
-    - harness provisioning install currently fails with `E404` for `jsonapi-rsql-interface-smoke-test@1.0.0` on `https://registry.npmjs.org/`; harness package publication/access/source needs confirmation
+  - progress:
+    - pre-publish smoke executed successfully against local packed artifact
+  - remaining:
+    - post-publish smoke remains pending until package publish step is executed
 - `v1.0.0.4` (completed):
   - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
   - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory
 - `v1.0.0.5` (completed):
   - support explicit harness install source override (`--harness-install-spec`) for private/unpublished harness artifacts
   - keep default package@version path, but allow tarball/git/local source to unblock release execution
+- `v1.0.0.6` (completed):
+  - bootstrap local external harness package in `C:\code\jsonapi-rsql-interface-smoke-test`
+  - run deterministic pre-publish smoke against local packed tarball of `jsonapi-rsql-interface`
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

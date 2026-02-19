@@ -13,6 +13,9 @@ All notable changes to this project are documented in this file.
 - External release smoke helper (`npm run smoke:external`) with deterministic `phase/version` invocation.
 - External smoke harness provisioning helper (`npm run smoke:external:prepare`) for versioned harness installation.
 - External smoke harness provisioning now supports explicit install source override (`--harness-install-spec`).
+- Added local harness bootstrap helper (`npm run smoke:external:bootstrap`).
+- Added one-shot local prepublish smoke flow (`npm run smoke:external:prepublish`).
+- External smoke runner now supports explicit tarball source forwarding for prepublish mode (`--package-source`).
 - GA release-notes draft artifact: `docs/releases/v1.0.0.md`.
 - Migration guide artifact: `docs/MIGRATION_0.x_TO_1.0.0.md`.
 

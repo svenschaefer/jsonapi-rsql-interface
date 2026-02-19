@@ -21,6 +21,8 @@
 6. Run external pre-publish smoke harness for target version:
    - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
    - if harness root has no `package.json`, the runner resolves installed harness package under `node_modules`
+   - optional one-shot command:
+     - `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 7. Commit release files on a release branch.
 8. Merge to `main`.
 9. Create annotated tag on `main`: `git tag -a v<x.y.z> -m "v<x.y.z>"`.

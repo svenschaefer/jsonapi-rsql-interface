@@ -102,7 +102,9 @@ Repository-level standards:
 - `npm run ci:check`
 - `npm run smoke:release`
 - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+- `npm run smoke:external:bootstrap -- --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
 - `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface` (release-time external harness)
+- `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 
 ## 9) Known Follow-up
 
@@ -124,4 +126,4 @@ Repository-level standards:
 - External smoke runner resolution rule:
   - if harness root has no `package.json`, resolve and execute from installed harness package under `node_modules`.
 - Current release-execution caveat:
-  - default harness package install spec (`jsonapi-rsql-interface-smoke-test@<version>`) returned `E404` against `https://registry.npmjs.org/` in this environment; publication/access/source must be confirmed before final GA smoke execution.
+  - post-publish smoke remains pending until package publish is executed for target GA version.

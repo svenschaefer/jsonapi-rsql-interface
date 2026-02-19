@@ -124,6 +124,9 @@
 - Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.
 - Confirm harness package install source/name/version used by provisioning command (current default `jsonapi-rsql-interface-smoke-test@<version>` may not resolve in npm registry).
 - Support explicit harness install source override in provisioning (`--harness-install-spec`) for private registry/tarball/git/local artifact paths.
+- Ensure pre-publish smoke can run fully locally:
+  - bootstrap external harness package structure in `C:\code\jsonapi-rsql-interface-smoke-test` when absent
+  - run pre-publish smoke against local `npm pack` tarball artifact before publish.
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

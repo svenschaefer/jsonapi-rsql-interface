@@ -12,7 +12,8 @@ function parseArgs(argv) {
     version: "",
     harnessDir: DEFAULT_HARNESS_DIR,
     packageName: DEFAULT_PACKAGE_NAME,
-    harnessPackage: DEFAULT_HARNESS_PACKAGE
+    harnessPackage: DEFAULT_HARNESS_PACKAGE,
+    packageSource: ""
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -40,6 +41,11 @@ function parseArgs(argv) {
     }
     if (token === "--harness-package" && next) {
       out.harnessPackage = next;
+      i += 1;
+      continue;
+    }
+    if (token === "--package-source" && next) {
+      out.packageSource = next;
       i += 1;
     }
   }
@@ -80,16 +86,24 @@ function validateOptions(options) {
   if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
     throw new Error("Invalid --version. Use semantic version without leading 'v' (for example 1.0.0).");
   }
+  if (options.phase === "pre" && !(options.packageSource && String(options.packageSource).trim())) {
+    throw new Error("Pre-publish smoke requires --package-source pointing to local artifact.");
+  }
   const harnessDir = resolveHarnessExecutionDir(options);
   return {
     ...options,
-    harnessDir
+    harnessDir,
+    packageSource: options.packageSource ? String(options.packageSource).trim() : ""
   };
 }
 
 function buildRunCommand(options) {
   const script = options.phase === "pre" ? "smoke:prepublish" : "smoke:postpublish";
-  const command = `npm run ${script} -- --version ${options.version} --package ${options.packageName} --phase ${options.phase}`;
+  const sourceArg =
+    options.packageSource && options.packageSource.length > 0
+      ? ` --package-source ${options.packageSource}`
+      : "";
+  const command = `npm run ${script} -- --version ${options.version} --package ${options.packageName} --phase ${options.phase}${sourceArg}`;
   if (process.platform === "win32") {
     return {
       cmd: "cmd.exe",
@@ -107,7 +121,10 @@ function buildRunCommand(options) {
       "--package",
       options.packageName,
       "--phase",
-      options.phase
+      options.phase,
+      ...(options.packageSource && options.packageSource.length > 0
+        ? ["--package-source", options.packageSource]
+        : [])
     ]
   };
 }

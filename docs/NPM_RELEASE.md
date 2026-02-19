@@ -29,6 +29,8 @@ Both streams should point to the same version and release commit.
    - resolution rule: if root path has no `package.json`, run from installed harness package under `node_modules`
    - command:
      - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
+   - one-shot local pre-publish flow (pack + bootstrap + pre smoke):
+     - `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 7. commit release files with explicit paths (no `git add -A`)
 8. tag and push
 9. publish and verify registry propagation
