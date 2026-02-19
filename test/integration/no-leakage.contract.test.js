@@ -77,3 +77,9 @@ test("error output does not leak schema/sql/internal paths for include denial", 
   assert.equal(out.ok, false);
   assertNoLeakage(out.errors[0]);
 });
+
+test("error output does not leak internals for malformed query encoding", () => {
+  const out = compileRequestSafe(baseInput("filter=%E0%A4%A"));
+  assert.equal(out.ok, false);
+  assertNoLeakage(out.errors[0]);
+});

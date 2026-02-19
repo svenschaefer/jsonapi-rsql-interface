@@ -16,6 +16,7 @@ const {
   enforceIncludeLimits,
   enforceInListSize,
   enforceNoWildcardSemantics,
+  enforcePageParameters,
   enforceParameterSurfaceLimits,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
@@ -47,6 +48,7 @@ function compileRequest(input) {
   enforceStringLimits(rawQuery, limits);
   enforceParameterSurfaceLimits(params, limits);
   enforceDuplicatePolicy(params);
+  const page = enforcePageParameters(params, limits);
 
   const normalizedQuery = normalizeQuery(params);
   const normalizedQueryKey = createNormalizedQueryKey(normalizedQuery);
@@ -72,11 +74,11 @@ function compileRequest(input) {
   const typedFilter = typeCheckFilterClauses(filterParse.clauses, input.policy);
 
   const compiled = compilePlan(
-    params,
     normalizedQuery,
     input.policy,
     input.context,
     typedFilter,
+    page,
     filterParse.complexity,
     normalizedQueryKey,
     contextFingerprint,

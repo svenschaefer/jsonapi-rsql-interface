@@ -67,7 +67,7 @@ Repository-level standards:
 
 - Baseline scaffold is implemented (`v0.1.x` complete).
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
-- Active roadmap cycle: `v0.9.0` (pre-GA stabilization).
+- Active roadmap cycle: `v0.9.2` (pre-GA CI/workflow hardening).
 - CI baseline currently green via `npm run ci:check`.
 
 ## 6) Decision Baselines (Must Hold)

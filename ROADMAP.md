@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.0`: current active cycle
+  - `v0.9.2`: current active cycle
 
 ## Versioning Model
 
@@ -26,7 +26,10 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.6.0`: completed (context-bound cache key safety baseline)
 - `v0.7.0`: completed (conformance expansion baseline)
 - `v0.8.0`: completed (governance gate baseline)
-- `v0.9.0`: in progress (active pre-GA stabilization cycle)
+- `v0.9.0`: in progress (umbrella pre-GA stabilization cycle)
+- `v0.9.1`: completed (query/error determinism hardening)
+- `v0.9.2`: in progress (CI supply-chain/workflow hardening)
+- `v0.9.3`: planned (pre-GA evidence closure)
 - `v1.0.0`: planned GA
 
 ## Cycle Plan
@@ -165,6 +168,20 @@ Exit:
 - malformed-query decode failures and page validation covered by deterministic contract tests
 - CI supply-chain/workflow-hardening checks green
 - security/performance/conformance/release gates green
+
+Execution breakdown (planned before implementation):
+
+- `v0.9.1` (completed):
+  - deterministic malformed-query/decode handling
+  - canonical page parameter validation (`page_parameter_invalid`)
+  - contract tests for malformed encoding + page validation boundaries
+- `v0.9.2` (in progress):
+  - runtime-focused dependency audit gate in CI
+  - workflow integrity hardening and explicit least-privilege permissions
+  - governance checks/tests for workflow posture
+- `v0.9.3`:
+  - pre-GA evidence updates and closure checks
+  - final docs alignment and upgrade/compatibility review
 
 ### Cycle 9 - `v1.0.0` (GA release)
 

@@ -19,7 +19,20 @@ function enforceStringLimits(rawQuery, limits) {
     );
   }
 
-  if (rawQuery && decodeURIComponent(rawQuery.replace(/\+/g, "%20")).length > maxDecoded) {
+  let decodedLength = 0;
+  if (rawQuery) {
+    try {
+      decodedLength = decodeURIComponent(rawQuery.replace(/\+/g, "%20")).length;
+    } catch {
+      throwCompilationError(
+        "invalid_query_string",
+        "Malformed percent-encoding in query string.",
+        { parameter: "query" }
+      );
+    }
+  }
+
+  if (rawQuery && decodedLength > maxDecoded) {
     throwCompilationError(
       "invalid_query_string",
       `Decoded query exceeds limit ${maxDecoded}.`,
@@ -27,6 +40,46 @@ function enforceStringLimits(rawQuery, limits) {
       { limit: "max_decoded_query_length" }
     );
   }
+}
+
+function parsePositiveIntPageValue(parameter, value, maxValue) {
+  const text = String(value);
+  if (!/^[1-9]\d*$/.test(text)) {
+    throwCompilationError(
+      "page_parameter_invalid",
+      `Invalid ${parameter} value.`,
+      { parameter },
+      { parameter, expected: "positive_integer" }
+    );
+  }
+
+  const parsed = Number(text);
+  if (!Number.isSafeInteger(parsed) || parsed > maxValue) {
+    throwCompilationError(
+      "page_parameter_invalid",
+      `${parameter} exceeds max value ${maxValue}.`,
+      { parameter },
+      { parameter, limit: maxValue }
+    );
+  }
+
+  return parsed;
+}
+
+function enforcePageParameters(params, limits) {
+  const maxPageSize = asLimit(limits.max_page_size, 100);
+  const maxPageNumber = asLimit(limits.max_page_number, 1000000);
+  const out = { size: null, number: null };
+
+  if (Object.prototype.hasOwnProperty.call(params || {}, "page[size]")) {
+    out.size = parsePositiveIntPageValue("page[size]", params["page[size]"], maxPageSize);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(params || {}, "page[number]")) {
+    out.number = parsePositiveIntPageValue("page[number]", params["page[number]"], maxPageNumber);
+  }
+
+  return out;
 }
 
 function enforceParameterSurfaceLimits(params, limits) {
@@ -404,6 +457,7 @@ module.exports = {
   enforceIncludeLimits,
   enforceInListSize,
   enforceNoWildcardSemantics,
+  enforcePageParameters,
   enforceParameterSurfaceLimits,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,

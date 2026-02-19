@@ -88,6 +88,12 @@ test("canonical code: invalid_filter_syntax for malformed clause", () => {
   assert.equal(out.errors[0].code, "invalid_filter_syntax");
 });
 
+test("canonical code: invalid_query_string for malformed query encoding", () => {
+  const out = compileRequestSafe(input("filter=%E0%A4%A"));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "invalid_query_string");
+});
+
 test("canonical code: unknown_field for non-registered field", () => {
   const out = compileRequestSafe(input("filter=ghost==1"));
   assert.equal(out.ok, false);
@@ -128,6 +134,12 @@ test("canonical code: fields_not_allowed for forbidden sparse field", () => {
   const out = compileRequestSafe(input("filter=status==active&fields[users]=id,secret"));
   assert.equal(out.ok, false);
   assert.equal(out.errors[0].code, "fields_not_allowed");
+});
+
+test("canonical code: page_parameter_invalid for invalid page size", () => {
+  const out = compileRequestSafe(input("filter=status==active&page[size]=0"));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "page_parameter_invalid");
 });
 
 test("canonical code: filter_complexity_exceeded for membership list limit", () => {

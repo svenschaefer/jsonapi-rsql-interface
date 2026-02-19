@@ -1,9 +1,9 @@
 function compilePlan(
-  params,
   normalizedQuery,
   policy,
   context,
   typedFilter,
+  page,
   complexity,
   normalizedQueryKey,
   contextFingerprint,
@@ -26,10 +26,7 @@ function compilePlan(
     bindings: typedFilter.bindings,
     include: includeList,
     sort: sortList,
-    page: {
-      size: params["page[size]"] || null,
-      number: params["page[number]"] || null
-    },
+    page,
     security: {
       predicate: {
         field: String(context.security_predicate.field),

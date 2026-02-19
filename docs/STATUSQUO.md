@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.0` (pre-GA stabilization).
+- Current roadmap phase: `v0.9.2` (pre-GA CI/workflow hardening).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -21,6 +21,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - strict type checks (int/float/bool/date/datetime/uuid/enum)
   - root-only filters, null handling guardrails, wildcard rejection
   - include/sort/fields allowlist enforcement baseline
+- `v0.9.1` hardening implemented:
+  - malformed percent-encoding deterministically maps to `invalid_query_string`
+  - canonical `page[size]` / `page[number]` validation with `page_parameter_invalid`
+  - validated page values compile into numeric plan fields
 
 ## Quality status
 
