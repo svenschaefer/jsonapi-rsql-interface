@@ -144,6 +144,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
       - `compileSelect` (root-table-only)
     - optional helper implemented:
       - `assembleSelectSql(...)` (assembly-only)
+      - table input is now constrained to mapping-derived value (`getTableSql(mapping)`)
     - explicit adapter dialect/profile pinning baseline implemented:
       - `ADAPTER_DIALECT_PROFILE = postgresql-v1-core`
       - unsupported mapping `dialect_profile` fails deterministically
@@ -153,6 +154,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
       - `test/unit/adapter-pg-golden.contract.test.js`
     - adapter package/readme contract tests added:
       - `test/unit/adapter-pg-package.contract.test.js`
+    - external smoke adapter contract checks hardened:
+      - explicit `getTableSql` contract assertion
+      - placeholder/value alignment checks replace brittle fixed bound-value count
     - constraints baseline bound to:
       - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
     - publish-ready metadata prepared:

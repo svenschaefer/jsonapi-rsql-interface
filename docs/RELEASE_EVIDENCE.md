@@ -229,6 +229,11 @@ Use this file (or release artifacts linked from it) to track governance evidence
       - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-pg-1.2.0.tgz`
       - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg`
       - resolved_entrypoint: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg\src\index.js`
+    - adapter hardening completed before publish:
+      - `assembleSelectSql(...)` table is now mapping-derived only (`getTableSql(mapping)` enforced)
+      - external smoke adapter assertions hardened:
+        - explicit `getTableSql` contract check
+        - placeholder/value alignment checks (contiguous `$1..$n`) instead of fixed value-count assertion
     - publish attempt blocked by npm auth/OTP:
       - `npm publish --workspace packages/adapter-pg --access public` -> `EOTP` (token expired/revoked)
 - Evidence:

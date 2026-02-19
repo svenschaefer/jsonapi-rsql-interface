@@ -463,7 +463,11 @@ Execution breakdown (planned before implementation):
     - external smoke tooling extended for adapter release:
       - harness runner supports adapter contract checks for `@jsonapi-rsql/pg`
       - `smoke:external:prepublish` supports `--workspace` artifact packing
+      - explicit `getTableSql` contract check in adapter smoke path
+      - placeholder/value alignment checks replace brittle fixed value-count assertion
     - external pre-publish smoke executed successfully for adapter artifact in `C:\code\jsonapi-rsql-interface-smoke-test`
+    - adapter table-source hardening completed:
+      - `assembleSelectSql(...)` now requires mapping-derived table value (`getTableSql(mapping)`)
   - blocker:
     - npm publish requires renewed auth + OTP (`EOTP`, token expired/revoked)
 - `v1.2.8` (planned):
@@ -471,6 +475,12 @@ Execution breakdown (planned before implementation):
     - run clean consumer-install validation for published `@jsonapi-rsql/pg` version
     - sync release docs/state (`TODO`, `ROADMAP`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`, `CODEX_CONTEXT`)
     - close `v1.2.x` execution block and queue next `1.x` cycle planning
+- `v1.3.x` (planned):
+  - adapter/core contract-lock follow-ups (non-blocking, post `v1.2.x` publish):
+    - lock and document flat-AND filter semantics assumption for adapter `compileWhere` vs current core plan shape
+    - lock wildcard metadata schema across core and adapter (`wildcard.mode` shape/values) with explicit cross-package contract tests
+    - lock stable sparse-field location in plan contract consumed by adapter `compileSelect`
+    - document and test `ILIKE` (case-insensitive wildcard) as explicit opt-in deployment contract
 
 ## Per-Cycle Execution Rules
 

@@ -75,6 +75,7 @@ Repository-level standards:
   - explicit adapter dialect/profile pinning is implemented (`postgresql-v1-core`)
   - deterministic compile surfaces implemented (`compileWhere`, `compileOrderBy`, `compileLimitOffset`, `compileSecurityPredicate`, `compileSelect`)
   - optional assembly-only helper implemented: `assembleSelectSql(...)`
+  - `assembleSelectSql(...)` now enforces mapping-derived table input (`getTableSql(mapping)`)
   - adapter contract tests implemented:
     - `test/unit/adapter-pg.contract.test.js`
     - `test/unit/adapter-pg-golden.contract.test.js`
@@ -150,3 +151,4 @@ Repository-level standards:
   - active release cycle: `v1.2.7` (`@jsonapi-rsql/pg` first publish execution)
   - adapter external pre-publish smoke is passing (`@jsonapi-rsql/pg@1.2.0` tarball)
   - current release blocker: npm auth/OTP required (`EOTP`) for adapter publish command
+  - next planned cycle after publish closure: `v1.3.x` (adapter/core contract-lock follow-ups)

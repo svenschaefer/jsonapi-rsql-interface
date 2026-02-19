@@ -30,6 +30,11 @@ All notable changes to this project are documented in this file.
   - external smoke tooling enhancements for adapter releases:
     - harness runner now validates adapter contract for `@jsonapi-rsql/pg`
     - `smoke:external:prepublish` supports `--workspace` for non-root package artifacts
+  - adapter/table-source hardening:
+    - `assembleSelectSql(...)` now requires mapping-derived table value (`getTableSql(mapping)`)
+  - adapter smoke-check hardening:
+    - explicit `getTableSql` presence assertion
+    - placeholder/value alignment assertions (contiguous `$1..$n`) replace brittle fixed value-count assertion
 
 ## [1.1.0] - 2026-02-19
 

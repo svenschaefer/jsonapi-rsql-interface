@@ -322,6 +322,13 @@ Progress (`v1.2.x`):
 - Extended external smoke harness runner with adapter-specific contract checks for `@jsonapi-rsql/pg` (pre/post publish smoke coverage).
 - Extended `smoke:external:prepublish` with `--workspace` to pack non-root workspace artifacts (adapter release flow).
 - Executed adapter external pre-publish smoke successfully in `C:\code\jsonapi-rsql-interface-smoke-test`; remaining blocker is npm auth/OTP for publish.
+- Added adapter table-source hardening in `assembleSelectSql(...)`: table must be mapping-derived (`getTableSql(mapping)`), with contract test coverage.
+- Track later contract locks:
+  - lock/declare flat-AND filter semantics assumption for adapter `compileWhere` against current core plan shape (no boolean AST preservation in baseline)
+  - lock wildcard metadata schema across core and adapter (`wildcard.mode` values and shape) with explicit cross-package contract tests
+  - lock stable sparse-field location in plan contract consumed by adapter `compileSelect` (currently `normalized_query["fields[<type>]"]`)
+  - document and test case-insensitive wildcard (`ILIKE`) behavior as explicit opt-in deployment contract
+  - scheduling: planned in `ROADMAP.md` as post-publish `v1.3.x` follow-up cycle
 
 - Scope:
   - new package `@jsonapi-rsql/pg`
