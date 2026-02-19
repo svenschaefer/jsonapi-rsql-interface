@@ -125,5 +125,11 @@ Repository-level standards:
   - `C:\code\jsonapi-rsql-interface-smoke-test` (pre-publish + post-publish).
 - External smoke runner resolution rule:
   - if harness root has no `package.json`, resolve and execute from installed harness package under `<harness-dir>/<timestamp>-<phase>-<version>/node_modules`.
+- External smoke runner artifact contract:
+  - pre-phase enforces `--package-source` presence and file existence before install
+  - runner verifies installed package runtime surface and emits:
+    - `installed_from`
+    - `resolved_package_dir`
+    - `resolved_entrypoint`
 - Current release-execution caveat:
   - post-publish smoke remains pending until package publish is executed for target GA version.

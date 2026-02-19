@@ -130,6 +130,11 @@
 - Enforce run-directory isolation for external smoke harness:
   - use scoped harness folders `<timestamp>-<phase>-<version>`
   - avoid shared `node_modules` between pre/post and cross-version runs
+- Extend external smoke artifact-level coverage:
+  - pre-phase must fail early when `--package-source` is missing/non-file
+  - verify installed artifact surface (`package.json`, exports/main entrypoint resolution, entrypoint file presence)
+  - emit auditable smoke summary fields (`installed_from`, `resolved_package_dir`, `resolved_entrypoint`)
+  - include exactly one sentinel negative-path call to verify non-throwing safe envelope behavior
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

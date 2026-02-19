@@ -183,3 +183,17 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - `npm run smoke:external:prepublish -- --version 1.0.0 ...`: pass
   - output includes scoped harness directory, for example:
     - `C:\code\jsonapi-rsql-interface-smoke-test\20260219T214216Z-pre-1.0.0`
+
+### `v1.0.0.8` - External Smoke Artifact Coverage Expansion (completed)
+
+- Scope:
+  - enforce deterministic pre-phase package-source gating (`--package-source` required and file-validated)
+  - verify installed artifact runtime surface before module require (`package.json`, exports/main resolution, entrypoint file exists)
+  - add one sentinel negative-path `compileRequestSafe` check to ensure non-throwing safe envelope behavior
+  - emit auditable smoke metadata (`installed_from`, `resolved_package_dir`, `resolved_entrypoint`)
+- Evidence:
+  - `npm run smoke:external:prepublish -- --version 1.0.0 ...`: pass
+  - smoke output now includes:
+    - `installed_from`
+    - `resolved_package_dir`
+    - `resolved_entrypoint`

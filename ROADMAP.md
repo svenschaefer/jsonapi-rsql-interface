@@ -331,6 +331,9 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.7` (completed):
   - enforce stage/version/timestamp scoped harness directories (`<timestamp>-<phase>-<version>`)
   - isolate pre/post smoke runs with separate per-run `node_modules` trees
+- `v1.0.0.8` (completed):
+  - expand external smoke runner artifact-level checks (install gating, installed-surface verification, minimal envelope shape checks)
+  - emit auditable smoke evidence fields (`installed_from`, `resolved_package_dir`, `resolved_entrypoint`)
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 
