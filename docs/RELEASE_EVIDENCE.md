@@ -204,6 +204,8 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - `test/unit/adapter-pg.contract.test.js`
   - adapter golden/error-hygiene tests added:
     - `test/unit/adapter-pg-golden.contract.test.js`
+  - adapter package/readme contract tests added:
+    - `test/unit/adapter-pg-package.contract.test.js`
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass

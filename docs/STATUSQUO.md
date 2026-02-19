@@ -145,6 +145,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
       - `test/unit/adapter-pg.contract.test.js`
     - adapter golden/error-hygiene tests added:
       - `test/unit/adapter-pg-golden.contract.test.js`
+    - adapter package/readme contract tests added:
+      - `test/unit/adapter-pg-package.contract.test.js`
     - constraints baseline bound to:
       - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
 - Current release line is `1.1.0` (published) with `1.0.0` deprecated.

@@ -315,6 +315,7 @@ Progress (`v1.2.x`):
 - Added stable adapter error namespace and deterministic fragment/mapping validation.
 - Added adapter contract tests in `test/unit/adapter-pg.contract.test.js`.
 - Added golden determinism and error-hygiene adapter tests in `test/unit/adapter-pg-golden.contract.test.js`.
+- Added adapter package/readme contract tests in `test/unit/adapter-pg-package.contract.test.js`.
 
 - Scope:
   - new package `@jsonapi-rsql/pg`

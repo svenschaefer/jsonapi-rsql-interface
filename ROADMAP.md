@@ -438,6 +438,10 @@ Execution breakdown (planned before implementation):
   - add unit/golden/negative tests for adapter behavior and leakage constraints
   - finalize adapter docs and compatibility notes
   - run full repo quality gates and close `v1.2.x` phase block
+- `v1.2.4` (completed):
+  - harden adapter package contract docs for publish/readiness
+  - add package-level contract tests for `@jsonapi-rsql/pg`
+  - keep root and adapter docs synchronized for release evidence
 
 ## Per-Cycle Execution Rules
 
