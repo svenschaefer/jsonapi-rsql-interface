@@ -135,6 +135,14 @@
 
 ## 8.2) Deep review hardening backlog (0.x required before GA)
 
+- Explicit items from deep review set (`46`-`52`):
+  - `46` replace delimiter-based `createPlanCacheKey()` with collision-safe encoding/hash
+  - `47` resolve dotted-field inconsistency between parser grammar and root-field policy checks
+  - `48` remove redundant raw-text empty-membership detection; keep structural parsed check only
+  - `49` remove or parameterize version-specific wildcard error text to match active policy version
+  - `50` make `compileRequestSafe()` safe for invalid input shapes (no generic throw leaks)
+  - `51` move raw query guardrails before parse/decode work (plus cheap pre-scan caps)
+  - `52` avoid `"undefined"` sentinel values in context fingerprint partition keys
 - Filter semantics and parser correctness:
   - preserve boolean semantics (`AND` / `OR`) in plan output, or explicitly lock/document non-preservation as a contract non-goal
   - make parser quote-aware or explicitly reject quoted separator/operator cases deterministically

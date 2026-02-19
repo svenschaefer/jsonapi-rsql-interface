@@ -188,15 +188,22 @@ Execution breakdown (planned before implementation):
 - `v0.9.4` (planned):
   - preserve/lock filter boolean semantics contract (`AND`/`OR`) in plan or explicitly document non-goal
   - move relationship-path rejection to parsed fields (avoid dot-literal false positives)
+  - resolve parser/policy dotted-field consistency (`46`/`47` path) with one canonical validation layer
+  - remove duplicate empty-membership detection paths; keep structural parsed enforcement only (`48`)
   - align wildcard rejection across operators (including string membership values)
+  - remove/parameterize version-specific wildcard error messaging (`49`)
   - lock parser behavior for quoted separators/operator-token edge cases
 - `v0.9.5` (planned):
   - prevent semantic mutation of `sort` order in plans
   - separate canonicalization-for-cache from requested-order semantics where needed
   - harden pre-parse gates (raw length and cheap pair-count before decode/parse)
+  - ensure raw/decoded query limit checks gate parse/decode cost (`51`)
   - replace delimiter-concatenated cache key with collision-safe tuple encoding/hash
+  - eliminate delimiter collision risk in cache key composition (`46`)
   - tighten `compileRequestSafe` contract for unexpected exceptions
+  - ensure invalid input-shape errors return deterministic safe envelope (`50`)
   - normalize context fingerprint missing-value handling and expand determinism tests
+  - remove `"undefined"` fingerprint sentinel states (`52`)
 - `v0.9.6` (planned):
   - refine sensitive-field validation approach (heuristics vs explicit policy flags)
   - harden audit/governance scripts against tool output and formatting brittleness
