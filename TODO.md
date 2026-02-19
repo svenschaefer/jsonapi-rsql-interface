@@ -8,7 +8,9 @@
 - Completed cycle: `v0.4.0` (Security hardening baseline)
 - Completed cycle: `v0.5.0` (Performance hardening baseline)
 - Completed cycle: `v0.6.0` (Cache/context safety baseline)
-- Current active roadmap cycle: `v0.7.0` (Conformance and test-suite expansion)
+- Completed cycle: `v0.7.0` (Conformance expansion baseline)
+- Completed cycle: `v0.8.0` (Release/governance hardening baseline)
+- Current active roadmap cycle: `v0.9.0` (Pre-GA stabilization)
 
 ## 0) Core implementation (must exist first)
 

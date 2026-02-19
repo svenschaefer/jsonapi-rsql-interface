@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.7.0` (conformance and test-suite expansion).
+- Current roadmap phase: `v0.9.0` (pre-GA stabilization).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -64,13 +64,19 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Added limit-boundary integration tests (`limit` pass, `limit+1` fail).
 - Added fixture sanitizer tests to prevent secret-like fixture content.
 
+## Governance hardening status
+
+- Compatibility policy is documented in `docs/COMPATIBILITY_POLICY.md`.
+- Release evidence template is documented in `docs/RELEASE_EVIDENCE.md`.
+- Governance gate script (`npm run gov:check`) is wired into `ci:check`.
+
 ## Dependency and release status
 
 - `package-lock.json` exists and CI uses `npm ci`.
 - Release workflow includes tag/version checks, tarball artifact, and optional publish path.
-- Dependency tree reported known vulnerabilities during initial install; remediation is tracked pre-`v1.0.0`.
+- Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); tracked for pre-`v1.0.0` remediation/acceptance decision.
 
 ## Immediate next steps
 
-- Continue `v0.7.0` by expanding conformance coverage against checklist matrix.
-- Start `v0.8.0` release/governance hardening after conformance cycle closure.
+- Continue `v0.9.0` with dependency remediation and final contract stabilization.
+- Prepare `v1.0.0` release evidence once pre-GA stabilization closes.

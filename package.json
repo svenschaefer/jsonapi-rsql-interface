@@ -50,12 +50,13 @@
     "dev:check": "node scripts/dev-check.js",
     "dev:report:metrics": "node scripts/dev-report-metrics.js",
     "dev:report:maturity": "node scripts/dev-report-maturity.js",
+    "gov:check": "node scripts/check-governance.js",
     "pack:check": "npm pack --dry-run",
     "smoke:release": "node scripts/release-smoke-check.js",
-    "ci:check": "npm run lint && npm test && npm run dev:report:metrics && npm run dev:report:maturity && npm run pack:check && npm run smoke:release",
+    "ci:check": "npm run lint && npm test && npm run gov:check && npm run dev:report:metrics && npm run dev:report:maturity && npm run pack:check && npm run smoke:release",
     "release:check": "node scripts/ensure-clean-worktree.js && npm run ci:check"
   },
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "^9.21.0"
   }
 }

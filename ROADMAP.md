@@ -24,9 +24,9 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.4.0`: completed (baseline security hardening implemented)
 - `v0.5.0`: completed (performance limits + canonical query key baseline)
 - `v0.6.0`: completed (context-bound cache key safety baseline)
-- `v0.7.0`: in progress (active conformance-suite expansion cycle)
-- `v0.8.0`: planned
-- `v0.9.0`: planned
+- `v0.7.0`: completed (conformance expansion baseline)
+- `v0.8.0`: completed (governance gate baseline)
+- `v0.9.0`: in progress (active pre-GA stabilization cycle)
 - `v1.0.0`: planned GA
 
 ## Cycle Plan
