@@ -74,7 +74,10 @@ Repository-level standards:
   - workspace package exists at `packages/adapter-pg`
   - deterministic compile surfaces implemented (`compileWhere`, `compileOrderBy`, `compileLimitOffset`, `compileSecurityPredicate`, `compileSelect`)
   - optional assembly-only helper implemented: `assembleSelectSql(...)`
-  - adapter contract tests implemented in `test/unit/adapter-pg.contract.test.js`
+  - adapter contract tests implemented:
+    - `test/unit/adapter-pg.contract.test.js`
+    - `test/unit/adapter-pg-golden.contract.test.js`
+    - `test/unit/adapter-pg-package.contract.test.js`
 - CI baseline currently green via `npm run ci:check`.
 - Package `jsonapi-rsql-interface@1.1.0` is published, with external pre/post publish smoke evidence captured.
 

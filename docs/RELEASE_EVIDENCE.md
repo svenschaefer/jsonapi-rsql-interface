@@ -209,6 +209,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass
+  - `npm run gov:check`: pass
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 

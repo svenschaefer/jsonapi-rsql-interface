@@ -129,8 +129,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Start `v1.2.x` implementation:
-  - complete `v1.2.3` closure for adapter package evidence/docs finalization
+- Continue `v1.2.x` closeout:
+  - finalize remaining cycle closure evidence and release-readiness planning for first `@jsonapi-rsql/pg` publish
   - current implemented state:
     - workspace package skeleton exists at `packages/adapter-pg`
     - compile surfaces implemented:
