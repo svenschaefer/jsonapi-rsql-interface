@@ -122,6 +122,12 @@ Characteristics:
 - No implicit functions or query DSL extensions
 - All semantics are explicitly governed by configuration
 
+Current `v0.x` / v1 baseline constraint:
+
+- The compiled plan emits a validated clause set and complexity metadata.
+- Boolean expression tree structure is not preserved as a first-class plan AST in this baseline.
+- Quoted filter literals with separator/operator-token ambiguity are not a supported parsing mode.
+
 ---
 
 ## Resource Definitions

@@ -39,3 +39,25 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm run ci:check`: pass
   - `npm run audit:runtime`: pass (`0` runtime vulnerabilities)
+
+### `v0.9.3` - Pre-GA Evidence/Docs Closure Baseline
+
+- Commit: `053f65f`
+- Scope:
+  - status/context alignment for planned `v0.9.4`-`v0.9.6` cycles
+  - pre-GA evidence trail continuity for remaining hardening work
+- Evidence:
+  - `npm run gov:check`: pass
+  - docs sync checks: pass
+
+### `v0.9.4` - Filter/Parser Semantic Correctness Hardening (in progress)
+
+- Commit: `e83f7fb`
+- Scope:
+  - parsed-field relationship-path validation (no dot-literal false positives)
+  - wildcard rejection consistency across operators
+  - structural-only empty membership enforcement
+  - sort precedence preservation + collision-safe cache key composition
+  - deterministic safe-envelope behavior for invalid compile input shape
+- Evidence:
+  - `npm run ci:check`: pass
