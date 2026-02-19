@@ -65,7 +65,8 @@ Repository-level standards:
 ## 5) Current Delivery State
 
 - Baseline scaffold is implemented (`v0.1.x` complete).
-- Active roadmap cycle: `v0.2.0` (core pipeline + v1 semantic core).
+- Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
+- Active roadmap cycle: `v0.9.0` (pre-GA stabilization).
 - CI baseline currently green via `npm run ci:check`.
 
 ## 6) Decision Baselines (Must Hold)
@@ -97,5 +98,5 @@ Repository-level standards:
 
 ## 9) Known Follow-up
 
-- Dependency tree reported vulnerabilities during initial install (dev-tooling path).
-- Track and remediate before public release (`v1.0.0` gate).
+- `npm audit` still reports residual dev-toolchain advisories (eslint dependency chain).
+- Final pre-GA disposition required before `v1.0.0` (remediate where feasible; explicitly accept residual dev-only risk if needed).

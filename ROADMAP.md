@@ -4,9 +4,9 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 
 ## Current Baseline
 
-- Current status: `v0.1.0` skeleton
-- Present: package scaffold, compile API skeleton, CLI skeleton, docs baseline, CI/release skeleton, initial contract tests
-- Not complete: full semantic/compiler implementation, conformance suites, enterprise release gates
+- Current status: `v0.9.x` pre-GA stabilization
+- Present: package scaffold + semantic/compiler baseline + error contract + security/performance/cache/context + conformance/governance gates
+- Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
   - `v0.9.0`: current active cycle
