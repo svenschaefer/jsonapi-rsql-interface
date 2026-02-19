@@ -75,9 +75,17 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - `package-lock.json` exists and CI uses `npm ci`.
 - Release workflow includes tag/version checks, tarball artifact, and optional publish path.
 - Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); tracked for pre-`v1.0.0` remediation/acceptance decision.
+- Additional `v0.9.x` hardening tasks are now tracked:
+  - deterministic malformed query/decode failure mapping to `invalid_query_string`
+  - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
+  - CI supply-chain and workflow-permissions hardening gates
 
 ## Immediate next steps
 
-- Continue `v0.9.0` with dependency remediation and final contract stabilization.
+- Continue `v0.9.0` with:
+  - dependency remediation/risk disposition
+  - malformed query/decode error determinism hardening
+  - canonical page parameter validation hardening
+  - CI workflow integrity and least-privilege permission hardening
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.
 - Prepare `v1.0.0` release evidence once pre-GA stabilization closes.

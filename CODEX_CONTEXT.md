@@ -101,3 +101,7 @@ Repository-level standards:
 
 - `npm audit` still reports residual dev-toolchain advisories (eslint dependency chain).
 - Final pre-GA disposition required before `v1.0.0` (remediate where feasible; explicitly accept residual dev-only risk if needed).
+- `v0.9.x` pre-GA hardening also includes:
+  - deterministic malformed query/decode failure handling to canonical `invalid_query_string`
+  - explicit canonical validation for `page[size]` / `page[number]` with `page_parameter_invalid`
+  - CI supply-chain and workflow least-privilege hardening gates

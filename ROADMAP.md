@@ -146,12 +146,24 @@ Exit:
 
 Scope:
 - vulnerability remediation for dependency tree
+- deterministic malformed-query handling:
+  - map percent-decoding/canonicalization failures to `invalid_query_string`
+  - ensure safe compile API returns deterministic envelopes on malformed query strings
+- explicit page parameter validation:
+  - lock canonical validation for `page[size]` / `page[number]`
+  - emit canonical `page_parameter_invalid` on violations
+- CI/workflow hardening:
+  - add dependency audit policy gate (runtime-focused) and residual-risk tracking for dev-only advisories
+  - pin/verify workflow action references for integrity
+  - enforce least-privilege workflow permissions and governance checks
 - remove remaining known TODO blockers
 - freeze docs + examples for v1 contract
 - final compatibility and upgrade validation pass
 
 Exit:
 - all TODO items required for v1 marked complete
+- malformed-query decode failures and page validation covered by deterministic contract tests
+- CI supply-chain/workflow-hardening checks green
 - security/performance/conformance/release gates green
 
 ### Cycle 9 - `v1.0.0` (GA release)

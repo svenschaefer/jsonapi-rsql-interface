@@ -117,6 +117,19 @@
 - Complete dependency-risk disposition:
   - remediate where non-breaking fixes are available
   - document explicit risk acceptance where residual dev-only advisories remain
+- Enforce deterministic malformed-query handling:
+  - wrap percent-decoding/canonicalization failures and emit `invalid_query_string`
+  - ensure `compileRequestSafe` always returns deterministic error envelopes for malformed encodings
+- Implement explicit page parameter validation:
+  - validate `page[size]` and `page[number]` syntax/range deterministically
+  - emit canonical `page_parameter_invalid` for all page validation failures
+- Harden CI supply-chain and action integrity baseline:
+  - add automated `npm audit` policy gate for production/runtime dependencies
+  - add explicit review/track path for residual dev-only advisories
+  - pin and/or verify GitHub Action references for workflow integrity
+- Strengthen workflow least-privilege posture:
+  - set explicit workflow/job permissions in CI (read-only by default)
+  - add governance test coverage for required workflow permissions posture
 - Add release evidence entry for the final `0.x` pre-GA state.
 - Keep project on `0.x` until all pre-GA topics are closed.
 
