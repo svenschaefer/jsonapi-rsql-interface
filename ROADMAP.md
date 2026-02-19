@@ -34,6 +34,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.5`: completed (canonicalization/cache/safe-API hardening baseline)
 - `v0.9.6`: in progress (governance/tooling robustness hardening)
 - `v1.0.0`: planned GA
+- `v1.1.x`: planned (post-GA wildcard semantics)
+- `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
 ## Cycle Plan
 
@@ -275,6 +277,41 @@ Scope:
 
 Exit:
 - feature merged as opt-in `1.x` capability with no regression to v1 baseline guarantees
+
+### Cycle 11 - `v1.2.x` (Post-GA PostgreSQL Execution Adapter `@jsonapi-rsql/pg`)
+
+Scope:
+- create separate package `@jsonapi-rsql/pg` (workspace package layout, independent npm package identity)
+- enforce explicit mapping contract:
+  - resource table mapping
+  - field-to-SQL mapping
+  - optional include/join mapping if enabled
+  - no reflection/heuristics/inference
+- implement deterministic adapter compile surfaces:
+  - `compileWhere(plan, mapping)` -> parameterized output
+  - `compileOrderBy(plan, mapping)` -> deterministic ordered SQL fragment
+  - `compileLimitOffset(plan)` -> deterministic limit/offset representation
+  - `compileSelect(plan, mapping)` when projection support is in-scope
+  - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
+- enforce adapter safety constraints:
+  - user values always parameterized
+  - unsupported plan features rejected explicitly with stable adapter errors
+  - no semantic reinterpretation of core interface
+  - no implicit wildcard/regex/collation/case-insensitive behavior
+- add adapter test suites:
+  - per-function unit tests
+  - deterministic golden SQL/placeholder tests
+  - negative tests for unknown mapping, unsupported operator/type, missing security mapping, unsupported feature toggles
+- document compatibility and versioning:
+  - independent adapter release flow
+  - `peerDependencies` compatibility range for `jsonapi-rsql-interface` `v1.x`
+  - compatibility matrix/docs
+
+Exit:
+- adapter compiles valid query plans into deterministic parameterized PostgreSQL SQL/fragments
+- mandatory security predicate enforcement is non-bypassable in adapter output
+- unsupported features are rejected deterministically (never ignored)
+- adapter package tests and cross-package compatibility checks are green
 
 ## Per-Cycle Execution Rules
 

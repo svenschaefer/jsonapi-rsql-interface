@@ -267,3 +267,47 @@
   - regex
   - fuzzy search
   - implicit cross-field behavior
+
+## 11) Post-GA (1.x) planned topic: PostgreSQL execution adapter package `@jsonapi-rsql/pg`
+
+Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-interface` query plan against PostgreSQL in a strictly parameterized, deterministic, and policy-respecting way.
+
+- Scope:
+  - new package `@jsonapi-rsql/pg`
+  - depends on `jsonapi-rsql-interface` core
+  - output is parameterized SQL (`text` + `values`) or deterministic compiled fragments
+  - non-goal: changing interface semantics or introducing implicit DB-specific behavior into core
+- Deliverables:
+  - workspace package layout (for example `packages/adapter-pg/`)
+  - package contract (`package.json`, `README.md`, `src/`, tests)
+  - explicit mapping contract (resource table + field mappings + optional include/join mappings)
+  - no reflection, heuristics, or naming-based inference
+- Core adapter API:
+  - accept `query_plan` + `mapping`
+  - deterministic parameterized outputs only
+  - deterministic placeholder assignment/formatting
+  - minimum compile surfaces:
+    - `compileWhere(plan, mapping)`
+    - `compileOrderBy(plan, mapping)`
+    - `compileLimitOffset(plan)`
+    - `compileSelect(plan, mapping)` when projection support is enabled
+    - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
+- Safety/correctness requirements:
+  - always parameterize user values (no interpolation)
+  - reject unsupported plan features explicitly with stable adapter errors
+  - preserve semantic `sort` order exactly
+  - do not add wildcard/regex/collation/case-insensitive semantics unless already explicit in plan/policy
+  - if include/join compilation is out-of-scope, reject deterministically (no silent ignore)
+- Testing requirements:
+  - unit tests per compile surface
+  - golden tests for deterministic SQL/placeholder output
+  - negative tests for unknown mapping, unsupported operator/type, missing security predicate mapping, and unsupported feature toggles
+- Versioning/compatibility:
+  - independent package publishing
+  - `peerDependencies` on `jsonapi-rsql-interface` with compatible `v1.x` range
+  - explicit compatibility documentation across interface versions
+- Acceptance criteria:
+  - valid query plans compile into deterministic parameterized PostgreSQL SQL
+  - security predicate is mandatory in compiled execution outputs
+  - adapter cannot reinterpret core interface semantics
+  - unsupported features are rejected deterministically
