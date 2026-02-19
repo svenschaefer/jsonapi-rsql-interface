@@ -299,6 +299,9 @@ Progress (`v1.1.x`):
 
 Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-interface` query plan against PostgreSQL in a strictly parameterized, deterministic, and policy-respecting way.
 
+Authoritative adapter constraints for `v1.2.x`:
+- `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
+
 - Scope:
   - new package `@jsonapi-rsql/pg`
   - depends on `jsonapi-rsql-interface` core
@@ -320,7 +323,7 @@ Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-i
     - `compileSelect(plan, mapping)` when projection support is enabled
     - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
   - optional convenience helper:
-    - add `buildSelectSql(...)` (name can be finalized during implementation) that only assembles already-compiled fragments into final `{ text, values }`
+    - add `assembleSelectSql(...)` that only assembles already-compiled fragments into final `{ text, values }`
     - helper inputs are explicit-only (`table`, `select`, `where`, `security`, `orderBy`, `limitOffset`, `values`)
     - helper must be assembly-only:
       - no new semantics

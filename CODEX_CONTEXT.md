@@ -42,6 +42,7 @@ Core specification and governance docs:
 - `docs/ERROR_CATALOG.md`
 - `docs/COMPATIBILITY_POLICY.md`
 - `docs/RELEASE_EVIDENCE.md`
+- `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md` (`v1.2.x` adapter scope)
 - `TODO.md`
 - `ROADMAP.md`
 

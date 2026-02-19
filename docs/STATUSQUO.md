@@ -132,4 +132,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Start `v1.2.x` implementation:
   - create workspace package skeleton for `@jsonapi-rsql/pg`
   - implement deterministic adapter compile surfaces and contract tests
+  - enforce locked adapter constraints from `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
 - Current release line is `1.1.0` (published) with `1.0.0` deprecated.

@@ -384,6 +384,8 @@ Execution breakdown (planned before implementation):
 
 Scope:
 - create separate package `@jsonapi-rsql/pg` (workspace package layout, independent npm package identity)
+- implement against locked security/performance constraints:
+  - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
 - enforce explicit mapping contract:
   - resource table mapping
   - field-to-SQL mapping
@@ -396,7 +398,7 @@ Scope:
   - `compileSelect(plan, mapping)` when projection support is in-scope
   - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
   - optional convenience assembly helper:
-    - `buildSelectSql(...)` (name can be finalized) that only assembles pre-compiled fragments into final `{ text, values }`
+    - `assembleSelectSql(...)` that only assembles pre-compiled fragments into final `{ text, values }`
     - no validation/inference/default semantics; deterministic fragment and value ordering only
 - enforce adapter safety constraints:
   - user values always parameterized
