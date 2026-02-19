@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.3.0` (deterministic error contract freeze).
+- Current roadmap phase: `v0.4.0` (security invariants implementation).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -39,6 +39,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - `docs/SECURITY_INVARIANTS.md`
   - `docs/PERFORMANCE_INVARIANTS.md`
 - Conformance checklist documented in `docs/CONFORMANCE_TEST_CHECKLIST.md`.
+- Error catalog is published in `docs/ERROR_CATALOG.md` and locked by contract tests.
 - Full executable conformance suites are not complete yet (tracked in `TODO.md` and `ROADMAP.md`).
 
 ## Dependency and release status
@@ -49,5 +50,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Complete `v0.3.0` by freezing canonical deterministic error codes for edge scenarios.
-- Publish machine-readable error catalog and lock it with contract tests.
+- Expand `v0.4.0` security invariant coverage (deny-by-default and policy/registry hardening).
+- Extend negative-path tests for security-forbidden behaviors and bypass attempts.

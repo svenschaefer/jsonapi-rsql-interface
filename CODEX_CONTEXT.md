@@ -38,6 +38,7 @@ Core specification and governance docs:
 - `docs/SECURITY_INVARIANTS.md`
 - `docs/PERFORMANCE_INVARIANTS.md`
 - `docs/CONFORMANCE_TEST_CHECKLIST.md`
+- `docs/ERROR_CATALOG.md`
 - `TODO.md`
 - `ROADMAP.md`
 
