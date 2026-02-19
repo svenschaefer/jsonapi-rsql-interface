@@ -30,6 +30,9 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.1`: completed (query/error determinism hardening)
 - `v0.9.2`: completed (CI supply-chain/workflow hardening)
 - `v0.9.3`: in progress (pre-GA evidence closure)
+- `v0.9.4`: planned (filter/parser semantic correctness hardening)
+- `v0.9.5`: planned (canonicalization/cache/safe-API hardening)
+- `v0.9.6`: planned (governance/tooling robustness hardening)
 - `v1.0.0`: planned GA
 
 ## Cycle Plan
@@ -182,6 +185,60 @@ Execution breakdown (planned before implementation):
 - `v0.9.3` (in progress):
   - pre-GA evidence updates and closure checks
   - final docs alignment and upgrade/compatibility review
+- `v0.9.4` (planned):
+  - preserve/lock filter boolean semantics contract (`AND`/`OR`) in plan or explicitly document non-goal
+  - move relationship-path rejection to parsed fields (avoid dot-literal false positives)
+  - align wildcard rejection across operators (including string membership values)
+  - lock parser behavior for quoted separators/operator-token edge cases
+- `v0.9.5` (planned):
+  - prevent semantic mutation of `sort` order in plans
+  - separate canonicalization-for-cache from requested-order semantics where needed
+  - harden pre-parse gates (raw length and cheap pair-count before decode/parse)
+  - replace delimiter-concatenated cache key with collision-safe tuple encoding/hash
+  - tighten `compileRequestSafe` contract for unexpected exceptions
+  - normalize context fingerprint missing-value handling and expand determinism tests
+- `v0.9.6` (planned):
+  - refine sensitive-field validation approach (heuristics vs explicit policy flags)
+  - harden audit/governance scripts against tool output and formatting brittleness
+  - define explicit audit-disposition policy and CI toolchain pinning strategy
+  - review and lock determinism helper modules with dedicated conformance tests
+
+### Cycle 8.4 - `v0.9.4` (Filter/parser semantic correctness hardening)
+
+Scope:
+- resolve filter semantic ambiguities discovered in deep review
+- make relationship-path, wildcard, and operator parsing behavior field-aware and deterministic
+- lock boolean-structure contract in plan output (preserved AST vs explicit non-goal)
+
+Exit:
+- no raw-filter false positives for dotted literals
+- wildcard/relationship/parser edge cases covered by deterministic contract tests
+- filter semantic contract documented in README/spec docs
+
+### Cycle 8.5 - `v0.9.5` (Canonicalization/cache/safe API hardening)
+
+Scope:
+- preserve query semantics while retaining canonical cache determinism
+- move parse-cost guardrails to true pre-parse stage
+- eliminate cache-key delimiter collision risk
+- lock `compileRequestSafe` behavior for unexpected failures
+
+Exit:
+- sort precedence preserved in compiled plans
+- cache keys collision-safe by construction
+- safe API behavior contract and tests finalized
+
+### Cycle 8.6 - `v0.9.6` (Governance/tooling robustness hardening)
+
+Scope:
+- reduce governance-script brittleness
+- harden runtime audit tooling behavior
+- refine policy-validation ergonomics and false-positive risk
+- add targeted determinism-helper conformance coverage
+
+Exit:
+- governance/audit checks remain strict but resilient to benign formatting/tooling variance
+- policy validation behavior is explicit, predictable, and test-covered
 
 ### Cycle 9 - `v1.0.0` (GA release)
 

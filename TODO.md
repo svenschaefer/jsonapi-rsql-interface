@@ -133,6 +133,47 @@
 - Add release evidence entry for the final `0.x` pre-GA state.
 - Keep project on `0.x` until all pre-GA topics are closed.
 
+## 8.2) Deep review hardening backlog (0.x required before GA)
+
+- Filter semantics and parser correctness:
+  - preserve boolean semantics (`AND` / `OR`) in plan output, or explicitly lock/document non-preservation as a contract non-goal
+  - make parser quote-aware or explicitly reject quoted separator/operator cases deterministically
+  - enforce relationship-path rejection on parsed `clause.field` (not raw filter string) to avoid literal false positives
+  - enforce wildcard rejection consistently across all operators (including string values in `=in=` / `=out=`) for v0/v1
+  - lock explicit dotted-field policy (dots reserved/rejected unless explicitly supported)
+  - lock empty `=in=` / `=out=` error classification (`empty_in_list_not_allowed`) as policy contract
+- Canonicalization and query semantics:
+  - stop semantic mutation of `sort` precedence in plan semantics (preserve caller order)
+  - define whether `include` / `fields[...]` order is semantic or canonical-only; preserve requested form where needed
+  - if canonical form is required for cache only, separate requested-order representation from canonical cache representation
+  - lock and document `+` decoding behavior in raw query parsing
+- Pre-parse DoS protection:
+  - apply raw-length gate before any parsing/decoding work
+  - add cheap pre-parse pair-count caps (raw `&`/parameter-surface estimate) before decode
+  - define and enforce string-size metric (byte length vs JS string length) for security/perf limits
+- Cache-key and determinism hardening:
+  - replace delimiter-concatenated cache key format with collision-safe tuple encoding (length-prefix or hash)
+  - normalize context fingerprint missing values (avoid `"undefined"` partition artifacts)
+  - add determinism tests for cache-key stability across key-order/whitespace/input-shape variants
+  - add targeted review/tests for deterministic helper modules (`src/core/determinism.js`, normalization dependencies)
+- Safe API contract hardening:
+  - decide and lock `compileRequestSafe` contract (`never throws` vs `throws unexpected`)
+  - if `never throws`, add deterministic `internal_error` mapping for unexpected exceptions
+  - ensure non-`CompilationError` paths cannot leak internals
+- Error precision and compatibility:
+  - improve malformed key-decoding error attribution (consistent `source.parameter` strategy)
+  - remove hard-coded version strings in error detail (or parameterize by policy version)
+  - lock operator/value ambiguity behavior with explicit rejection rules and tests
+- Policy validation and security ergonomics:
+  - refine sensitive-field exposure controls to reduce false positives from substring heuristics
+  - evaluate explicit policy flags (for example `sensitive: true`) vs name-pattern heuristics
+  - keep hardened mode and existence-leak behavior explicit and test-covered
+- Governance and tooling robustness:
+  - harden `audit-runtime` parsing/diagnostics against npm output/schema variance
+  - define deterministic policy for audit gate exceptions/dispositions (expiry-bounded)
+  - reduce regex brittleness in governance workflow checks (prefer YAML-aware validation or strict formatting contract)
+  - pin/lock CI toolchain behavior where needed to avoid audit/governance drift
+
 ## 9) Template-derived repo/platform baseline
 
 - [x] Initialize npm package contract for this compiler component:
