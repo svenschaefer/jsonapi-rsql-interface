@@ -40,4 +40,6 @@ test("bootstrap script creates harness package.json and runner", () => {
   assert.match(runnerText, /compileRequestSafe\(sentinel_negative\)/);
   assert.match(runnerText, /assertAdapterContract/);
   assert.match(runnerText, /@jsonapi-rsql\/pg/);
+  assert.match(runnerText, /getTableSql/);
+  assert.match(runnerText, /placeholder\/value alignment/);
 });

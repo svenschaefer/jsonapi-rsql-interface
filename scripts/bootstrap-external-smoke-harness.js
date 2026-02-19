@@ -181,6 +181,7 @@ function assertEnvelopeShape(out, label) {
 function assertAdapterContract(packageName) {
   const mod = require(packageName);
   const required = [
+    "getTableSql",
     "compileWhere",
     "compileOrderBy",
     "compileLimitOffset",
@@ -252,8 +253,26 @@ function assertAdapterContract(packageName) {
   if (!assembled || typeof assembled.text !== "string" || !Array.isArray(assembled.values)) {
     throw new Error("Adapter smoke compile/assemble result is invalid.");
   }
-  if (assembled.values.length !== 4) {
-    throw new Error("Adapter smoke compile/assemble produced unexpected values length.");
+  if (assembled.values.length <= 0) {
+    throw new Error("Adapter smoke compile/assemble produced no bound values.");
+  }
+  if (!Array.isArray(security.values) || security.values.length <= 0) {
+    throw new Error("Adapter smoke compile/assemble did not include security predicate bindings.");
+  }
+
+  const matches = Array.from(assembled.text.matchAll(/\\$(\\d+)/g)).map((item) => Number(item[1]));
+  if (matches.length === 0) {
+    throw new Error("Adapter smoke compile/assemble produced no placeholders.");
+  }
+  const unique = Array.from(new Set(matches)).sort((a, b) => a - b);
+  const maxPlaceholder = unique[unique.length - 1];
+  if (!Number.isInteger(maxPlaceholder) || maxPlaceholder !== assembled.values.length) {
+    throw new Error("Adapter smoke placeholder/value alignment is invalid.");
+  }
+  for (let i = 1; i <= maxPlaceholder; i += 1) {
+    if (!unique.includes(i)) {
+      throw new Error("Adapter smoke placeholders are not contiguous.");
+    }
   }
 }
 
