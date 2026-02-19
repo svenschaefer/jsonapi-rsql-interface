@@ -1,4 +1,5 @@
 const { throwCompilationError } = require("../errors");
+const { parseByType } = require("./types");
 
 function asLimit(value, fallback) {
   return Number.isInteger(value) && value > 0 ? value : fallback;
@@ -74,6 +75,29 @@ function enforceIncludeLimits(includeList, limits) {
   }
 }
 
+function enforceFilterComplexityLimits(complexity, limits) {
+  const maxDepth = asLimit(limits.max_ast_depth, 8);
+  const maxNodes = asLimit(limits.max_ast_nodes, 64);
+
+  if ((complexity.ast_depth || 0) > maxDepth) {
+    throwCompilationError(
+      "filter_complexity_exceeded",
+      `Filter AST depth exceeds limit ${maxDepth}.`,
+      { parameter: "filter" },
+      { limit: "max_ast_depth", value: complexity.ast_depth }
+    );
+  }
+
+  if ((complexity.ast_nodes || 0) > maxNodes) {
+    throwCompilationError(
+      "filter_complexity_exceeded",
+      `Filter AST node count exceeds limit ${maxNodes}.`,
+      { parameter: "filter" },
+      { limit: "max_ast_nodes", value: complexity.ast_nodes }
+    );
+  }
+}
+
 function enforceSortLimits(sortList, limits) {
   const maxCount = asLimit(limits.max_sort_keys, 8);
   if (sortList.length > maxCount) {
@@ -83,6 +107,28 @@ function enforceSortLimits(sortList, limits) {
       { parameter: "sort" },
       { limit: "max_sort_keys", count: sortList.length }
     );
+  }
+}
+
+function enforceInListSize(clauses, limits) {
+  const maxItems = asLimit(limits.max_in_list_items, 50);
+  for (const clause of clauses || []) {
+    if (clause.operator !== "=in=" && clause.operator !== "=out=") continue;
+    if (clause.raw_values.length === 0) {
+      throwCompilationError(
+        "empty_in_list_not_allowed",
+        "Empty =in=() or =out=() is not allowed.",
+        { parameter: "filter" }
+      );
+    }
+    if (clause.raw_values.length > maxItems) {
+      throwCompilationError(
+        "filter_complexity_exceeded",
+        `Membership list exceeds limit ${maxItems}.`,
+        { parameter: "filter" },
+        { limit: "max_in_list_items", value: clause.raw_values.length }
+      );
+    }
   }
 }
 
@@ -100,6 +146,152 @@ function enforceFieldSelectionLimits(normalizedQuery, limits) {
       );
     }
   }
+}
+
+function enforceIncludeAllowlist(includeList, policy) {
+  if (includeList.length === 0) return;
+  const allowlist = (policy && policy.query_dimensions && policy.query_dimensions.include_allowlist) || [];
+  const allowed = new Set(allowlist);
+  for (const includePath of includeList) {
+    if (!allowed.has(includePath)) {
+      throwCompilationError(
+        "include_not_allowed",
+        `Include path is not allowed: ${includePath}.`,
+        { parameter: "include" },
+        { include: includePath }
+      );
+    }
+  }
+}
+
+function enforceSortAllowlist(sortList, policy) {
+  if (sortList.length === 0) return;
+  const allowlist = (policy && policy.query_dimensions && policy.query_dimensions.sortable_fields) || [];
+  const allowed = new Set(allowlist);
+  for (const key of sortList) {
+    const field = key.startsWith("-") ? key.slice(1) : key;
+    if (!allowed.has(field)) {
+      throwCompilationError(
+        "sort_not_allowed",
+        `Sort field is not allowed: ${field}.`,
+        { parameter: "sort" },
+        { field }
+      );
+    }
+  }
+}
+
+function enforceFieldsAllowlist(normalizedQuery, policy) {
+  const map =
+    (policy && policy.query_dimensions && policy.query_dimensions.fields_allowlist) || Object.create(null);
+  for (const [key, value] of Object.entries(normalizedQuery)) {
+    if (!key.startsWith("fields[")) continue;
+    const resourceType = key.slice(7, -1);
+    const allowed = new Set(Array.isArray(map[resourceType]) ? map[resourceType] : []);
+    for (const field of Array.isArray(value) ? value : []) {
+      if (!allowed.has(field)) {
+        throwCompilationError(
+          "fields_not_allowed",
+          `Field is not allowed in sparse fieldset: ${field}.`,
+          { parameter: key },
+          { field, resource: resourceType }
+        );
+      }
+    }
+  }
+}
+
+function enforceNoWildcardSemantics(clauses) {
+  for (const clause of clauses || []) {
+    if (clause.operator !== "==" && clause.operator !== "!=") continue;
+    for (const raw of clause.raw_values || []) {
+      if (String(raw).includes("*")) {
+        throwCompilationError(
+          "invalid_filter_syntax",
+          "Wildcard semantics are not supported in v1.",
+          { parameter: "filter" }
+        );
+      }
+    }
+  }
+}
+
+function typeCheckFilterClauses(clauses, policy) {
+  const fields = (policy && policy.fields) || {};
+  const typed = [];
+  const bindings = [];
+  let bindIndex = 1;
+
+  for (const clause of clauses || []) {
+    const fieldDef = fields[clause.field];
+    if (!fieldDef) {
+      throwCompilationError(
+        "unknown_field",
+        `Unknown field: ${clause.field}.`,
+        { parameter: "filter" },
+        { field: clause.field }
+      );
+    }
+    if (fieldDef.filterable === false) {
+      throwCompilationError(
+        "field_not_allowed",
+        `Field is not filterable: ${clause.field}.`,
+        { parameter: "filter" },
+        { field: clause.field }
+      );
+    }
+    const allowedOps = Array.isArray(fieldDef.operators) ? fieldDef.operators : [];
+    if (!allowedOps.includes(clause.operator)) {
+      throwCompilationError(
+        "operator_not_allowed",
+        `Operator ${clause.operator} is not allowed for field ${clause.field}.`,
+        { parameter: "filter" },
+        { field: clause.field, operator: clause.operator }
+      );
+    }
+
+    const parsedValues = [];
+    let normalizedFromTimezone = false;
+    for (const raw of clause.raw_values) {
+      if (raw === "null") {
+        if (clause.operator !== "==" && clause.operator !== "!=") {
+          throwCompilationError(
+            "value_type_mismatch",
+            "Null literal is only allowed with == or != operators.",
+            { parameter: "filter" },
+            { field: clause.field, operator: clause.operator }
+          );
+        }
+        parsedValues.push(null);
+        continue;
+      }
+
+      const parsed = parseByType(fieldDef.type, raw, fieldDef);
+      if (!parsed.ok) {
+        throwCompilationError(
+          "value_type_mismatch",
+          `Value does not match field type '${fieldDef.type}'.`,
+          { parameter: "filter" },
+          { field: clause.field, expected_type: fieldDef.type }
+        );
+      }
+      parsedValues.push(parsed.value);
+      if (parsed.normalized) normalizedFromTimezone = true;
+    }
+
+    const bindKey = `p${bindIndex}`;
+    bindIndex += 1;
+    bindings.push({ key: bindKey, values: parsedValues });
+    typed.push({
+      field: clause.field,
+      operator: clause.operator,
+      values: parsedValues,
+      expected_type: fieldDef.type,
+      normalized_from_timezone: normalizedFromTimezone
+    });
+  }
+
+  return { typed_clauses: typed, bindings };
 }
 
 function enforceSecurityPredicate(context) {
@@ -123,10 +315,17 @@ function enforceSecurityPredicate(context) {
 module.exports = {
   enforceDuplicatePolicy,
   enforceEmptyInListRule,
+  enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
+  enforceFilterComplexityLimits,
+  enforceIncludeAllowlist,
   enforceIncludeLimits,
+  enforceInListSize,
+  enforceNoWildcardSemantics,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
+  enforceSortAllowlist,
   enforceSortLimits,
-  enforceStringLimits
+  enforceStringLimits,
+  typeCheckFilterClauses
 };

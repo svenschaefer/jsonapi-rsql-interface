@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.2.0` (core pipeline + v1 semantic core).
+- Current roadmap phase: `v0.3.0` (deterministic error contract freeze).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -17,6 +17,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - `validate-plan`
 - Core compile pipeline skeleton is present:
   - `parse -> normalize -> type-check -> policy-check -> compile`
+- `v0.2.0` semantic core is implemented:
+  - strict type checks (int/float/bool/date/datetime/uuid/enum)
+  - root-only filters, null handling guardrails, wildcard rejection
+  - include/sort/fields allowlist enforcement baseline
 
 ## Quality status
 
@@ -45,5 +49,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Complete `v0.2.0` semantic implementation gaps (strict type behavior and remaining v1 rules).
-- Move to `v0.3.0` to freeze canonical deterministic error codes per scenario.
+- Complete `v0.3.0` by freezing canonical deterministic error codes for edge scenarios.
+- Publish machine-readable error catalog and lock it with contract tests.

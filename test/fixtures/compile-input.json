@@ -2,12 +2,35 @@
   "raw_query": "filter=status==active&sort=-created&include=memberships,groups",
   "policy": {
     "version": "v1",
+    "fields": {
+      "status": {
+        "type": "enum",
+        "filterable": true,
+        "operators": ["==", "!=", "=in=", "=out="],
+        "enum_values": ["active", "disabled"]
+      },
+      "created": {
+        "type": "date",
+        "filterable": true,
+        "operators": [">=", "<=", "==", "!="]
+      }
+    },
+    "query_dimensions": {
+      "include_allowlist": ["groups", "memberships"],
+      "sortable_fields": ["created", "status"],
+      "fields_allowlist": {
+        "users": ["id", "status", "created"]
+      }
+    },
     "limits": {
       "max_raw_query_length": 4096,
       "max_decoded_query_length": 4096,
       "max_include_paths": 10,
       "max_sort_keys": 8,
-      "max_sparse_fields": 25
+      "max_sparse_fields": 25,
+      "max_ast_depth": 8,
+      "max_ast_nodes": 64,
+      "max_in_list_items": 50
     }
   },
   "context": {

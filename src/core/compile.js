@@ -1,4 +1,4 @@
-function compilePlan(params, normalizedQuery, policy, context) {
+function compilePlan(params, normalizedQuery, policy, context, typedFilter, complexity) {
   const includeList = Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [];
   const sortList = Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [];
   const filterText = typeof normalizedQuery.filter === "string" ? normalizedQuery.filter : "";
@@ -10,8 +10,10 @@ function compilePlan(params, normalizedQuery, policy, context) {
     normalized_query: normalizedQuery,
     filter: {
       expression: filterText,
-      dialect: "rsql-fiql"
+      dialect: "rsql-fiql",
+      clauses: typedFilter.typed_clauses
     },
+    bindings: typedFilter.bindings,
     include: includeList,
     sort: sortList,
     page: {
@@ -28,7 +30,8 @@ function compilePlan(params, normalizedQuery, policy, context) {
     meta: {
       policy_version: String((policy && policy.version) || "v0"),
       tenant_context_present: Boolean(context && context.tenant_context_present === true),
-      normalized: true
+      normalized: true,
+      filter_complexity: complexity
     }
   };
 }

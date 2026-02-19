@@ -16,6 +16,19 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.x`: implementation and hardening cycles (breaking changes allowed)
 - `v1.0.0`: first stable contract release
 
+## Execution Ledger
+
+- `v0.1.x`: completed
+- `v0.2.0`: completed
+- `v0.3.0`: in progress (active implementation cycle)
+- `v0.4.0`: planned
+- `v0.5.0`: planned
+- `v0.6.0`: planned
+- `v0.7.0`: planned
+- `v0.8.0`: planned
+- `v0.9.0`: planned
+- `v1.0.0`: planned GA
+
 ## Cycle Plan
 
 ### Cycle 0 - `v0.1.x` (Completed baseline)

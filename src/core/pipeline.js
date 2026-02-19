@@ -1,15 +1,23 @@
 const { CompilationError } = require("../errors");
 const { parseQueryString } = require("./parse");
 const { normalizeQuery } = require("./normalize");
+const { parseFilterExpression } = require("./filter");
 const {
   enforceDuplicatePolicy,
   enforceEmptyInListRule,
+  enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
+  enforceFilterComplexityLimits,
+  enforceIncludeAllowlist,
   enforceIncludeLimits,
+  enforceInListSize,
+  enforceNoWildcardSemantics,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
+  enforceSortAllowlist,
   enforceSortLimits,
-  enforceStringLimits
+  enforceStringLimits,
+  typeCheckFilterClauses
 } = require("./policy");
 const { compilePlan } = require("./compile");
 
@@ -33,14 +41,31 @@ function compileRequest(input) {
   enforceDuplicatePolicy(params);
 
   const normalizedQuery = normalizeQuery(params);
+  const filterParse = parseFilterExpression(normalizedQuery.filter || "");
+
   enforceRootFieldFilterScope(normalizedQuery.filter);
   enforceEmptyInListRule(normalizedQuery.filter);
+  enforceNoWildcardSemantics(filterParse.clauses);
+  enforceFilterComplexityLimits(filterParse.complexity, limits);
+  enforceInListSize(filterParse.clauses, limits);
   enforceIncludeLimits(Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [], limits);
   enforceSortLimits(Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [], limits);
   enforceFieldSelectionLimits(normalizedQuery, limits);
+  enforceIncludeAllowlist(Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [], input.policy);
+  enforceSortAllowlist(Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [], input.policy);
+  enforceFieldsAllowlist(normalizedQuery, input.policy);
   enforceSecurityPredicate(input.context);
 
-  return compilePlan(params, normalizedQuery, input.policy, input.context);
+  const typedFilter = typeCheckFilterClauses(filterParse.clauses, input.policy);
+
+  return compilePlan(
+    params,
+    normalizedQuery,
+    input.policy,
+    input.context,
+    typedFilter,
+    filterParse.complexity
+  );
 }
 
 function compileRequestSafe(input) {
