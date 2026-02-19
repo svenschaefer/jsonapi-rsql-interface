@@ -1,7 +1,23 @@
 {
   "name": "@jsonapi-rsql/pg",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "description": "PostgreSQL execution adapter for jsonapi-rsql-interface query plans.",
+  "keywords": [
+    "jsonapi",
+    "rsql",
+    "postgresql",
+    "query-plan",
+    "adapter"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svenschaefer/jsonapi-rsql-interface.git",
+    "directory": "packages/adapter-pg"
+  },
+  "bugs": {
+    "url": "https://github.com/svenschaefer/jsonapi-rsql-interface/issues"
+  },
+  "homepage": "https://github.com/svenschaefer/jsonapi-rsql-interface/tree/main/packages/adapter-pg#readme",
   "type": "commonjs",
   "main": "./src/index.js",
   "exports": {
@@ -13,6 +29,9 @@
   "peerDependencies": {
     "jsonapi-rsql-interface": ">=1.0.0 <2.0.0"
   },
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
   "license": "MIT"
 }

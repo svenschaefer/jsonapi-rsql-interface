@@ -130,8 +130,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Continue `v1.2.x` closeout:
-  - execute first adapter publish cycle (`v1.2.7`) for `@jsonapi-rsql/pg`
-  - capture npm registry verification and release evidence after publish
+  - complete first adapter publish cycle (`v1.2.7`) for `@jsonapi-rsql/pg`
+  - current blocker: npm auth/OTP required for publish execution
+  - capture npm registry verification and release evidence after successful publish
   - current implemented state:
     - workspace package skeleton exists at `packages/adapter-pg`
     - compile surfaces implemented:
@@ -153,4 +154,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
       - `test/unit/adapter-pg-package.contract.test.js`
     - constraints baseline bound to:
       - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
+    - publish-ready metadata prepared:
+      - `@jsonapi-rsql/pg@1.2.0`
+      - `private=false`
+      - `publishConfig.access=public`
 - Current release line is `1.1.0` (published) with `1.0.0` deprecated.

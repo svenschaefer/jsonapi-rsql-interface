@@ -24,6 +24,9 @@ All notable changes to this project are documented in this file.
   - explicit adapter dialect/profile pinning baseline:
     - exported `ADAPTER_DIALECT_PROFILE` (`postgresql-v1-core`)
     - deterministic rejection for unsupported mapping `dialect_profile` values (`pg_feature_not_supported`)
+  - adapter publish-ready package metadata:
+    - `packages/adapter-pg/package.json` set to `@jsonapi-rsql/pg@1.2.0`
+    - `private=false` with `publishConfig.access=public`
 
 ## [1.1.0] - 2026-02-19
 

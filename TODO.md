@@ -318,6 +318,7 @@ Progress (`v1.2.x`):
 - Added adapter package/readme contract tests in `test/unit/adapter-pg-package.contract.test.js`.
 - Added explicit adapter dialect pinning baseline (`ADAPTER_DIALECT_PROFILE = postgresql-v1-core`) with deterministic rejection for unsupported mapping profiles.
 - Added adapter publish-preparation checklist to `docs/NPM_RELEASE.md` (workspace release path for `@jsonapi-rsql/pg`).
+- Prepared first adapter publish metadata (`@jsonapi-rsql/pg@1.2.0`, `private=false`, `publishConfig.access=public`); publish execution is pending npm auth/OTP.
 
 - Scope:
   - new package `@jsonapi-rsql/pg`

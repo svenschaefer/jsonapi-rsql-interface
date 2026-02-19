@@ -451,11 +451,21 @@ Execution breakdown (planned before implementation):
     - docs/evidence synchronization (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`)
     - full quality-gate execution (`npm run ci:check`, `npm run audit:runtime`)
     - publish-preparation checklist for first adapter package release
-- `v1.2.7` (planned):
+- `v1.2.7` (in progress):
   - execute first adapter package release (`@jsonapi-rsql/pg`):
     - set publish-ready adapter package metadata/version
     - publish to npm and verify registry metadata
     - capture adapter release evidence in docs
+  - progress:
+    - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.2.0`, `private=false`, `publishConfig.access=public`)
+    - release gates passed (`npm run ci:check`, workspace `npm pack --dry-run`)
+  - blocker:
+    - npm publish requires renewed auth + OTP (`EOTP`, token expired/revoked)
+- `v1.2.8` (planned):
+  - post-publish adapter closure:
+    - run clean consumer-install validation for published `@jsonapi-rsql/pg` version
+    - sync release docs/state (`TODO`, `ROADMAP`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`, `CODEX_CONTEXT`)
+    - close `v1.2.x` execution block and queue next `1.x` cycle planning
 
 ## Per-Cycle Execution Rules
 

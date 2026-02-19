@@ -215,6 +215,16 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - `v1.2.6` completed:
     - adapter publish-preparation checklist documented in `docs/NPM_RELEASE.md`
     - cycle docs synchronized (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `CHANGELOG`)
+  - `v1.2.7` in progress:
+    - adapter package metadata prepared for first publish:
+      - `@jsonapi-rsql/pg@1.2.0`
+      - `private=false`
+      - `publishConfig.access=public`
+    - publish-prep gates passed:
+      - `npm run ci:check`: pass
+      - `npm pack --workspace packages/adapter-pg --dry-run`: pass
+    - publish attempt blocked by npm auth/OTP:
+      - `npm publish --workspace packages/adapter-pg --access public` -> `EOTP` (token expired/revoked)
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass
