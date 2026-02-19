@@ -79,4 +79,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Continue `v0.9.0` with dependency remediation and final contract stabilization.
+- Keep version line on `0.x` until all pre-GA checklist topics are closed.
 - Prepare `v1.0.0` release evidence once pre-GA stabilization closes.

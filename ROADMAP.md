@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: full semantic/compiler implementation, conformance suites, enterprise release gates
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.2.0`: current active cycle
+  - `v0.9.0`: current active cycle
 
 ## Versioning Model
 
@@ -163,6 +163,25 @@ Scope:
 
 Exit:
 - `v1.0.0` released with full gate compliance
+
+### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
+
+Scope:
+- add string wildcard semantics using RSQL `*` with `==` only
+- keep feature policy-gated and disabled by default
+- support only:
+  - contains (`*value*`)
+  - startsWith (`value*`)
+  - endsWith (`*value`)
+- reject:
+  - `a*b`
+  - `*a*b*`
+  - empty wildcard forms
+  - non-string usage
+- add deterministic error codes and full conformance coverage
+
+Exit:
+- feature merged as opt-in `1.x` capability with no regression to v1 baseline guarantees
 
 ## Per-Cycle Execution Rules
 
