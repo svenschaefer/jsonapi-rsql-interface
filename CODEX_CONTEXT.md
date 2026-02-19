@@ -101,10 +101,10 @@ Repository-level standards:
 - `npm test`
 - `npm run ci:check`
 - `npm run smoke:release`
-- `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
-- `npm run smoke:external:bootstrap -- --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
-- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface` (release-time external harness)
-- `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
+- `npm run smoke:external:prepare -- --version <x.y.z> --phase all --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+- `npm run smoke:external:bootstrap -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
+- `npm run smoke:external -- --phase <pre|post> --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface` (release-time external harness)
+- `npm run smoke:external:prepublish -- --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 
 ## 9) Known Follow-up
 
@@ -124,6 +124,6 @@ Repository-level standards:
 - `v1.0.0` release flow now includes external versioned smoke runs via:
   - `C:\code\jsonapi-rsql-interface-smoke-test` (pre-publish + post-publish).
 - External smoke runner resolution rule:
-  - if harness root has no `package.json`, resolve and execute from installed harness package under `node_modules`.
+  - if harness root has no `package.json`, resolve and execute from installed harness package under `<harness-dir>/<timestamp>-<phase>-<version>/node_modules`.
 - Current release-execution caveat:
   - post-publish smoke remains pending until package publish is executed for target GA version.

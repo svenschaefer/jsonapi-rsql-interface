@@ -12,6 +12,7 @@ function parseArgs(argv) {
   const out = {
     version: String(pkg.version || ""),
     packageName: String(pkg.name || "jsonapi-rsql-interface"),
+    timestamp: "",
     harnessDir: "C:\\code\\jsonapi-rsql-interface-smoke-test",
     harnessPackage: "jsonapi-rsql-interface-smoke-test"
   };
@@ -28,6 +29,11 @@ function parseArgs(argv) {
       i += 1;
       continue;
     }
+    if (token === "--timestamp" && next) {
+      out.timestamp = next;
+      i += 1;
+      continue;
+    }
     if (token === "--harness-dir" && next) {
       out.harnessDir = next;
       i += 1;
@@ -39,6 +45,24 @@ function parseArgs(argv) {
     }
   }
   return out;
+}
+
+function createRunTimestamp(date = new Date()) {
+  const pad2 = (n) => String(n).padStart(2, "0");
+  return [
+    String(date.getUTCFullYear()),
+    pad2(date.getUTCMonth() + 1),
+    pad2(date.getUTCDate()),
+    "T",
+    pad2(date.getUTCHours()),
+    pad2(date.getUTCMinutes()),
+    pad2(date.getUTCSeconds()),
+    "Z"
+  ].join("");
+}
+
+function isTimestamp(value) {
+  return /^[0-9]{8}T[0-9]{6}Z$/.test(String(value || ""));
 }
 
 function runCommand(cmd, args, cwd) {
@@ -69,9 +93,27 @@ function runNpm(args, cwd) {
 
 function run() {
   const options = parseArgs(process.argv.slice(2));
+  const runTimestamp = options.timestamp ? String(options.timestamp).trim() : createRunTimestamp();
+  if (!isTimestamp(runTimestamp)) {
+    throw new Error("Invalid --timestamp. Use UTC basic format YYYYMMDDTHHMMSSZ.");
+  }
   const repoRoot = path.resolve(__dirname, "..");
 
-  runCommand(process.execPath, [path.join(repoRoot, "scripts", "bootstrap-external-smoke-harness.js"), "--harness-dir", options.harnessDir], repoRoot);
+  runCommand(
+    process.execPath,
+    [
+      path.join(repoRoot, "scripts", "bootstrap-external-smoke-harness.js"),
+      "--phase",
+      "pre",
+      "--version",
+      options.version,
+      "--timestamp",
+      runTimestamp,
+      "--harness-dir",
+      options.harnessDir
+    ],
+    repoRoot
+  );
 
   const packOut = runNpm(["pack", "--json"], repoRoot);
   const packPayload = JSON.parse(packOut);
@@ -87,6 +129,8 @@ function run() {
     "pre",
     "--version",
     options.version,
+    "--timestamp",
+    runTimestamp,
     "--package-source",
     artifactPath,
     "--harness-dir",
@@ -115,9 +159,10 @@ function run() {
         ok: true,
         phase: "pre",
         version: options.version,
+        timestamp: runTimestamp,
         package: options.packageName,
         artifact: artifactPath,
-        harness_dir: path.resolve(options.harnessDir)
+        harness_dir: path.join(path.resolve(options.harnessDir), `${runTimestamp}-pre-${options.version}`)
       },
       null,
       2
@@ -131,6 +176,8 @@ if (require.main === module) {
 
 module.exports = {
   getNpmCommand,
+  createRunTimestamp,
+  isTimestamp,
   parseArgs,
   run
 };

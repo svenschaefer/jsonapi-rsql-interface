@@ -21,14 +21,18 @@ Both streams should point to the same version and release commit.
 4. `npm run ci:check`
 5. provision/update external smoke harness package for the target version:
    - default source:
-     - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+     - `npm run smoke:external:prepare -- --version <x.y.z> --phase all --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
    - explicit source override (private/unpublished harness):
-     - `npm run smoke:external:prepare -- --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
+     - `npm run smoke:external:prepare -- --version <x.y.z> --phase all --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
+   - harness directory contract:
+     - `<harness-dir>/<timestamp>-<phase>-<version>`
 6. run external **pre-publish** smoke harness for the target version:
    - harness baseline path: `C:\code\jsonapi-rsql-interface-smoke-test`
-   - resolution rule: if root path has no `package.json`, run from installed harness package under `node_modules`
+   - resolution rule: if root path has no `package.json`, run from installed harness package under `<harness-dir>/<timestamp>-<phase>-<version>/node_modules`
    - command:
      - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
+   - optional deterministic run id:
+     - pass `--timestamp <YYYYMMDDTHHMMSSZ>` to pin the scoped harness directory name
    - one-shot local pre-publish flow (pack + bootstrap + pre smoke):
      - `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 7. commit release files with explicit paths (no `git add -A`)

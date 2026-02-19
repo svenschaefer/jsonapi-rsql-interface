@@ -5,17 +5,62 @@ const DEFAULT_HARNESS_DIR = "C:\\code\\jsonapi-rsql-interface-smoke-test";
 
 function parseArgs(argv) {
   const out = {
+    phase: "pre",
+    version: "",
+    timestamp: "",
     harnessDir: DEFAULT_HARNESS_DIR
   };
   for (let i = 0; i < argv.length; i += 1) {
     const token = String(argv[i] || "");
     const next = i + 1 < argv.length ? String(argv[i + 1]) : "";
+    if (token === "--phase" && next) {
+      out.phase = next;
+      i += 1;
+      continue;
+    }
+    if (token === "--version" && next) {
+      out.version = next;
+      i += 1;
+      continue;
+    }
+    if (token === "--timestamp" && next) {
+      out.timestamp = next;
+      i += 1;
+      continue;
+    }
     if (token === "--harness-dir" && next) {
       out.harnessDir = next;
       i += 1;
     }
   }
   return out;
+}
+
+function createRunTimestamp(date = new Date()) {
+  const pad2 = (n) => String(n).padStart(2, "0");
+  return [
+    String(date.getUTCFullYear()),
+    pad2(date.getUTCMonth() + 1),
+    pad2(date.getUTCDate()),
+    "T",
+    pad2(date.getUTCHours()),
+    pad2(date.getUTCMinutes()),
+    pad2(date.getUTCSeconds()),
+    "Z"
+  ].join("");
+}
+
+function isTimestamp(value) {
+  return /^[0-9]{8}T[0-9]{6}Z$/.test(String(value || ""));
+}
+
+function getScopedHarnessDir(baseDir, timestamp, phase, version) {
+  const rootDir = path.resolve(baseDir);
+  const scopedName = `${timestamp}-${phase}-${version}`;
+  if (path.basename(rootDir) === scopedName) {
+    return rootDir;
+  }
+  return path.join(rootDir, scopedName);
 }
 
 function ensureDir(dir) {
@@ -134,7 +179,17 @@ main();
 
 function run() {
   const options = parseArgs(process.argv.slice(2));
-  const harnessDir = path.resolve(options.harnessDir);
+  if (options.phase !== "pre" && options.phase !== "post") {
+    throw new Error("Invalid --phase. Use 'pre' or 'post'.");
+  }
+  if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
+    throw new Error("Invalid --version. Use semantic version without leading 'v' (for example 1.0.0).");
+  }
+  const timestamp = options.timestamp ? String(options.timestamp).trim() : createRunTimestamp();
+  if (!isTimestamp(timestamp)) {
+    throw new Error("Invalid --timestamp. Use UTC basic format YYYYMMDDTHHMMSSZ.");
+  }
+  const harnessDir = getScopedHarnessDir(options.harnessDir, timestamp, options.phase, options.version);
   ensureDir(harnessDir);
   writeHarnessPackageJson(harnessDir);
   writeHarnessRunner(harnessDir);
@@ -146,6 +201,9 @@ if (require.main === module) {
 
 module.exports = {
   DEFAULT_HARNESS_DIR,
+  createRunTimestamp,
+  isTimestamp,
+  getScopedHarnessDir,
   parseArgs,
   run
 };

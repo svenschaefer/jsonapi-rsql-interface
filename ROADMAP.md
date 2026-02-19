@@ -328,6 +328,9 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.6` (completed):
   - bootstrap local external harness package in `C:\code\jsonapi-rsql-interface-smoke-test`
   - run deterministic pre-publish smoke against local packed tarball of `jsonapi-rsql-interface`
+- `v1.0.0.7` (completed):
+  - enforce stage/version/timestamp scoped harness directories (`<timestamp>-<phase>-<version>`)
+  - isolate pre/post smoke runs with separate per-run `node_modules` trees
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

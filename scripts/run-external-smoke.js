@@ -10,6 +10,7 @@ function parseArgs(argv) {
   const out = {
     phase: "",
     version: "",
+    timestamp: "",
     harnessDir: DEFAULT_HARNESS_DIR,
     packageName: DEFAULT_PACKAGE_NAME,
     harnessPackage: DEFAULT_HARNESS_PACKAGE,
@@ -26,6 +27,11 @@ function parseArgs(argv) {
     }
     if (token === "--version" && next) {
       out.version = next;
+      i += 1;
+      continue;
+    }
+    if (token === "--timestamp" && next) {
+      out.timestamp = next;
       i += 1;
       continue;
     }
@@ -52,8 +58,42 @@ function parseArgs(argv) {
   return out;
 }
 
+function isTimestamp(value) {
+  return /^[0-9]{8}T[0-9]{6}Z$/.test(String(value || ""));
+}
+
+function getScopedHarnessDir(baseDir, timestamp, phase, version) {
+  const rootDir = path.resolve(baseDir);
+  const scopedName = `${timestamp}-${phase}-${version}`;
+  if (path.basename(rootDir) === scopedName) {
+    return rootDir;
+  }
+  return path.join(rootDir, scopedName);
+}
+
+function resolveLatestScopedHarnessDir(baseDir, phase, version) {
+  const rootDir = path.resolve(baseDir);
+  if (!fs.existsSync(rootDir)) {
+    throw new Error(`Smoke harness root directory does not exist: ${rootDir}`);
+  }
+  const suffix = `-${phase}-${version}`;
+  const candidates = fs
+    .readdirSync(rootDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name.endsWith(suffix))
+    .map((entry) => entry.name)
+    .sort();
+  if (candidates.length === 0) {
+    throw new Error(
+      `No scoped harness directory found under ${rootDir} for phase/version ${phase}/${version}. Provide --timestamp or run prepare/bootstrap first.`
+    );
+  }
+  return path.join(rootDir, candidates[candidates.length - 1]);
+}
+
 function resolveHarnessExecutionDir(options) {
-  const rootDir = path.resolve(options.harnessDir);
+  const rootDir = options.timestamp
+    ? getScopedHarnessDir(options.harnessDir, options.timestamp, options.phase, options.version)
+    : resolveLatestScopedHarnessDir(options.harnessDir, options.phase, options.version);
   if (!fs.existsSync(rootDir)) {
     throw new Error(`Smoke harness directory does not exist: ${rootDir}`);
   }
@@ -86,6 +126,9 @@ function validateOptions(options) {
   if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
     throw new Error("Invalid --version. Use semantic version without leading 'v' (for example 1.0.0).");
   }
+  if (options.timestamp && !isTimestamp(options.timestamp)) {
+    throw new Error("Invalid --timestamp. Use UTC basic format YYYYMMDDTHHMMSSZ.");
+  }
   if (options.phase === "pre" && !(options.packageSource && String(options.packageSource).trim())) {
     throw new Error("Pre-publish smoke requires --package-source pointing to local artifact.");
   }
@@ -93,6 +136,7 @@ function validateOptions(options) {
   return {
     ...options,
     harnessDir,
+    timestamp: options.timestamp ? String(options.timestamp).trim() : "",
     packageSource: options.packageSource ? String(options.packageSource).trim() : ""
   };
 }
@@ -157,6 +201,9 @@ module.exports = {
   DEFAULT_PACKAGE_NAME,
   DEFAULT_HARNESS_PACKAGE,
   parseArgs,
+  isTimestamp,
+  getScopedHarnessDir,
+  resolveLatestScopedHarnessDir,
   resolveHarnessExecutionDir,
   validateOptions,
   buildRunCommand,

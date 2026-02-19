@@ -16,6 +16,7 @@ All notable changes to this project are documented in this file.
 - Added local harness bootstrap helper (`npm run smoke:external:bootstrap`).
 - Added one-shot local prepublish smoke flow (`npm run smoke:external:prepublish`).
 - External smoke runner now supports explicit tarball source forwarding for prepublish mode (`--package-source`).
+- External smoke harness directories are now timestamp/stage/version scoped: `<timestamp>-<pre|post>-<version>`.
 - GA release-notes draft artifact: `docs/releases/v1.0.0.md`.
 - Migration guide artifact: `docs/MIGRATION_0.x_TO_1.0.0.md`.
 

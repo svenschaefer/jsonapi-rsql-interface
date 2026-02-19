@@ -21,9 +21,11 @@ test("parseArgs allows overriding version and harness values", () => {
     "--harness-package",
     "jsonapi-rsql-interface-smoke-test",
     "--package-name",
-    "jsonapi-rsql-interface"
+    "jsonapi-rsql-interface",
+    "--timestamp",
+    "20260219T213000Z"
   ]);
   assert.equal(out.version, "1.0.0");
   assert.equal(out.harnessDir, "C:\\tmp\\h");
+  assert.equal(out.timestamp, "20260219T213000Z");
 });
-

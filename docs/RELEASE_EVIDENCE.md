@@ -172,3 +172,14 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - command: `npm run smoke:external:prepublish -- --version 1.0.0 --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
   - result: pass
   - artifact under test: `jsonapi-rsql-interface-0.1.0.tgz`
+
+### `v1.0.0.7` - Timestamp-Scoped Harness Isolation (completed)
+
+- Scope:
+  - move harness execution/provisioning/bootstrap to scoped directories named `<timestamp>-<phase>-<version>`
+  - ensure pre/post runs and different versions do not share `node_modules`
+- Evidence:
+  - unit/contract tests updated for timestamp-scoped path resolution
+  - `npm run smoke:external:prepublish -- --version 1.0.0 ...`: pass
+  - output includes scoped harness directory, for example:
+    - `C:\code\jsonapi-rsql-interface-smoke-test\20260219T214216Z-pre-1.0.0`

@@ -127,6 +127,9 @@
 - Ensure pre-publish smoke can run fully locally:
   - bootstrap external harness package structure in `C:\code\jsonapi-rsql-interface-smoke-test` when absent
   - run pre-publish smoke against local `npm pack` tarball artifact before publish.
+- Enforce run-directory isolation for external smoke harness:
+  - use scoped harness folders `<timestamp>-<phase>-<version>`
+  - avoid shared `node_modules` between pre/post and cross-version runs
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

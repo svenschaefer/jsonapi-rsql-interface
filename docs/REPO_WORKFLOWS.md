@@ -15,12 +15,14 @@
 3. Bump version (no tag yet): `npm version <x.y.z> --no-git-tag-version`.
 4. Re-run gates: `npm run ci:check`.
 5. Provision/update external smoke harness package for target version:
-   - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+   - `npm run smoke:external:prepare -- --version <x.y.z> --phase all --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
    - if harness is private/unpublished, use explicit install spec:
-     - `npm run smoke:external:prepare -- --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
+     - `npm run smoke:external:prepare -- --version <x.y.z> --phase all --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
+   - scoped harness directory shape: `<timestamp>-<phase>-<version>`
 6. Run external pre-publish smoke harness for target version:
    - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
-   - if harness root has no `package.json`, the runner resolves installed harness package under `node_modules`
+   - if harness root has no `package.json`, the runner resolves installed harness package under `<harness-dir>/<timestamp>-<phase>-<version>/node_modules`
+   - optional: pass `--timestamp <YYYYMMDDTHHMMSSZ>` to pin a specific scoped run directory
    - optional one-shot command:
      - `npm run smoke:external:prepublish -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 7. Commit release files on a release branch.

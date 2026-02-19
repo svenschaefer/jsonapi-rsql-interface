@@ -48,6 +48,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - provisioning supports explicit harness source override via `--harness-install-spec`
   - harness bootstrap helper is available via `npm run smoke:external:bootstrap`
   - one-shot local prepublish flow is available via `npm run smoke:external:prepublish`
+  - external smoke harness directories are scoped per run as `<timestamp>-<phase>-<version>`
   - release docs now define pre/post publish smoke flow against `C:\code\jsonapi-rsql-interface-smoke-test`
   - GA release-notes draft and migration guide artifacts are now present:
     - `docs/releases/v1.0.0.md`
