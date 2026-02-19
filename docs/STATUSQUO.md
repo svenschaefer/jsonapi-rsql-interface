@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v1.2.x` planning (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
+- Current roadmap phase: `v1.2.x` in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status

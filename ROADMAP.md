@@ -395,6 +395,9 @@ Scope:
   - `compileLimitOffset(plan)` -> deterministic limit/offset representation
   - `compileSelect(plan, mapping)` when projection support is in-scope
   - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
+  - optional convenience assembly helper:
+    - `buildSelectSql(...)` (name can be finalized) that only assembles pre-compiled fragments into final `{ text, values }`
+    - no validation/inference/default semantics; deterministic fragment and value ordering only
 - enforce adapter safety constraints:
   - user values always parameterized
   - unsupported plan features rejected explicitly with stable adapter errors

@@ -319,6 +319,16 @@ Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-i
     - `compileLimitOffset(plan)`
     - `compileSelect(plan, mapping)` when projection support is enabled
     - `compileSecurityPredicate(plan, mapping)` with mandatory enforcement
+  - optional convenience helper:
+    - add `buildSelectSql(...)` (name can be finalized during implementation) that only assembles already-compiled fragments into final `{ text, values }`
+    - helper inputs are explicit-only (`table`, `select`, `where`, `security`, `orderBy`, `limitOffset`, `values`)
+    - helper must be assembly-only:
+      - no new semantics
+      - no validation/policy inference
+      - no defaults that change behavior
+      - no feature enablement/disablement logic
+    - helper must preserve deterministic placeholder and value ordering from provided fragments
+    - unsupported/unknown features must not be silently ignored; semantic decisions remain outside helper scope
 - Safety/correctness requirements:
   - always parameterize user values (no interpolation)
   - reject unsupported plan features explicitly with stable adapter errors
