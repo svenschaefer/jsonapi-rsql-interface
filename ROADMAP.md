@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v1.0.0`: current active cycle
+  - `v1.0.0`: completed
 
 ## Versioning Model
 
@@ -35,7 +35,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.6`: completed (governance/tooling robustness hardening)
 - `v0.9.7`: completed (pre-GA dependency/evidence closure)
 - `v0.9.8`: completed (final 0.x GA-readiness closure)
-- `v1.0.0`: in progress (GA release execution)
+- `v1.0.0`: completed (GA release execution)
 - `v1.1.x`: planned (post-GA wildcard semantics)
 - `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
@@ -310,7 +310,7 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.2` (completed):
   - finalize GA evidence bundle (`CHANGELOG`, `RELEASE_EVIDENCE`, release notes template instance)
   - freeze `v1.0.0` compatibility statement and migration note (if needed)
-- `v1.0.0.3` (in progress):
+- `v1.0.0.3` (completed):
   - execute final release flow (`release:check`, version bump, tag alignment)
   - run pre/post publish smoke runs via external harness and capture evidence pointers
   - harness resolution rule:
@@ -320,8 +320,7 @@ Execution breakdown (planned before implementation):
     - release gates (`release:check` / `ci:check`) executed successfully on `1.0.0`
     - pre-publish smoke executed successfully against local packed artifact (`jsonapi-rsql-interface-1.0.0.tgz`)
   - remaining:
-    - npm publish (auth-required interactive step)
-    - post-publish smoke remains pending until publish step is executed
+    - none
 - `v1.0.0.4` (completed):
   - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
   - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory
@@ -337,6 +336,9 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.8` (completed):
   - expand external smoke runner artifact-level checks (install gating, installed-surface verification, minimal envelope shape checks)
   - emit auditable smoke evidence fields (`installed_from`, `resolved_package_dir`, `resolved_entrypoint`)
+- `v1.0.0.9` (completed):
+  - execute npm publish for `1.0.0`
+  - execute external post-publish smoke and capture final GA closure evidence
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

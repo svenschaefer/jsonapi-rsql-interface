@@ -10,7 +10,7 @@
 - Completed cycle: `v0.6.0` (Cache/context safety baseline)
 - Completed cycle: `v0.7.0` (Conformance expansion baseline)
 - Completed cycle: `v0.8.0` (Release/governance hardening baseline)
-- Current active roadmap cycle: `v1.0.0` (GA release handoff)
+- Current active roadmap cycle: `v1.1.x` (post-GA wildcard semantics)
 
 ## 0) Core implementation (must exist first)
 

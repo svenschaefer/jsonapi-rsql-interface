@@ -133,7 +133,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - migration guide: `docs/MIGRATION_0.x_TO_1.0.0.md`
   - `npm run ci:check`: pass
 
-### `v1.0.0.3` - GA Release Execution (in progress)
+### `v1.0.0.3` - GA Release Execution (completed)
 
 - Scope:
   - execute final release flow steps (release checks, version/tag alignment, publish flow)
@@ -146,7 +146,20 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - artifact: `jsonapi-rsql-interface-1.0.0.tgz`
     - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-interface-1.0.0.tgz`
     - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T215947Z-pre-1.0.0\node_modules\jsonapi-rsql-interface`
-  - external post-smoke (`phase=post`): pending
+  - tag pushed: `v1.0.0`
+  - npm publish: pass (`jsonapi-rsql-interface@1.0.0`)
+  - external post-smoke (`phase=post`): pass
+    - installed_from: `jsonapi-rsql-interface@1.0.0`
+    - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T220333Z-post-1.0.0\node_modules\jsonapi-rsql-interface`
+
+### `v1.0.0.9` - GA Release Closure (completed)
+
+- Scope:
+  - complete publish and post-publish external smoke for `1.0.0`
+  - close GA release execution evidence chain
+- Evidence:
+  - npm registry version check: `npm view jsonapi-rsql-interface@1.0.0 version` -> `1.0.0`
+  - npm registry bin check: `npm view jsonapi-rsql-interface@1.0.0 bin` -> `{ "jsonapi-rsql-interface": "bin/cli.js" }`
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 
