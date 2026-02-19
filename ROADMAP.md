@@ -316,7 +316,7 @@ Execution breakdown (planned before implementation):
   - harness resolution rule:
     - resolve execution from installed harness package when root path has no `package.json`
   - current blocker:
-    - harness provisioning install currently fails with `E404` for `jsonapi-rsql-interface-smoke-test@1.0.0`; harness package source/name/version needs confirmation
+    - harness provisioning install currently fails with `E404` for `jsonapi-rsql-interface-smoke-test@1.0.0` on `https://registry.npmjs.org/`; harness package publication/access/source needs confirmation
 - `v1.0.0.4` (completed):
   - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
   - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory
