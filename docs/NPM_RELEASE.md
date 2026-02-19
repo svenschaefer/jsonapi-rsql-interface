@@ -20,7 +20,10 @@ Both streams should point to the same version and release commit.
 3. `npm version <x.y.z> --no-git-tag-version`
 4. `npm run ci:check`
 5. provision/update external smoke harness package for the target version:
-   - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+   - default source:
+     - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+   - explicit source override (private/unpublished harness):
+     - `npm run smoke:external:prepare -- --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
 6. run external **pre-publish** smoke harness for the target version:
    - harness baseline path: `C:\code\jsonapi-rsql-interface-smoke-test`
    - resolution rule: if root path has no `package.json`, run from installed harness package under `node_modules`

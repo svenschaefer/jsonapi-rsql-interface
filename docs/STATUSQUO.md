@@ -45,6 +45,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - `v1.0.0` GA handoff progress implemented:
   - external versioned smoke harness runner is available via `npm run smoke:external`
   - external harness provisioning helper is available via `npm run smoke:external:prepare`
+  - provisioning supports explicit harness source override via `--harness-install-spec`
   - release docs now define pre/post publish smoke flow against `C:\code\jsonapi-rsql-interface-smoke-test`
   - GA release-notes draft and migration guide artifacts are now present:
     - `docs/releases/v1.0.0.md`

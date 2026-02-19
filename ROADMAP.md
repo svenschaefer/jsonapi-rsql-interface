@@ -320,6 +320,9 @@ Execution breakdown (planned before implementation):
 - `v1.0.0.4` (completed):
   - add deterministic harness provisioning step (`npm install` into harness root) before smoke execution
   - add tooling/docs hooks so pre/post smoke flow is executable from a clean harness directory
+- `v1.0.0.5` (completed):
+  - support explicit harness install source override (`--harness-install-spec`) for private/unpublished harness artifacts
+  - keep default package@version path, but allow tarball/git/local source to unblock release execution
 
 ### Cycle 10 - `v1.1.x` (Post-GA controlled wildcard semantics)
 

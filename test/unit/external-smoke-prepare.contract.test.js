@@ -36,6 +36,16 @@ test("validateOptions enforces semantic version", () => {
   );
 });
 
+test("validateOptions allows missing version when harness install spec is provided", () => {
+  const out = validateOptions({
+    version: "",
+    harnessDir: "C:\\tmp\\h",
+    harnessPackage: "jsonapi-rsql-interface-smoke-test",
+    harnessInstallSpec: "file:../artifact.tgz"
+  });
+  assert.equal(out.harnessInstallSpec, "file:../artifact.tgz");
+});
+
 test("validateOptions creates harness dir if missing", () => {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), "jsonapi-rsql-prepare-"));
   const dir = path.join(base, "nested", "harness");
@@ -63,3 +73,16 @@ test("buildInstallSpec uses install with --prefix and no-save", () => {
   }
 });
 
+test("buildInstallSpec prefers explicit harness install spec", () => {
+  const spec = buildInstallSpec({
+    version: "1.0.0",
+    harnessDir: "C:\\code\\jsonapi-rsql-interface-smoke-test",
+    harnessPackage: "jsonapi-rsql-interface-smoke-test",
+    harnessInstallSpec: "git+https://example.invalid/harness.git#v1.0.0"
+  });
+  if (process.platform === "win32") {
+    assert.match(spec.args[3], /git\+https:\/\/example\.invalid\/harness\.git#v1\.0\.0/);
+  } else {
+    assert.equal(spec.args[4], "git+https://example.invalid/harness.git#v1.0.0");
+  }
+});

@@ -123,6 +123,7 @@
 - Ensure external smoke harness invocation is explicit/manual release workflow step (not default CI gate).
 - Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.
 - Confirm harness package install source/name/version used by provisioning command (current default `jsonapi-rsql-interface-smoke-test@<version>` may not resolve in npm registry).
+- Support explicit harness install source override in provisioning (`--harness-install-spec`) for private registry/tarball/git/local artifact paths.
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

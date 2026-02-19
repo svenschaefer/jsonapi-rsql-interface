@@ -152,3 +152,13 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - provisioning helper: `npm run smoke:external:prepare`
   - contract tests: pass
   - `npm run ci:check`: pass
+
+### `v1.0.0.5` - Harness Install Source Override (completed)
+
+- Scope:
+  - support explicit harness install source override in provisioning helper
+  - document release-time fallback path when default npm package resolution is unavailable
+- Evidence:
+  - provisioning helper supports `--harness-install-spec`: implemented
+  - contract tests for override behavior: pass
+  - `npm run ci:check`: pass

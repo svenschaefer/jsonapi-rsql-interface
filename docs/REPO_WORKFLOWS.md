@@ -16,6 +16,8 @@
 4. Re-run gates: `npm run ci:check`.
 5. Provision/update external smoke harness package for target version:
    - `npm run smoke:external:prepare -- --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test`
+   - if harness is private/unpublished, use explicit install spec:
+     - `npm run smoke:external:prepare -- --harness-install-spec "<npm|git|tarball|path spec>" --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
 6. Run external pre-publish smoke harness for target version:
    - `npm run smoke:external -- --phase pre --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
    - if harness root has no `package.json`, the runner resolves installed harness package under `node_modules`

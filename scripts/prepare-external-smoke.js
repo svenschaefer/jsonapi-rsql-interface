@@ -9,7 +9,8 @@ function parseArgs(argv) {
   const out = {
     version: "",
     harnessDir: DEFAULT_HARNESS_DIR,
-    harnessPackage: DEFAULT_HARNESS_PACKAGE
+    harnessPackage: DEFAULT_HARNESS_PACKAGE,
+    harnessInstallSpec: ""
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -28,25 +29,37 @@ function parseArgs(argv) {
     if (token === "--harness-package" && next) {
       out.harnessPackage = next;
       i += 1;
+      continue;
+    }
+    if (token === "--harness-install-spec" && next) {
+      out.harnessInstallSpec = next;
+      i += 1;
     }
   }
   return out;
 }
 
 function validateOptions(options) {
-  if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
-    throw new Error("Invalid --version. Use semantic version without leading 'v' (for example 1.0.0).");
+  const hasInstallSpec = Boolean(options.harnessInstallSpec && String(options.harnessInstallSpec).trim());
+  if (!hasInstallSpec && !/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
+    throw new Error(
+      "Invalid --version. Use semantic version without leading 'v' (for example 1.0.0), or pass --harness-install-spec."
+    );
   }
   const harnessDir = path.resolve(options.harnessDir);
   fs.mkdirSync(harnessDir, { recursive: true });
   return {
     ...options,
-    harnessDir
+    harnessDir,
+    harnessInstallSpec: hasInstallSpec ? String(options.harnessInstallSpec).trim() : ""
   };
 }
 
 function buildInstallSpec(options) {
-  const packageSpec = `${options.harnessPackage}@${options.version}`;
+  const packageSpec =
+    options.harnessInstallSpec && options.harnessInstallSpec.length > 0
+      ? options.harnessInstallSpec
+      : `${options.harnessPackage}@${options.version}`;
   if (process.platform === "win32") {
     const command = `npm install --prefix ${options.harnessDir} ${packageSpec} --no-save`;
     return {
