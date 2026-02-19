@@ -4,13 +4,15 @@ const { spawnSync } = require("child_process");
 
 const DEFAULT_HARNESS_DIR = "C:\\code\\jsonapi-rsql-interface-smoke-test";
 const DEFAULT_PACKAGE_NAME = "jsonapi-rsql-interface";
+const DEFAULT_HARNESS_PACKAGE = "jsonapi-rsql-interface-smoke-test";
 
 function parseArgs(argv) {
   const out = {
     phase: "",
     version: "",
     harnessDir: DEFAULT_HARNESS_DIR,
-    packageName: DEFAULT_PACKAGE_NAME
+    packageName: DEFAULT_PACKAGE_NAME,
+    harnessPackage: DEFAULT_HARNESS_PACKAGE
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -34,9 +36,41 @@ function parseArgs(argv) {
     if (token === "--package-name" && next) {
       out.packageName = next;
       i += 1;
+      continue;
+    }
+    if (token === "--harness-package" && next) {
+      out.harnessPackage = next;
+      i += 1;
     }
   }
   return out;
+}
+
+function resolveHarnessExecutionDir(options) {
+  const rootDir = path.resolve(options.harnessDir);
+  if (!fs.existsSync(rootDir)) {
+    throw new Error(`Smoke harness directory does not exist: ${rootDir}`);
+  }
+
+  const directPkg = path.join(rootDir, "package.json");
+  if (fs.existsSync(directPkg)) {
+    return rootDir;
+  }
+
+  const installedDir = path.join(rootDir, "node_modules", options.harnessPackage);
+  const installedPkg = path.join(installedDir, "package.json");
+  if (fs.existsSync(installedPkg)) {
+    return installedDir;
+  }
+
+  throw new Error(
+    [
+      "Smoke harness package.json not found.",
+      `Checked root: ${directPkg}`,
+      `Checked installed artifact: ${installedPkg}`,
+      "Expected behavior: harness is available as installed package at execution time."
+    ].join(" ")
+  );
 }
 
 function validateOptions(options) {
@@ -46,14 +80,7 @@ function validateOptions(options) {
   if (!/^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$/.test(options.version)) {
     throw new Error("Invalid --version. Use semantic version without leading 'v' (for example 1.0.0).");
   }
-  const harnessDir = path.resolve(options.harnessDir);
-  if (!fs.existsSync(harnessDir)) {
-    throw new Error(`Smoke harness directory does not exist: ${harnessDir}`);
-  }
-  const harnessPkg = path.join(harnessDir, "package.json");
-  if (!fs.existsSync(harnessPkg)) {
-    throw new Error(`Smoke harness package.json not found: ${harnessPkg}`);
-  }
+  const harnessDir = resolveHarnessExecutionDir(options);
   return {
     ...options,
     harnessDir
@@ -111,7 +138,9 @@ if (require.main === module) {
 module.exports = {
   DEFAULT_HARNESS_DIR,
   DEFAULT_PACKAGE_NAME,
+  DEFAULT_HARNESS_PACKAGE,
   parseArgs,
+  resolveHarnessExecutionDir,
   validateOptions,
   buildRunCommand,
   run

@@ -117,11 +117,10 @@
 - Integrate external smoke harness for versioned pre/post publish checks:
   - harness path baseline: `C:\code\jsonapi-rsql-interface-smoke-test`
   - deterministic run dimensions: `phase` (`pre`/`post`) + `version`
+  - smoke runner must resolve harness from installed package location when root path is empty
   - release docs must capture how to invoke and where evidence is stored
 - Ensure external smoke harness invocation is explicit/manual release workflow step (not default CI gate).
 - Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.
-- Ensure harness repo is initialized before GA execution:
-  - required baseline at `C:\code\jsonapi-rsql-interface-smoke-test`: `package.json` + `smoke:prepublish`/`smoke:postpublish` scripts.
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

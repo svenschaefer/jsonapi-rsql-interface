@@ -120,5 +120,5 @@ Repository-level standards:
   - unexpected internal failures in `compileRequestSafe` map to stable `internal_error`.
 - `v1.0.0` release flow now includes external versioned smoke runs via:
   - `C:\code\jsonapi-rsql-interface-smoke-test` (pre-publish + post-publish).
-- Current `v1.0.0.3` blocker:
-  - harness path exists but is not yet initialized (`package.json` missing), so external smoke commands cannot execute yet.
+- External smoke runner resolution rule:
+  - if harness root has no `package.json`, resolve and execute from installed harness package under `node_modules`.

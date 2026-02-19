@@ -6,6 +6,7 @@ const path = require("node:path");
 
 const {
   parseArgs,
+  resolveHarnessExecutionDir,
   validateOptions,
   buildRunCommand
 } = require("../../scripts/run-external-smoke.js");
@@ -18,6 +19,18 @@ function makeHarnessDir() {
     "utf8"
   );
   return dir;
+}
+
+function makeHarnessRootWithInstalledPackage() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "jsonapi-rsql-smoke-root-"));
+  const installed = path.join(root, "node_modules", "jsonapi-rsql-interface-smoke-test");
+  fs.mkdirSync(installed, { recursive: true });
+  fs.writeFileSync(
+    path.join(installed, "package.json"),
+    JSON.stringify({ name: "jsonapi-rsql-interface-smoke-test", version: "1.0.0", scripts: {} }, null, 2),
+    "utf8"
+  );
+  return root;
 }
 
 test("parseArgs reads phase/version/harness/package values", () => {
@@ -34,6 +47,11 @@ test("parseArgs reads phase/version/harness/package values", () => {
   assert.equal(out.phase, "pre");
   assert.equal(out.version, "1.0.0");
   assert.equal(out.harnessDir, "C:\\tmp\\h");
+});
+
+test("parseArgs reads harness package override", () => {
+  const out = parseArgs(["--harness-package", "custom-smoke-harness"]);
+  assert.equal(out.harnessPackage, "custom-smoke-harness");
 });
 
 test("validateOptions requires semantic version without leading v", () => {
@@ -66,3 +84,11 @@ test("buildRunCommand maps phase to smoke script", () => {
   }
 });
 
+test("resolveHarnessExecutionDir falls back to installed package location", () => {
+  const root = makeHarnessRootWithInstalledPackage();
+  const resolved = resolveHarnessExecutionDir({
+    harnessDir: root,
+    harnessPackage: "jsonapi-rsql-interface-smoke-test"
+  });
+  assert.equal(resolved, path.join(root, "node_modules", "jsonapi-rsql-interface-smoke-test"));
+});
