@@ -29,7 +29,12 @@
     "limits": {
       "max_raw_query_length": 4096,
       "max_decoded_query_length": 4096,
+      "max_param_count": 32,
+      "max_key_value_pairs": 64,
+      "max_parameter_value_length": 2048,
+      "max_filter_literal_length": 2048,
       "max_include_paths": 10,
+      "max_include_path_length": 128,
       "max_sort_keys": 8,
       "max_sparse_fields": 25,
       "max_ast_depth": 8,

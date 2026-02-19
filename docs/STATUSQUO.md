@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.4.0` (security invariants implementation).
+- Current roadmap phase: `v0.5.0` (performance invariants implementation).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -45,6 +45,13 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - hardened-mode field error behavior for existence-leak minimization
 - Full executable conformance suites are not complete yet (tracked in `TODO.md` and `ROADMAP.md`).
 
+## Performance baseline status
+
+- Parameter surface hard limits implemented (parameter count, key/value count, value length).
+- Filter/include literal/path length limits implemented.
+- Deterministic `normalized_query_key` emitted in plan metadata.
+- Performance-limit contract tests added for deterministic enforcement.
+
 ## Dependency and release status
 
 - `package-lock.json` exists and CI uses `npm ci`.
@@ -53,5 +60,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Expand `v0.4.0` security invariant coverage (deny-by-default and policy/registry hardening).
-- Extend negative-path tests for security-forbidden behaviors and bypass attempts.
+- Continue `v0.5.0` with additional performance guardrails (remaining limits and budget tuning).
+- Begin `v0.6.0` cache/context safety and observability hardening after current performance cycle closes.

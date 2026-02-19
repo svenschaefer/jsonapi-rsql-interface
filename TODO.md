@@ -5,7 +5,8 @@
 - Completed baseline cycle: `v0.1.0`
 - Completed cycle: `v0.2.0` (Core pipeline + v1 semantic core)
 - Completed cycle: `v0.3.0` (Deterministic error contract freeze)
-- Current active roadmap cycle: `v0.4.0` (Security invariants implementation)
+- Completed cycle: `v0.4.0` (Security hardening baseline)
+- Current active roadmap cycle: `v0.5.0` (Performance invariants implementation)
 
 ## 0) Core implementation (must exist first)
 

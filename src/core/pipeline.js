@@ -1,7 +1,8 @@
-const { CompilationError } = require("../errors");
+const { CompilationError, throwCompilationError } = require("../errors");
 const { parseQueryString } = require("./parse");
 const { normalizeQuery } = require("./normalize");
 const { parseFilterExpression } = require("./filter");
+const { createNormalizedQueryKey } = require("./cache-key");
 const { validatePolicySecurityArtifacts } = require("./security");
 const {
   enforceDuplicatePolicy,
@@ -9,10 +10,12 @@ const {
   enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
   enforceFilterComplexityLimits,
+  enforceFilterLiteralLength,
   enforceIncludeAllowlist,
   enforceIncludeLimits,
   enforceInListSize,
   enforceNoWildcardSemantics,
+  enforceParameterSurfaceLimits,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
   enforceSortAllowlist,
@@ -29,6 +32,7 @@ function ensureObject(value, label) {
 }
 
 function compileRequest(input) {
+  const startedAt = Date.now();
   ensureObject(input, "compileRequest input");
   ensureObject(input.policy || {}, "input.policy");
   ensureObject(input.context || {}, "input.context");
@@ -40,12 +44,15 @@ function compileRequest(input) {
 
   validatePolicySecurityArtifacts(input.policy);
   enforceStringLimits(rawQuery, limits);
+  enforceParameterSurfaceLimits(params, limits);
   enforceDuplicatePolicy(params);
 
   const normalizedQuery = normalizeQuery(params);
+  const normalizedQueryKey = createNormalizedQueryKey(normalizedQuery);
   const filterParse = parseFilterExpression(normalizedQuery.filter || "");
 
   enforceRootFieldFilterScope(normalizedQuery.filter);
+  enforceFilterLiteralLength(normalizedQuery.filter || "", limits);
   enforceEmptyInListRule(normalizedQuery.filter);
   enforceNoWildcardSemantics(filterParse.clauses);
   enforceFilterComplexityLimits(filterParse.complexity, limits);
@@ -60,14 +67,30 @@ function compileRequest(input) {
 
   const typedFilter = typeCheckFilterClauses(filterParse.clauses, input.policy);
 
-  return compilePlan(
+  const compiled = compilePlan(
     params,
     normalizedQuery,
     input.policy,
     input.context,
     typedFilter,
-    filterParse.complexity
+    filterParse.complexity,
+    normalizedQueryKey
   );
+
+  const maxCompileMs = Number.isInteger(limits.max_compile_ms) ? limits.max_compile_ms : null;
+  if (maxCompileMs !== null) {
+    const elapsed = Date.now() - startedAt;
+    if (elapsed > maxCompileMs) {
+      throwCompilationError(
+        "filter_complexity_exceeded",
+        `Compilation time budget exceeded (${elapsed}ms > ${maxCompileMs}ms).`,
+        { parameter: "query" },
+        { limit: "max_compile_ms", elapsed_ms: elapsed }
+      );
+    }
+  }
+
+  return compiled;
 }
 
 function compileRequestSafe(input) {

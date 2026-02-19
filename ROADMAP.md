@@ -21,8 +21,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.1.x`: completed
 - `v0.2.0`: completed
 - `v0.3.0`: completed
-- `v0.4.0`: in progress (active implementation cycle)
-- `v0.5.0`: planned
+- `v0.4.0`: completed (baseline security hardening implemented)
+- `v0.5.0`: in progress (active performance-hardening cycle)
 - `v0.6.0`: planned
 - `v0.7.0`: planned
 - `v0.8.0`: planned

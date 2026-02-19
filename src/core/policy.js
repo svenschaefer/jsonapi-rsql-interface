@@ -29,6 +29,59 @@ function enforceStringLimits(rawQuery, limits) {
   }
 }
 
+function enforceParameterSurfaceLimits(params, limits) {
+  const maxParamCount = asLimit(limits.max_param_count, 32);
+  const maxKeyValuePairs = asLimit(limits.max_key_value_pairs, 64);
+  const maxValueLength = asLimit(limits.max_parameter_value_length, 2048);
+
+  const keys = Object.keys(params || {});
+  if (keys.length > maxParamCount) {
+    throwCompilationError(
+      "invalid_query_string",
+      `Parameter count exceeds limit ${maxParamCount}.`,
+      { parameter: "query" },
+      { limit: "max_param_count", count: keys.length }
+    );
+  }
+
+  let pairCount = 0;
+  for (const key of keys) {
+    const value = params[key];
+    if (Array.isArray(value)) {
+      pairCount += value.length;
+      for (const item of value) {
+        if (String(item).length > maxValueLength) {
+          throwCompilationError(
+            "invalid_query_string",
+            `Parameter value exceeds max length ${maxValueLength}.`,
+            { parameter: key },
+            { limit: "max_parameter_value_length" }
+          );
+        }
+      }
+      continue;
+    }
+    pairCount += 1;
+    if (String(value).length > maxValueLength) {
+      throwCompilationError(
+        "invalid_query_string",
+        `Parameter value exceeds max length ${maxValueLength}.`,
+        { parameter: key },
+        { limit: "max_parameter_value_length" }
+      );
+    }
+  }
+
+  if (pairCount > maxKeyValuePairs) {
+    throwCompilationError(
+      "invalid_query_string",
+      `Key/value pair count exceeds limit ${maxKeyValuePairs}.`,
+      { parameter: "query" },
+      { limit: "max_key_value_pairs", count: pairCount }
+    );
+  }
+}
+
 function enforceDuplicatePolicy(params) {
   for (const [key, value] of Object.entries(params || {})) {
     if (Array.isArray(value)) {
@@ -53,6 +106,19 @@ function enforceRootFieldFilterScope(filter) {
   }
 }
 
+function enforceFilterLiteralLength(filter, limits) {
+  const maxLen = asLimit(limits.max_filter_literal_length, 2048);
+  if (typeof filter !== "string") return;
+  if (filter.length > maxLen) {
+    throwCompilationError(
+      "filter_complexity_exceeded",
+      `Filter literal length exceeds limit ${maxLen}.`,
+      { parameter: "filter" },
+      { limit: "max_filter_literal_length", value: filter.length }
+    );
+  }
+}
+
 function enforceEmptyInListRule(filter) {
   if (typeof filter !== "string" || filter.trim().length === 0) return;
   if (/=in=\(\s*\)|=out=\(\s*\)/.test(filter)) {
@@ -66,6 +132,7 @@ function enforceEmptyInListRule(filter) {
 
 function enforceIncludeLimits(includeList, limits) {
   const maxCount = asLimit(limits.max_include_paths, 10);
+  const maxPathLength = asLimit(limits.max_include_path_length, 128);
   if (includeList.length > maxCount) {
     throwCompilationError(
       "filter_complexity_exceeded",
@@ -73,6 +140,16 @@ function enforceIncludeLimits(includeList, limits) {
       { parameter: "include" },
       { limit: "max_include_paths", count: includeList.length }
     );
+  }
+  for (const path of includeList) {
+    if (String(path).length > maxPathLength) {
+      throwCompilationError(
+        "filter_complexity_exceeded",
+        `Include path length exceeds limit ${maxPathLength}.`,
+        { parameter: "include" },
+        { limit: "max_include_path_length", value: String(path).length }
+      );
+    }
   }
 }
 
@@ -322,10 +399,12 @@ module.exports = {
   enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
   enforceFilterComplexityLimits,
+  enforceFilterLiteralLength,
   enforceIncludeAllowlist,
   enforceIncludeLimits,
   enforceInListSize,
   enforceNoWildcardSemantics,
+  enforceParameterSurfaceLimits,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
   enforceSortAllowlist,

@@ -1,4 +1,4 @@
-function compilePlan(params, normalizedQuery, policy, context, typedFilter, complexity) {
+function compilePlan(params, normalizedQuery, policy, context, typedFilter, complexity, normalizedQueryKey) {
   const includeList = Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [];
   const sortList = Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [];
   const filterText = typeof normalizedQuery.filter === "string" ? normalizedQuery.filter : "";
@@ -31,7 +31,8 @@ function compilePlan(params, normalizedQuery, policy, context, typedFilter, comp
       policy_version: String((policy && policy.version) || "v0"),
       tenant_context_present: Boolean(context && context.tenant_context_present === true),
       normalized: true,
-      filter_complexity: complexity
+      filter_complexity: complexity,
+      normalized_query_key: normalizedQueryKey
     }
   };
 }
