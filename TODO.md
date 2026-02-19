@@ -10,7 +10,7 @@
 - Completed cycle: `v0.6.0` (Cache/context safety baseline)
 - Completed cycle: `v0.7.0` (Conformance expansion baseline)
 - Completed cycle: `v0.8.0` (Release/governance hardening baseline)
-- Current active roadmap cycle: `v1.1.x` (post-GA wildcard semantics)
+- Current active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
 ## 0) Core implementation (must exist first)
 
@@ -262,8 +262,7 @@
 ## 10) Post-GA (1.x) planned topic: string wildcard semantics in RSQL
 
 Progress (`v1.1.x`):
-- Core policy-gated wildcard behavior and deterministic wildcard error codes are implemented and test-covered.
-- Remaining: final docs/evidence closure for the complete `v1.1.x` cycle.
+- Core policy-gated wildcard behavior and deterministic wildcard error codes are implemented and released in `1.1.0`.
 
 - Scope:
   - only after `v1.0.0`

@@ -161,17 +161,25 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - npm registry version check: `npm view jsonapi-rsql-interface@1.0.0 version` -> `1.0.0`
   - npm registry bin check: `npm view jsonapi-rsql-interface@1.0.0 bin` -> `{ "jsonapi-rsql-interface": "bin/cli.js" }`
 
-### `v1.1.x` - Wildcard Extension Completion Track (in progress)
+### `v1.1.x` - Wildcard Extension Completion Track (completed)
 
 - Scope:
-  - `v1.1.1`: implement post-GA wildcard extension with strict policy opt-in for `string` + `==`
-  - `v1.1.2`: lock deterministic wildcard error catalog + contract tests
-  - `v1.1.3`: finalize docs/evidence closure and quality-gate confirmation
+  - `v1.1.1`: implemented post-GA wildcard extension with strict policy opt-in for `string` + `==`
+  - `v1.1.2`: locked deterministic wildcard error catalog + contract tests
+  - `v1.1.3`: finalized docs/evidence closure and quality-gate confirmation
 - Evidence:
   - `npm test`: pass
   - `npm run gov:check`: pass
   - `npm run audit:runtime`: pass
   - `npm run ci:check`: pass
+  - tag pushed: `v1.1.0`
+  - npm publish: pass (`jsonapi-rsql-interface@1.1.0`)
+  - external pre-smoke (`phase=pre`): pass
+    - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-interface-1.1.0.tgz`
+    - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T224202Z-pre-1.1.0\node_modules\jsonapi-rsql-interface`
+  - external post-smoke (`phase=post`): pass
+    - installed_from: `jsonapi-rsql-interface@1.1.0`
+    - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T224500Z-post-1.1.0\node_modules\jsonapi-rsql-interface`
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 

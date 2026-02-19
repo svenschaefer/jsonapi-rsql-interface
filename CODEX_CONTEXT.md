@@ -68,9 +68,9 @@ Repository-level standards:
 - Baseline scaffold is implemented (`v0.1.x` complete).
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
 - Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
-- Active roadmap cycle: `v1.1.x` (post-GA wildcard semantics).
+- Active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
 - CI baseline currently green via `npm run ci:check`.
-- Package `jsonapi-rsql-interface@1.0.0` is published, with external pre/post publish smoke evidence captured.
+- Package `jsonapi-rsql-interface@1.1.0` is published, with external pre/post publish smoke evidence captured.
 
 ## 6) Decision Baselines (Must Hold)
 
@@ -84,7 +84,7 @@ Repository-level standards:
   - RSQL is a compatibility target for the filter core.
   - JSON:API is a compatibility target for query parameters only (not full server/spec compliance).
   - Execution semantics are adapter territory (for example `@jsonapi-rsql/pg`), not core interface behavior.
-  - Post-GA wildcard extension (`v1.1.x`) is policy-gated and opt-in only.
+  - Post-GA wildcard extension (`v1.1.x`) is policy-gated and opt-in only, and released in `1.1.0`.
 
 ## 7) Working Conventions for Agents
 
@@ -134,5 +134,5 @@ Repository-level standards:
     - `resolved_package_dir`
     - `resolved_entrypoint`
 - Current release state:
-  - `jsonapi-rsql-interface@1.0.0` is published
+  - `jsonapi-rsql-interface@1.1.0` is published
   - external pre/post publish smoke evidence is captured in `docs/RELEASE_EVIDENCE.md`

@@ -4,13 +4,13 @@ This roadmap schedules `TODO.md` into implementation cycles from baseline throug
 
 ## Current Baseline
 
-- Current status: `v1.1.x` post-GA wildcard extension implementation
+- Current status: `v1.2.x` planning (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 - Present: GA (`v1.0.0`) released with external pre/post smoke evidence and full baseline compiler/security/performance/governance gates
-- Not complete: final `v1.1.x` docs/evidence closure and release handoff to next planned cycle (`v1.2.x`)
+- Not complete: `v1.2.x` implementation cycles for adapter package delivery
 - Cycle status:
   - `v0.1.x` to `v0.9.8`: completed
   - `v1.0.0`: completed
-  - `v1.1.x`: in progress
+  - `v1.1.x`: completed (`1.1.0` released)
 
 ## Versioning Model
 
@@ -37,8 +37,8 @@ This roadmap schedules `TODO.md` into implementation cycles from baseline throug
 - `v0.9.7`: completed (pre-GA dependency/evidence closure)
 - `v0.9.8`: completed (final 0.x GA-readiness closure)
 - `v1.0.0`: completed (GA release execution)
-- `v1.1.x`: in progress (post-GA wildcard semantics)
-- `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
+- `v1.1.x`: completed (post-GA wildcard semantics, released as `1.1.0`)
+- `v1.2.x`: in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
 ## Cycle Plan
 
@@ -376,7 +376,7 @@ Execution breakdown (planned before implementation):
 - `v1.1.2` (completed):
   - extend deterministic error catalog with wildcard-specific codes
   - expand unit/contract coverage for allowed/rejected wildcard behavior and deny-by-default posture
-- `v1.1.3` (in progress):
+- `v1.1.3` (completed):
   - update README/docs/status/evidence artifacts for v1.1 wildcard extension contract
   - run full quality gates and close `v1.1.x` execution block
 
