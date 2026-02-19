@@ -192,6 +192,9 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - enforce locked adapter security/performance constraints
 - Progress:
   - workspace package created: `packages/adapter-pg`
+  - adapter dialect/profile pinning baseline implemented:
+    - `ADAPTER_DIALECT_PROFILE = postgresql-v1-core`
+    - unsupported mapping `dialect_profile` is rejected deterministically (`pg_feature_not_supported`)
   - compile surfaces implemented:
     - `compileWhere`
     - `compileOrderBy`
@@ -206,10 +209,17 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - `test/unit/adapter-pg-golden.contract.test.js`
   - adapter package/readme contract tests added:
     - `test/unit/adapter-pg-package.contract.test.js`
+  - `v1.2.5` completed:
+    - explicit adapter dialect/profile pinning baseline (`postgresql-v1-core`)
+    - deterministic unsupported profile rejection (`pg_feature_not_supported`)
+  - `v1.2.6` completed:
+    - adapter publish-preparation checklist documented in `docs/NPM_RELEASE.md`
+    - cycle docs synchronized (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `CHANGELOG`)
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass
   - `npm run gov:check`: pass
+  - `npm run audit:runtime`: pass
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 

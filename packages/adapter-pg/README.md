@@ -16,6 +16,7 @@ Utilities:
 - `prepareMapping(mapping)`
 - `ensurePreparedMapping(mapping)`
 - `getTableSql(mapping)`
+- `ADAPTER_DIALECT_PROFILE` (`postgresql-v1-core`)
 
 Non-goals in `v1.2.x`:
 - no policy expansion
@@ -27,6 +28,7 @@ Non-goals in `v1.2.x`:
 
 ```js
 {
+  dialect_profile: "postgresql-v1-core",
   version: "map.v1",
   hash: "sha256:...",
   resource: {
@@ -58,6 +60,7 @@ Non-goals in `v1.2.x`:
 ```
 
 Notes:
+- dialect profile is pinned by adapter version. Any unsupported profile is rejected with `pg_feature_not_supported`.
 - expression mappings require explicit `trusted: true`.
 - operator-to-SQL mapping is closed in adapter code.
 - mapping cannot provide SQL operator templates.

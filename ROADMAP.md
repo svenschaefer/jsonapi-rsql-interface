@@ -442,6 +442,20 @@ Execution breakdown (planned before implementation):
   - harden adapter package contract docs for publish/readiness
   - add package-level contract tests for `@jsonapi-rsql/pg`
   - keep root and adapter docs synchronized for release evidence
+- `v1.2.5` (completed):
+  - lock explicit PostgreSQL dialect/profile pinning in adapter contract
+  - enforce deterministic adapter rejection for unpinned/unsupported dialect profile usage
+  - add adapter contract tests for dialect/profile pinning behavior
+- `v1.2.6` (completed):
+  - finalize `v1.2.x` release-readiness closure for `@jsonapi-rsql/pg`:
+    - docs/evidence synchronization (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`)
+    - full quality-gate execution (`npm run ci:check`, `npm run audit:runtime`)
+    - publish-preparation checklist for first adapter package release
+- `v1.2.7` (planned):
+  - execute first adapter package release (`@jsonapi-rsql/pg`):
+    - set publish-ready adapter package metadata/version
+    - publish to npm and verify registry metadata
+    - capture adapter release evidence in docs
 
 ## Per-Cycle Execution Rules
 

@@ -186,3 +186,12 @@ test("compileWhere rejects unsupported operators from plan", () => {
     (error) => error && error.code === "pg_operator_not_supported"
   );
 });
+
+test("prepareMapping rejects unsupported dialect profile", () => {
+  const mapping = baseMapping();
+  mapping.dialect_profile = "postgresql-v2-experimental";
+  assert.throws(
+    () => pgAdapter.prepareMapping(mapping),
+    (error) => error && error.code === "pg_feature_not_supported"
+  );
+});

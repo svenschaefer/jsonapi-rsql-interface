@@ -1,6 +1,7 @@
 const { throwAdapterError } = require("./errors");
 
 const IDENTIFIER_TOKEN_RE = /^[A-Za-z_][A-Za-z0-9_]*$/;
+const ADAPTER_DIALECT_PROFILE = "postgresql-v1-core";
 
 const DEFAULT_LIMITS = Object.freeze({
   max_predicates: 200,
@@ -113,6 +114,15 @@ function normalizeLimits(rawLimits) {
 
 function prepareMapping(mapping) {
   ensureObject(mapping, "pg_invalid_mapping_shape", "Mapping must be an object.");
+  const requestedDialectProfile =
+    mapping.dialect_profile === undefined ? ADAPTER_DIALECT_PROFILE : String(mapping.dialect_profile).trim();
+  if (requestedDialectProfile !== ADAPTER_DIALECT_PROFILE) {
+    throwAdapterError(
+      "pg_feature_not_supported",
+      "Mapping requests an unsupported dialect profile.",
+      { feature: "dialect_profile" }
+    );
+  }
   ensureObject(mapping.resource, "pg_invalid_mapping_shape", "resource mapping is required.", {
     path: "resource"
   });
@@ -152,6 +162,7 @@ function prepareMapping(mapping) {
     __prepared_mapping: true,
     version: mapping.version ? String(mapping.version) : "",
     hash: mapping.hash ? String(mapping.hash) : "",
+    dialect_profile: ADAPTER_DIALECT_PROFILE,
     resource: Object.freeze({
       table: quoteIdentifier(mapping.resource.table),
       type: resourceType
@@ -168,6 +179,7 @@ function ensurePreparedMapping(mapping) {
 }
 
 module.exports = {
+  ADAPTER_DIALECT_PROFILE,
   DEFAULT_LIMITS,
   prepareMapping,
   ensurePreparedMapping

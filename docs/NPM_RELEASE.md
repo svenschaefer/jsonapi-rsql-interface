@@ -41,3 +41,22 @@ Both streams should point to the same version and release commit.
 10. run external **post-publish** smoke harness for the same version:
    - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 11. record pre/post smoke outcomes in `docs/RELEASE_EVIDENCE.md`
+
+## Workspace Adapter Release (`@jsonapi-rsql/pg`)
+
+Use this checklist for first and subsequent adapter package releases.
+
+1. set adapter package version in `packages/adapter-pg/package.json`
+2. ensure adapter publish contract is ready:
+   - `"private": false`
+   - package metadata present (`name`, `version`, `license`, `engines`, `peerDependencies`)
+3. run full repo gates:
+   - `npm run ci:check`
+   - `npm run audit:runtime`
+4. validate adapter package artifact:
+   - `npm pack --workspace packages/adapter-pg --dry-run`
+5. publish adapter package:
+   - `npm publish --workspace packages/adapter-pg --access public`
+6. verify registry package metadata:
+   - `npm view @jsonapi-rsql/pg@<x.y.z> version peerDependencies engines`
+7. record adapter release evidence in `docs/RELEASE_EVIDENCE.md`

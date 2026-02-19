@@ -72,6 +72,7 @@ Repository-level standards:
 - Active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
 - `v1.2.x` current implementation progress:
   - workspace package exists at `packages/adapter-pg`
+  - explicit adapter dialect/profile pinning is implemented (`postgresql-v1-core`)
   - deterministic compile surfaces implemented (`compileWhere`, `compileOrderBy`, `compileLimitOffset`, `compileSecurityPredicate`, `compileSelect`)
   - optional assembly-only helper implemented: `assembleSelectSql(...)`
   - adapter contract tests implemented:
@@ -146,3 +147,4 @@ Repository-level standards:
   - `jsonapi-rsql-interface@1.1.0` is published
   - `jsonapi-rsql-interface@1.0.0` is deprecated with upgrade guidance to `>=1.1.0`
   - external pre/post publish smoke evidence is captured in `docs/RELEASE_EVIDENCE.md`
+  - next planned release cycle: `v1.2.7` (`@jsonapi-rsql/pg` first publish execution)

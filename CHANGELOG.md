@@ -21,6 +21,9 @@ All notable changes to this project are documented in this file.
   - optional assembly-only helper:
     - `assembleSelectSql(...)`
   - stable adapter error namespace and contract tests in `test/unit/adapter-pg.contract.test.js`
+  - explicit adapter dialect/profile pinning baseline:
+    - exported `ADAPTER_DIALECT_PROFILE` (`postgresql-v1-core`)
+    - deterministic rejection for unsupported mapping `dialect_profile` values (`pg_feature_not_supported`)
 
 ## [1.1.0] - 2026-02-19
 

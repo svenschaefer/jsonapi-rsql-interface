@@ -1,5 +1,5 @@
 const { AdapterError, ADAPTER_ERROR_CATALOG, throwAdapterError } = require("./errors");
-const { prepareMapping, ensurePreparedMapping } = require("./mapping");
+const { ADAPTER_DIALECT_PROFILE, prepareMapping, ensurePreparedMapping } = require("./mapping");
 const {
   OPERATOR_TEMPLATES,
   getTableSql,
@@ -16,6 +16,7 @@ module.exports = {
   ADAPTER_ERROR_CATALOG,
   throwAdapterError,
   OPERATOR_TEMPLATES,
+  ADAPTER_DIALECT_PROFILE,
   prepareMapping,
   ensurePreparedMapping,
   getTableSql,

@@ -16,6 +16,11 @@ test("@jsonapi-rsql/pg package contract baseline", () => {
   assert.equal(pkg.engines.node, ">=20.0.0");
 });
 
+test("@jsonapi-rsql/pg exports pinned dialect profile constant", () => {
+  const adapter = require("../../packages/adapter-pg/src");
+  assert.equal(adapter.ADAPTER_DIALECT_PROFILE, "postgresql-v1-core");
+});
+
 test("@jsonapi-rsql/pg README documents assembly helper", () => {
   const readmePath = path.resolve(__dirname, "../../packages/adapter-pg/README.md");
   const text = fs.readFileSync(readmePath, "utf8");

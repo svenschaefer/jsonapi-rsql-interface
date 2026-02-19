@@ -316,6 +316,8 @@ Progress (`v1.2.x`):
 - Added adapter contract tests in `test/unit/adapter-pg.contract.test.js`.
 - Added golden determinism and error-hygiene adapter tests in `test/unit/adapter-pg-golden.contract.test.js`.
 - Added adapter package/readme contract tests in `test/unit/adapter-pg-package.contract.test.js`.
+- Added explicit adapter dialect pinning baseline (`ADAPTER_DIALECT_PROFILE = postgresql-v1-core`) with deterministic rejection for unsupported mapping profiles.
+- Added adapter publish-preparation checklist to `docs/NPM_RELEASE.md` (workspace release path for `@jsonapi-rsql/pg`).
 
 - Scope:
   - new package `@jsonapi-rsql/pg`

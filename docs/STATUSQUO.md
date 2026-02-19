@@ -130,7 +130,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Continue `v1.2.x` closeout:
-  - finalize remaining cycle closure evidence and release-readiness planning for first `@jsonapi-rsql/pg` publish
+  - execute first adapter publish cycle (`v1.2.7`) for `@jsonapi-rsql/pg`
+  - capture npm registry verification and release evidence after publish
   - current implemented state:
     - workspace package skeleton exists at `packages/adapter-pg`
     - compile surfaces implemented:
@@ -141,6 +142,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
       - `compileSelect` (root-table-only)
     - optional helper implemented:
       - `assembleSelectSql(...)` (assembly-only)
+    - explicit adapter dialect/profile pinning baseline implemented:
+      - `ADAPTER_DIALECT_PROFILE = postgresql-v1-core`
+      - unsupported mapping `dialect_profile` fails deterministically
     - adapter contract tests added:
       - `test/unit/adapter-pg.contract.test.js`
     - adapter golden/error-hygiene tests added:
