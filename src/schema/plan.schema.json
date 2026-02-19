@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/svenschaefer/jsonapi-rsql-interface/schemas/plan.schema.json",
+  "title": "Query Plan",
+  "type": "object",
+  "required": ["kind", "policy_version", "meta"],
+  "properties": {
+    "kind": { "type": "string", "const": "query_plan" },
+    "policy_version": { "type": "string" },
+    "tenant_context_present": { "type": "boolean" },
+    "normalized_query": { "type": "object" },
+    "filter": { "type": "object" },
+    "include": { "type": "array", "items": { "type": "string" } },
+    "sort": { "type": "array", "items": { "type": "string" } },
+    "security": { "type": "object" },
+    "meta": {
+      "type": "object",
+      "required": ["policy_version", "tenant_context_present"],
+      "properties": {
+        "policy_version": { "type": "string" },
+        "tenant_context_present": { "type": "boolean" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

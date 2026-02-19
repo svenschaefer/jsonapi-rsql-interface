@@ -1,0 +1,61 @@
+{
+  "name": "jsonapi-rsql-interface",
+  "version": "0.1.0",
+  "description": "Deterministic compiler-style API from JSON:API + RSQL/FIQL query input to governed query plans.",
+  "keywords": [
+    "jsonapi",
+    "rsql",
+    "fiql",
+    "query-planner",
+    "policy-engine"
+  ],
+  "author": "svenschaefer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svenschaefer/jsonapi-rsql-interface.git"
+  },
+  "bugs": {
+    "url": "https://github.com/svenschaefer/jsonapi-rsql-interface/issues"
+  },
+  "homepage": "https://github.com/svenschaefer/jsonapi-rsql-interface#readme",
+  "private": true,
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./validate": "./src/validate/index.js",
+    "./errors": "./src/errors.js",
+    "./schema": "./src/schema/plan.schema.json"
+  },
+  "bin": {
+    "jsonapi-rsql-interface": "./bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "docs/",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src bin test scripts",
+    "test": "node --test \"test/**/*.test.js\"",
+    "test:unit": "node --test \"test/unit/**/*.test.js\"",
+    "test:integration": "node --test \"test/integration/**/*.test.js\"",
+    "dev:check": "node scripts/dev-check.js",
+    "dev:report:metrics": "node scripts/dev-report-metrics.js",
+    "dev:report:maturity": "node scripts/dev-report-maturity.js",
+    "pack:check": "npm pack --dry-run",
+    "smoke:release": "node scripts/release-smoke-check.js",
+    "ci:check": "npm run lint && npm test && npm run dev:report:metrics && npm run dev:report:maturity && npm run pack:check && npm run smoke:release",
+    "release:check": "node scripts/ensure-clean-worktree.js && npm run ci:check"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  }
+}

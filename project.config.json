@@ -1,0 +1,20 @@
+{
+  "policy": {
+    "version": "v1",
+    "limits": {
+      "max_raw_query_length": 4096,
+      "max_decoded_query_length": 4096,
+      "max_include_paths": 10,
+      "max_sort_keys": 8,
+      "max_sparse_fields": 25
+    }
+  },
+  "context": {
+    "tenant_context_present": true,
+    "security_predicate": {
+      "field": "tenant_id",
+      "operator": "==",
+      "bound_parameter_key": "tenant_scope"
+    }
+  }
+}

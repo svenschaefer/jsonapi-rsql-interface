@@ -1,0 +1,15 @@
+{
+  "plan": {
+    "kind": "query_plan",
+    "policy_version": "v1",
+    "tenant_context_present": true,
+    "normalized_query": {
+      "filter": "status==active",
+      "sort": ["-created"]
+    },
+    "meta": {
+      "policy_version": "v1",
+      "tenant_context_present": true
+    }
+  }
+}
