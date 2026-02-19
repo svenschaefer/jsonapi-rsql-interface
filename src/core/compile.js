@@ -1,4 +1,14 @@
-function compilePlan(params, normalizedQuery, policy, context, typedFilter, complexity, normalizedQueryKey) {
+function compilePlan(
+  params,
+  normalizedQuery,
+  policy,
+  context,
+  typedFilter,
+  complexity,
+  normalizedQueryKey,
+  contextFingerprint,
+  planCacheKey
+) {
   const includeList = Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [];
   const sortList = Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [];
   const filterText = typeof normalizedQuery.filter === "string" ? normalizedQuery.filter : "";
@@ -32,7 +42,9 @@ function compilePlan(params, normalizedQuery, policy, context, typedFilter, comp
       tenant_context_present: Boolean(context && context.tenant_context_present === true),
       normalized: true,
       filter_complexity: complexity,
-      normalized_query_key: normalizedQueryKey
+      normalized_query_key: normalizedQueryKey,
+      context_fingerprint: contextFingerprint,
+      plan_cache_key: planCacheKey
     }
   };
 }

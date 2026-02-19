@@ -3,6 +3,7 @@ const { parseQueryString } = require("./parse");
 const { normalizeQuery } = require("./normalize");
 const { parseFilterExpression } = require("./filter");
 const { createNormalizedQueryKey } = require("./cache-key");
+const { createContextFingerprint, createPlanCacheKey } = require("./context");
 const { validatePolicySecurityArtifacts } = require("./security");
 const {
   enforceDuplicatePolicy,
@@ -49,6 +50,9 @@ function compileRequest(input) {
 
   const normalizedQuery = normalizeQuery(params);
   const normalizedQueryKey = createNormalizedQueryKey(normalizedQuery);
+  const contextFingerprint = createContextFingerprint(input.context);
+  const policyVersion = String((input.policy && input.policy.version) || "v0");
+  const planCacheKey = createPlanCacheKey(policyVersion, contextFingerprint, normalizedQueryKey);
   const filterParse = parseFilterExpression(normalizedQuery.filter || "");
 
   enforceRootFieldFilterScope(normalizedQuery.filter);
@@ -74,7 +78,9 @@ function compileRequest(input) {
     input.context,
     typedFilter,
     filterParse.complexity,
-    normalizedQueryKey
+    normalizedQueryKey,
+    contextFingerprint,
+    planCacheKey
   );
 
   const maxCompileMs = Number.isInteger(limits.max_compile_ms) ? limits.max_compile_ms : null;

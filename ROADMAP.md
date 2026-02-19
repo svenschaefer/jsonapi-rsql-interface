@@ -22,8 +22,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.2.0`: completed
 - `v0.3.0`: completed
 - `v0.4.0`: completed (baseline security hardening implemented)
-- `v0.5.0`: in progress (active performance-hardening cycle)
-- `v0.6.0`: planned
+- `v0.5.0`: completed (performance limits + canonical query key baseline)
+- `v0.6.0`: in progress (active cache/context safety cycle)
 - `v0.7.0`: planned
 - `v0.8.0`: planned
 - `v0.9.0`: planned

@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.5.0` (performance invariants implementation).
+- Current roadmap phase: `v0.6.0` (cache/context safety + observability).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -52,6 +52,12 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - Deterministic `normalized_query_key` emitted in plan metadata.
 - Performance-limit contract tests added for deterministic enforcement.
 
+## Cache/context safety status
+
+- Context fingerprinting is implemented with non-sensitive metadata only.
+- Policy/context/query-bound `plan_cache_key` is emitted for safe cache partitioning.
+- Contract tests enforce cache-key changes across policy version and context changes.
+
 ## Dependency and release status
 
 - `package-lock.json` exists and CI uses `npm ci`.
@@ -60,5 +66,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Continue `v0.5.0` with additional performance guardrails (remaining limits and budget tuning).
-- Begin `v0.6.0` cache/context safety and observability hardening after current performance cycle closes.
+- Continue `v0.6.0` observability hardening and context-safety enforcement.
+- Start `v0.7.0` conformance-suite completion after cache/context cycle closure.
