@@ -184,7 +184,7 @@ Execution breakdown (planned before implementation):
   - runtime-focused dependency audit gate in CI
   - workflow integrity hardening and explicit least-privilege permissions
   - governance checks/tests for workflow posture
-- `v0.9.3` (in progress):
+- `v0.9.3` (completed):
   - pre-GA evidence updates and closure checks
   - final docs alignment and upgrade/compatibility review
 - `v0.9.4` (completed):
