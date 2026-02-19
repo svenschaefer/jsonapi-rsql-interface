@@ -70,7 +70,7 @@ Repository-level standards:
 - Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
 - Active roadmap cycle: `v1.1.x` (post-GA wildcard semantics).
 - CI baseline currently green via `npm run ci:check`.
-- Package metadata is now set to release target version `1.0.0` (pre-publish state).
+- Package `jsonapi-rsql-interface@1.0.0` is published, with external pre/post publish smoke evidence captured.
 
 ## 6) Decision Baselines (Must Hold)
 

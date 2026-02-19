@@ -1,15 +1,16 @@
 # ROADMAP
 
-This roadmap schedules `TODO.md` into implementation cycles from current zero-state baseline to `v1.0`.
+This roadmap schedules `TODO.md` into implementation cycles from baseline through post-GA `v1.x` work.
 
 ## Current Baseline
 
-- Current status: `v0.9.x` pre-GA stabilization
-- Present: package scaffold + semantic/compiler baseline + error contract + security/performance/cache/context + conformance/governance gates
-- Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
+- Current status: `v1.1.x` post-GA wildcard extension implementation
+- Present: GA (`v1.0.0`) released with external pre/post smoke evidence and full baseline compiler/security/performance/governance gates
+- Not complete: final `v1.1.x` docs/evidence closure and release handoff to next planned cycle (`v1.2.x`)
 - Cycle status:
-  - `v0.1.x`: completed
+  - `v0.1.x` to `v0.9.8`: completed
   - `v1.0.0`: completed
+  - `v1.1.x`: in progress
 
 ## Versioning Model
 
@@ -26,7 +27,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.6.0`: completed (context-bound cache key safety baseline)
 - `v0.7.0`: completed (conformance expansion baseline)
 - `v0.8.0`: completed (governance gate baseline)
-- `v0.9.0`: in progress (umbrella pre-GA stabilization cycle)
+- `v0.9.0`: completed (umbrella pre-GA stabilization cycle)
 - `v0.9.1`: completed (query/error determinism hardening)
 - `v0.9.2`: completed (CI supply-chain/workflow hardening)
 - `v0.9.3`: completed (pre-GA evidence and docs closure baseline)
