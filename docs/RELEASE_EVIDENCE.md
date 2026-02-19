@@ -50,7 +50,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - `npm run gov:check`: pass
   - docs sync checks: pass
 
-### `v0.9.4` - Filter/Parser Semantic Correctness Hardening (in progress)
+### `v0.9.4` - Filter/Parser Semantic Correctness Hardening
 
 - Commit: `e83f7fb`
 - Scope:
@@ -62,9 +62,9 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm run ci:check`: pass
 
-### `v0.9.5` - Canonicalization/Cache/Safe-API Hardening (in progress)
+### `v0.9.5` - Canonicalization/Cache/Safe-API Hardening
 
-- Commit: pending
+- Commit: `b04b4df`
 - Scope:
   - preserve sort precedence in normalized query semantics
   - pre-parse guardrail enforcement before raw query parse/decode
@@ -73,12 +73,16 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm run ci:check`: pass
 
-### `v0.9.6` - Governance/Tooling Robustness Hardening (in progress)
+### `v0.9.6` - Governance/Tooling Robustness Hardening (active)
 
-- Commit: pending
+- Commit: `e1351d8`
 - Scope:
   - governance workflow permission checks hardened for formatting resilience
   - runtime dependency audit script hardened for execution/output variance
   - policy security validation refined with explicit sensitivity support and lower false-positive risk
+  - compatibility framing hardened for `v1+`:
+    - RSQL-compatible core target
+    - JSON:API query-surface-only compatibility target
+    - explicit non-claim of full JSON:API server/spec compliance
 - Evidence:
   - `npm run ci:check`: pass

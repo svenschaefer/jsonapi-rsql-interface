@@ -78,6 +78,10 @@ Repository-level standards:
 - Security predicates are server-injected and mandatory.
 - Duplicate query parameters are rejected in baseline behavior.
 - Empty `=in=()` / `=out=()` is rejected.
+- Compatibility framing baseline:
+  - RSQL is a compatibility target for the filter core.
+  - JSON:API is a compatibility target for query parameters only (not full server/spec compliance).
+  - Execution semantics are adapter territory (for example `@jsonapi-rsql/pg`), not core interface behavior.
 
 ## 7) Working Conventions for Agents
 
@@ -109,3 +113,5 @@ Repository-level standards:
   - `v0.9.4` filter/parser semantic correctness hardening
   - `v0.9.5` canonicalization/cache/safe-API hardening
   - `v0.9.6` governance/tooling robustness hardening
+- Safe API baseline now includes deterministic fallback:
+  - unexpected internal failures in `compileRequestSafe` map to stable `internal_error`.
