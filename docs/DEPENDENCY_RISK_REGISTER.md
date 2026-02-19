@@ -32,3 +32,19 @@ Tracks dependency security posture for pre-GA and release decisions.
 
 - Update this file whenever audit posture, accepted risks, or remediation decisions change.
 - Each GA/patch release should reference current disposition in release evidence.
+
+## Disposition Policy (Deterministic, Expiry-Bounded)
+
+- Runtime dependency advisories (`npm audit --omit=dev`) are release-blocking and have no exception path.
+- Dev/tooling advisories can be temporarily accepted only with:
+  - explicit advisory scope (package chain + severity),
+  - justification,
+  - owner,
+  - expiry date.
+- Expired dispositions are treated as failed governance state until renewed or remediated.
+
+## Current Accepted Dispositions
+
+| Scope | Class | Owner | Expires | Status | Notes |
+|---|---|---|---|---|---|
+| Dev/tooling (`eslint` chain) | `4 high`, `2 moderate` | Maintainers | 2026-06-30 | Active | Tracked residual risk; runtime gate remains zero-tolerance |

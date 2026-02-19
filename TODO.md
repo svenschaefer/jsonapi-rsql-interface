@@ -10,7 +10,7 @@
 - Completed cycle: `v0.6.0` (Cache/context safety baseline)
 - Completed cycle: `v0.7.0` (Conformance expansion baseline)
 - Completed cycle: `v0.8.0` (Release/governance hardening baseline)
-- Current active roadmap cycle: `v0.9.6` (Governance/tooling robustness hardening)
+- Current active roadmap cycle: `v0.9.7` (Pre-GA dependency/evidence closure)
 
 ## 0) Core implementation (must exist first)
 

@@ -41,6 +41,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "packageManager": "npm@10.9.2",
   "license": "MIT",
   "scripts": {
     "lint": "eslint src bin test scripts",

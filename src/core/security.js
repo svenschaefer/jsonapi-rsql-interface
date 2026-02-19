@@ -25,6 +25,17 @@ function getSensitivePatterns(policy) {
   return configured.map((p) => String(p).toLowerCase());
 }
 
+function getSensitiveAllowlist(policy) {
+  const configured =
+    policy &&
+    policy.security &&
+    Array.isArray(policy.security.sensitive_field_allowlist) &&
+    policy.security.sensitive_field_allowlist.length > 0
+      ? policy.security.sensitive_field_allowlist
+      : [];
+  return new Set(configured.map((item) => String(item).toLowerCase()));
+}
+
 function useNameHeuristics(policy) {
   return !(policy && policy.security && policy.security.use_name_heuristics === false);
 }
@@ -45,6 +56,7 @@ function validatePolicySecurityArtifacts(policy) {
   if (!shouldValidate(policy)) return;
   const fields = (policy && policy.fields) || {};
   const patterns = getSensitivePatterns(policy);
+  const allowlist = getSensitiveAllowlist(policy);
 
   for (const [fieldName, fieldDef] of Object.entries(fields)) {
     if (!fieldDef || typeof fieldDef !== "object") continue;
@@ -61,7 +73,10 @@ function validatePolicySecurityArtifacts(policy) {
     }
 
     const explicitlySensitive = fieldDef.sensitive === true;
-    const sensitiveByName = useNameHeuristics(policy) && fieldNameLooksSensitive(fieldName, patterns);
+    const sensitiveByName =
+      useNameHeuristics(policy) &&
+      !allowlist.has(String(fieldName).toLowerCase()) &&
+      fieldNameLooksSensitive(fieldName, patterns);
     if ((explicitlySensitive || sensitiveByName) &&
         (fieldDef.filterable === true || fieldDef.selectable === true || fieldDef.sortable === true)) {
       throwCompilationError(

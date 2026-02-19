@@ -27,3 +27,6 @@ All notable changes to this project are documented in this file.
 - Governance workflow permission checks are now less brittle to benign formatting changes.
 - Runtime audit script has stricter handling for empty/invalid npm audit JSON output.
 - Policy security validation supports explicit `sensitive: true` and reduced generic-token false positives.
+- Policy security validation now supports `security.sensitive_field_allowlist` overrides for heuristic exceptions.
+- Governance checks now enforce explicit npm toolchain pinning via `packageManager`.
+- Added deterministic helper contract tests for `sortStrings`, `stableObject`, and normalized query key stability.

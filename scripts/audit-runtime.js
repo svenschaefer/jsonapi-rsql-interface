@@ -4,9 +4,29 @@ function getNpmCommand() {
   return process.platform === "win32" ? "npm.cmd" : "npm";
 }
 
+function extractJsonCandidate(text) {
+  const source = typeof text === "string" ? text.trim() : "";
+  if (!source) return "";
+
+  const directStart = source.startsWith("{") ? 0 : -1;
+  if (directStart === 0) return source;
+
+  const firstBrace = source.indexOf("{");
+  const lastBrace = source.lastIndexOf("}");
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    return source.slice(firstBrace, lastBrace + 1);
+  }
+
+  return "";
+}
+
 function parseAuditJson(text) {
+  const candidate = extractJsonCandidate(text);
+  if (!candidate) {
+    throw new Error("No JSON object found in npm audit output.");
+  }
   try {
-    return JSON.parse(text);
+    return JSON.parse(candidate);
   } catch (err) {
     const message = err && err.message ? err.message : String(err);
     throw new Error(`Failed to parse npm audit JSON output: ${message}`);
@@ -30,12 +50,27 @@ function main() {
     throw new Error(`Failed to execute npm audit: ${result.error.message}`);
   }
 
-  const output = result.stdout && result.stdout.trim().length > 0 ? result.stdout.trim() : "";
-  if (!output) {
+  const stdout = typeof result.stdout === "string" ? result.stdout : "";
+  const stderr = typeof result.stderr === "string" ? result.stderr : "";
+  if (!stdout.trim() && !stderr.trim()) {
     throw new Error("npm audit returned no JSON output.");
   }
 
-  const payload = parseAuditJson(output);
+  let payload = null;
+  let parseError = null;
+  const sources = [stdout, stderr, `${stdout}\n${stderr}`];
+  for (const source of sources) {
+    try {
+      payload = parseAuditJson(source);
+      break;
+    } catch (err) {
+      parseError = err;
+    }
+  }
+  if (!payload) {
+    throw parseError || new Error("Failed to parse npm audit JSON output.");
+  }
+
   const total = countVulnerabilities(payload);
 
   if (total > 0) {
@@ -51,8 +86,18 @@ function main() {
   }
 
   process.stdout.write(
-    `${JSON.stringify({ ok: true, vulnerabilities: 0, mode: "runtime_only" }, null, 2)}\n`
+    `${JSON.stringify({ ok: true, vulnerabilities: 0, mode: "runtime_only", status: result.status }, null, 2)}\n`
   );
 }
 
-main();
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  getNpmCommand,
+  extractJsonCandidate,
+  parseAuditJson,
+  countVulnerabilities,
+  main
+};

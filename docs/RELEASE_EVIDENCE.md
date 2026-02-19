@@ -73,16 +73,27 @@ Use this file (or release artifacts linked from it) to track governance evidence
 - Evidence:
   - `npm run ci:check`: pass
 
-### `v0.9.6` - Governance/Tooling Robustness Hardening (active)
+### `v0.9.6` - Governance/Tooling Robustness Hardening (completed)
 
 - Commit: `e1351d8`
 - Scope:
   - governance workflow permission checks hardened for formatting resilience
   - runtime dependency audit script hardened for execution/output variance
-  - policy security validation refined with explicit sensitivity support and lower false-positive risk
+  - policy security validation refined with explicit sensitivity support, allowlist overrides, and lower false-positive risk
+  - determinism helper conformance coverage added for normalization/cache-key stability guarantees
+  - governance now validates explicit npm toolchain pinning (`packageManager`)
   - compatibility framing hardened for `v1+`:
     - RSQL-compatible core target
     - JSON:API query-surface-only compatibility target
     - explicit non-claim of full JSON:API server/spec compliance
 - Evidence:
   - `npm run ci:check`: pass
+
+### `v0.9.7` - Pre-GA Dependency/Evidence Closure (active)
+
+- Scope:
+  - finalize explicit dependency-risk disposition policy (runtime zero-tolerance, expiry-bounded dev-only acceptance)
+  - complete synchronized pre-GA status/evidence closure across planning/state docs
+- Evidence:
+  - `npm audit --omit=dev --json`: pass (`0` runtime vulnerabilities)
+  - `npm audit --json`: `6` dev-only vulnerabilities (eslint chain), covered by active dated disposition entry

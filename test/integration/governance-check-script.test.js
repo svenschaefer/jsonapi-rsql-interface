@@ -16,4 +16,5 @@ test("governance check script passes and emits structured JSON", () => {
   assert.equal(payload.ok, true);
   assert.ok(Array.isArray(payload.checks));
   assert.ok(payload.checks.includes("execution_ledger_present"));
+  assert.ok(payload.checks.includes("package_manager_pinned"));
 });

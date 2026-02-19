@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.6`: current active cycle
+  - `v0.9.7`: current active cycle
 
 ## Versioning Model
 
@@ -32,7 +32,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.3`: completed (pre-GA evidence and docs closure baseline)
 - `v0.9.4`: completed (filter/parser semantic correctness hardening baseline)
 - `v0.9.5`: completed (canonicalization/cache/safe-API hardening baseline)
-- `v0.9.6`: in progress (governance/tooling robustness hardening)
+- `v0.9.6`: completed (governance/tooling robustness hardening)
+- `v0.9.7`: in progress (pre-GA dependency/evidence closure)
 - `v1.0.0`: planned GA
 - `v1.1.x`: planned (post-GA wildcard semantics)
 - `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
@@ -206,11 +207,20 @@ Execution breakdown (planned before implementation):
   - ensure invalid input-shape errors return deterministic safe envelope (`50`)
   - normalize context fingerprint missing-value handling and expand determinism tests
   - remove `"undefined"` fingerprint sentinel states (`52`)
-- `v0.9.6` (in progress):
+- `v0.9.6` (completed):
   - refine sensitive-field validation approach (heuristics vs explicit policy flags)
   - harden audit/governance scripts against tool output and formatting brittleness
   - define explicit audit-disposition policy and CI toolchain pinning strategy
   - review and lock determinism helper modules with dedicated conformance tests
+  - execution batches (planned before implementation):
+    - `v0.9.6.1`: completed (sensitive-field policy ergonomics + contract tests + docs)
+    - `v0.9.6.2`: completed (runtime audit script hardening + expiry-bounded disposition policy)
+    - `v0.9.6.3`: completed (governance-check robustness hardening + integration tests)
+    - `v0.9.6.4`: completed (determinism-helper conformance tests + status/evidence refresh)
+- `v0.9.7` (in progress):
+  - finalize pre-GA dependency-risk disposition evidence with explicit expiry-bounded acceptance
+  - complete final `0.x` release-evidence closure package before `v1.0.0`
+  - run final docs/state synchronization pass for GA readiness
 
 ### Cycle 8.4 - `v0.9.4` (Filter/parser semantic correctness hardening)
 
@@ -248,6 +258,18 @@ Scope:
 Exit:
 - governance/audit checks remain strict but resilient to benign formatting/tooling variance
 - policy validation behavior is explicit, predictable, and test-covered
+
+### Cycle 8.7 - `v0.9.7` (Pre-GA dependency/evidence closure)
+
+Scope:
+- finalize dependency-risk disposition details (runtime zero-tolerance + expiry-bounded dev-only acceptance)
+- complete pre-GA release evidence and status synchronization across root/docs markdown set
+- execute final `0.x` docs/state consistency pass before `v1.0.0` gating
+
+Exit:
+- dependency-risk disposition is explicit, current, and governance-checked
+- `TODO.md`, `ROADMAP.md`, `docs/STATUSQUO.md`, and `docs/RELEASE_EVIDENCE.md` are synchronized
+- `npm run ci:check` remains green after documentation/governance updates
 
 ### Cycle 9 - `v1.0.0` (GA release)
 

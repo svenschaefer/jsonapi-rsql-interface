@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.6` (governance/tooling robustness hardening).
+- Current roadmap phase: `v0.9.7` (pre-GA dependency/evidence closure).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -39,7 +39,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - `v0.9.6` progress implemented:
   - governance permission checks are less brittle to workflow formatting variation
   - runtime audit script has stricter tool-output and execution-failure handling
-  - policy validation now supports explicit `sensitive: true` and reduced generic token false positives
+  - policy validation now supports explicit `sensitive: true`, plus allowlist overrides for safe heuristic exceptions
+  - package-manager pinning is governance-validated (`packageManager: npm@10.9.2`)
+  - determinism helper modules are covered by explicit contract tests
 
 ## Quality status
 
@@ -106,9 +108,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 ## Immediate next steps
 
-- Close remaining `v0.9.6` hardening scope:
-  - finalize governance/tooling robustness follow-ups
-  - finalize dependency-risk disposition text for residual dev-only advisories
+- Close remaining `v0.9.7` hardening scope:
+  - finalize pre-GA dependency-risk disposition evidence for residual dev-only advisories
   - complete final pre-GA evidence entry for `0.x` closure
 - Prepare `v1.0.0` readiness package:
   - final compatibility/conformance review pass

@@ -139,3 +139,45 @@ test("policy security validation avoids generic token false positives by default
   const out = compileRequestSafe(input("filter=status==active", policy));
   assert.equal(out.ok, true);
 });
+
+test("policy security validation supports heuristic allowlist overrides", () => {
+  const policy = {
+    ...basePolicy(),
+    fields: {
+      ...basePolicy().fields,
+      api_key_label: {
+        type: "string",
+        filterable: true,
+        operators: ["=="]
+      }
+    },
+    security: {
+      validate_artifacts: true,
+      sensitive_field_allowlist: ["api_key_label"]
+    }
+  };
+  const out = compileRequestSafe(input("filter=status==active", policy));
+  assert.equal(out.ok, true);
+});
+
+test("explicit sensitive flag is not bypassed by allowlist overrides", () => {
+  const policy = {
+    ...basePolicy(),
+    fields: {
+      ...basePolicy().fields,
+      custom: {
+        type: "string",
+        filterable: true,
+        operators: ["=="],
+        sensitive: true
+      }
+    },
+    security: {
+      validate_artifacts: true,
+      sensitive_field_allowlist: ["custom"]
+    }
+  };
+  const out = compileRequestSafe(input("filter=status==active", policy));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "field_not_allowed");
+});
