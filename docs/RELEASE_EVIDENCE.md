@@ -223,6 +223,12 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - publish-prep gates passed:
       - `npm run ci:check`: pass
       - `npm pack --workspace packages/adapter-pg --dry-run`: pass
+    - external pre-publish smoke executed:
+      - command: `npm run smoke:external:prepublish -- --version 1.2.0 --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+      - result: pass
+      - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-pg-1.2.0.tgz`
+      - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg`
+      - resolved_entrypoint: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg\src\index.js`
     - publish attempt blocked by npm auth/OTP:
       - `npm publish --workspace packages/adapter-pg --access public` -> `EOTP` (token expired/revoked)
 - Evidence:

@@ -131,6 +131,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Continue `v1.2.x` closeout:
   - complete first adapter publish cycle (`v1.2.7`) for `@jsonapi-rsql/pg`
+  - external pre-publish smoke for adapter artifact is now passing in `C:\code\jsonapi-rsql-interface-smoke-test`
   - current blocker: npm auth/OTP required for publish execution
   - capture npm registry verification and release evidence after successful publish
   - current implemented state:

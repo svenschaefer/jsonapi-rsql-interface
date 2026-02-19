@@ -35,6 +35,24 @@
    - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 14. Record both smoke outcomes in release evidence.
 
+## Workspace Adapter Release Flow (`@jsonapi-rsql/pg`)
+
+1. Set adapter version in `packages/adapter-pg/package.json`.
+2. Run quality gates:
+   - `npm run ci:check`
+   - `npm run audit:runtime`
+3. Validate pack artifact:
+   - `npm pack --workspace packages/adapter-pg --dry-run`
+4. Run external pre-publish smoke for adapter artifact:
+   - `npm run smoke:external:prepublish -- --version <x.y.z> --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+5. Publish adapter:
+   - `npm publish --workspace packages/adapter-pg --access public`
+6. Verify registry metadata:
+   - `npm view @jsonapi-rsql/pg@<x.y.z> version peerDependencies engines`
+7. Run external post-publish smoke for adapter:
+   - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+8. Record evidence in `docs/RELEASE_EVIDENCE.md`.
+
 Rules:
 
 - Never rewrite history after tagging.

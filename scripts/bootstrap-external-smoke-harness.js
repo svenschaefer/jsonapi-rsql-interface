@@ -178,7 +178,90 @@ function assertEnvelopeShape(out, label) {
   }
 }
 
+function assertAdapterContract(packageName) {
+  const mod = require(packageName);
+  const required = [
+    "compileWhere",
+    "compileOrderBy",
+    "compileLimitOffset",
+    "compileSecurityPredicate",
+    "compileSelect",
+    "assembleSelectSql"
+  ];
+  for (const key of required) {
+    if (!mod || typeof mod[key] !== "function") {
+      throw new Error(\`Adapter package under test does not expose expected function: \${key}\`);
+    }
+  }
+
+  const plan = {
+    kind: "query_plan",
+    filter: {
+      clauses: [
+        {
+          field: "status",
+          operator: "==",
+          values: ["active"],
+          wildcard: null
+        }
+      ]
+    },
+    sort: ["-id"],
+    page: { size: 10, number: 1 },
+    include: [],
+    normalized_query: {
+      "fields[users]": ["id", "status"]
+    },
+    security: {
+      predicate: {
+        field: "tenant_id",
+        operator: "==",
+        bound_parameter_key: "tenant_scope"
+      }
+    }
+  };
+  const mapping = {
+    dialect_profile: "postgresql-v1-core",
+    resource: {
+      table: "users",
+      type: "users"
+    },
+    fields: {
+      id: { kind: "column", column: "id" },
+      status: { kind: "column", column: "status" },
+      tenant_id: { kind: "column", column: "tenant_id" }
+    }
+  };
+
+  const select = mod.compileSelect(plan, mapping);
+  const where = mod.compileWhere(plan, mapping);
+  const security = mod.compileSecurityPredicate(plan, mapping, { tenant_scope: "tenant-a" });
+  const orderBy = mod.compileOrderBy(plan, mapping);
+  const limitOffset = mod.compileLimitOffset(plan, mapping);
+  const assembled = mod.assembleSelectSql(
+    {
+      table: mod.getTableSql(mapping),
+      select,
+      where,
+      security,
+      orderBy,
+      limitOffset
+    },
+    mapping
+  );
+  if (!assembled || typeof assembled.text !== "string" || !Array.isArray(assembled.values)) {
+    throw new Error("Adapter smoke compile/assemble result is invalid.");
+  }
+  if (assembled.values.length !== 4) {
+    throw new Error("Adapter smoke compile/assemble produced unexpected values length.");
+  }
+}
+
 function assertPackageContract(packageName) {
+  if (packageName === "@jsonapi-rsql/pg") {
+    assertAdapterContract(packageName);
+    return;
+  }
   const mod = require(packageName);
   if (!mod || typeof mod.compileRequest !== "function" || typeof mod.compileRequestSafe !== "function") {
     throw new Error("Package under test does not expose expected compile API.");

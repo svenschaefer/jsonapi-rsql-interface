@@ -14,7 +14,8 @@ function parseArgs(argv) {
     packageName: String(pkg.name || "jsonapi-rsql-interface"),
     timestamp: "",
     harnessDir: "C:\\code\\jsonapi-rsql-interface-smoke-test",
-    harnessPackage: "jsonapi-rsql-interface-smoke-test"
+    harnessPackage: "jsonapi-rsql-interface-smoke-test",
+    workspace: ""
   };
   for (let i = 0; i < argv.length; i += 1) {
     const token = String(argv[i] || "");
@@ -41,6 +42,11 @@ function parseArgs(argv) {
     }
     if (token === "--harness-package" && next) {
       out.harnessPackage = next;
+      i += 1;
+      continue;
+    }
+    if (token === "--workspace" && next) {
+      out.workspace = next;
       i += 1;
     }
   }
@@ -115,7 +121,11 @@ function run() {
     repoRoot
   );
 
-  const packOut = runNpm(["pack", "--json"], repoRoot);
+  const packArgs = ["pack", "--json"];
+  if (options.workspace && String(options.workspace).trim().length > 0) {
+    packArgs.push("--workspace", String(options.workspace).trim());
+  }
+  const packOut = runNpm(packArgs, repoRoot);
   const packPayload = JSON.parse(packOut);
   const artifactName = Array.isArray(packPayload) && packPayload[0] ? packPayload[0].filename : "";
   if (!artifactName) {

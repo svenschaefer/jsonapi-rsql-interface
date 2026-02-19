@@ -27,6 +27,9 @@ All notable changes to this project are documented in this file.
   - adapter publish-ready package metadata:
     - `packages/adapter-pg/package.json` set to `@jsonapi-rsql/pg@1.2.0`
     - `private=false` with `publishConfig.access=public`
+  - external smoke tooling enhancements for adapter releases:
+    - harness runner now validates adapter contract for `@jsonapi-rsql/pg`
+    - `smoke:external:prepublish` supports `--workspace` for non-root package artifacts
 
 ## [1.1.0] - 2026-02-19
 

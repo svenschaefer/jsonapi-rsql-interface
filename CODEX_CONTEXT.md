@@ -148,4 +148,5 @@ Repository-level standards:
   - `jsonapi-rsql-interface@1.0.0` is deprecated with upgrade guidance to `>=1.1.0`
   - external pre/post publish smoke evidence is captured in `docs/RELEASE_EVIDENCE.md`
   - active release cycle: `v1.2.7` (`@jsonapi-rsql/pg` first publish execution)
+  - adapter external pre-publish smoke is passing (`@jsonapi-rsql/pg@1.2.0` tarball)
   - current release blocker: npm auth/OTP required (`EOTP`) for adapter publish command

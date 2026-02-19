@@ -454,11 +454,16 @@ Execution breakdown (planned before implementation):
 - `v1.2.7` (in progress):
   - execute first adapter package release (`@jsonapi-rsql/pg`):
     - set publish-ready adapter package metadata/version
+    - run external pre/post publish smoke in `C:\code\jsonapi-rsql-interface-smoke-test`
     - publish to npm and verify registry metadata
     - capture adapter release evidence in docs
   - progress:
     - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.2.0`, `private=false`, `publishConfig.access=public`)
     - release gates passed (`npm run ci:check`, workspace `npm pack --dry-run`)
+    - external smoke tooling extended for adapter release:
+      - harness runner supports adapter contract checks for `@jsonapi-rsql/pg`
+      - `smoke:external:prepublish` supports `--workspace` artifact packing
+    - external pre-publish smoke executed successfully for adapter artifact in `C:\code\jsonapi-rsql-interface-smoke-test`
   - blocker:
     - npm publish requires renewed auth + OTP (`EOTP`, token expired/revoked)
 - `v1.2.8` (planned):

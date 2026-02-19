@@ -19,7 +19,7 @@ These scripts are for local quality analysis and CI hygiene:
 - `npm run smoke:external -- --phase <pre|post> --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] [--harness-dir <path>] [--harness-package <name>]`
   - release-only helper for external smoke harness invocation by target version
   - supports installed-harness resolution from `<harness-dir>/<timestamp>-<phase>-<version>/node_modules/<harness-package>`
-- `npm run smoke:external:prepublish -- --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] [--harness-dir <path>] [--harness-package <name>] [--package-name <name>]`
+- `npm run smoke:external:prepublish -- --version <x.y.z> [--workspace <workspace>] [--timestamp <YYYYMMDDTHHMMSSZ>] [--harness-dir <path>] [--harness-package <name>] [--package-name <name>]`
   - one-shot local pre-publish flow: `npm pack` + harness bootstrap + external pre smoke with tarball source
 
 ## Contract Boundary

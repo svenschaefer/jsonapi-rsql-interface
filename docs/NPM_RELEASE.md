@@ -55,8 +55,12 @@ Use this checklist for first and subsequent adapter package releases.
    - `npm run audit:runtime`
 4. validate adapter package artifact:
    - `npm pack --workspace packages/adapter-pg --dry-run`
-5. publish adapter package:
+5. run external pre-publish smoke for adapter artifact:
+   - `npm run smoke:external:prepublish -- --version <x.y.z> --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+6. publish adapter package:
    - `npm publish --workspace packages/adapter-pg --access public`
-6. verify registry package metadata:
+7. verify registry package metadata:
    - `npm view @jsonapi-rsql/pg@<x.y.z> version peerDependencies engines`
-7. record adapter release evidence in `docs/RELEASE_EVIDENCE.md`
+8. run external post-publish smoke for adapter package:
+   - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+9. record adapter release evidence in `docs/RELEASE_EVIDENCE.md`

@@ -319,6 +319,9 @@ Progress (`v1.2.x`):
 - Added explicit adapter dialect pinning baseline (`ADAPTER_DIALECT_PROFILE = postgresql-v1-core`) with deterministic rejection for unsupported mapping profiles.
 - Added adapter publish-preparation checklist to `docs/NPM_RELEASE.md` (workspace release path for `@jsonapi-rsql/pg`).
 - Prepared first adapter publish metadata (`@jsonapi-rsql/pg@1.2.0`, `private=false`, `publishConfig.access=public`); publish execution is pending npm auth/OTP.
+- Extended external smoke harness runner with adapter-specific contract checks for `@jsonapi-rsql/pg` (pre/post publish smoke coverage).
+- Extended `smoke:external:prepublish` with `--workspace` to pack non-root workspace artifacts (adapter release flow).
+- Executed adapter external pre-publish smoke successfully in `C:\code\jsonapi-rsql-interface-smoke-test`; remaining blocker is npm auth/OTP for publish.
 
 - Scope:
   - new package `@jsonapi-rsql/pg`
