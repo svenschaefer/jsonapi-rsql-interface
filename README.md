@@ -223,6 +223,7 @@ Repository workflow and release baseline documents:
 - `docs/SECURITY_INVARIANTS.md`
 - `docs/PERFORMANCE_INVARIANTS.md`
 - `docs/CONFORMANCE_TEST_CHECKLIST.md`
+- `CODEX_CONTEXT.md`
 - `TODO.md`
 - `ROADMAP.md`
 - `CONTRIBUTING.md`
