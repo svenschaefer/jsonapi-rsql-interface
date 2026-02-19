@@ -9,7 +9,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - Not complete: final pre-GA dependency-risk disposition and GA release evidence closure
 - Cycle status:
   - `v0.1.x`: completed
-  - `v0.9.3`: current active cycle
+  - `v0.9.4`: current active cycle
 
 ## Versioning Model
 
@@ -29,8 +29,8 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.0`: in progress (umbrella pre-GA stabilization cycle)
 - `v0.9.1`: completed (query/error determinism hardening)
 - `v0.9.2`: completed (CI supply-chain/workflow hardening)
-- `v0.9.3`: in progress (pre-GA evidence closure)
-- `v0.9.4`: planned (filter/parser semantic correctness hardening)
+- `v0.9.3`: completed (pre-GA evidence and docs closure baseline)
+- `v0.9.4`: in progress (filter/parser semantic correctness hardening)
 - `v0.9.5`: planned (canonicalization/cache/safe-API hardening)
 - `v0.9.6`: planned (governance/tooling robustness hardening)
 - `v1.0.0`: planned GA
@@ -185,7 +185,7 @@ Execution breakdown (planned before implementation):
 - `v0.9.3` (in progress):
   - pre-GA evidence updates and closure checks
   - final docs alignment and upgrade/compatibility review
-- `v0.9.4` (planned):
+- `v0.9.4` (in progress):
   - preserve/lock filter boolean semantics contract (`AND`/`OR`) in plan or explicitly document non-goal
   - move relationship-path rejection to parsed fields (avoid dot-literal false positives)
   - resolve parser/policy dotted-field consistency (`46`/`47` path) with one canonical validation layer

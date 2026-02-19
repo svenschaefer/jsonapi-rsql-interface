@@ -86,6 +86,12 @@ test("include path length limit is enforced", () => {
 
 test("normalized query key is stable across equivalent ordering", () => {
   const a = compileRequest(input("filter=status==active&include=groups,memberships&sort=-status,id"));
-  const b = compileRequest(input("sort=id,-status&include=memberships,groups&filter=status==active"));
+  const b = compileRequest(input("sort=-status,id&include=memberships,groups&filter=status==active"));
   assert.equal(a.meta.normalized_query_key, b.meta.normalized_query_key);
+});
+
+test("normalized query key changes when sort precedence changes", () => {
+  const a = compileRequest(input("filter=status==active&sort=-status,id"));
+  const b = compileRequest(input("filter=status==active&sort=id,-status"));
+  assert.notEqual(a.meta.normalized_query_key, b.meta.normalized_query_key);
 });

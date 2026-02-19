@@ -16,3 +16,9 @@ All notable changes to this project are documented in this file.
 - Query plan now emits validated numeric page values.
 - CI workflow now uses explicit least-privilege permissions.
 - Governance checks now verify workflow permission posture and approved action references.
+- Relationship-path filter checks now validate parsed field tokens (not raw literal text).
+- Wildcard rejection now applies consistently across filter operators.
+- Empty in-list rejection is now enforced through parsed structural checks.
+- Query normalization preserves `sort` precedence order in plan semantics.
+- Plan cache keys now use collision-safe tuple encoding.
+- `compileRequestSafe` now returns deterministic invalid-query errors for bad input shapes.

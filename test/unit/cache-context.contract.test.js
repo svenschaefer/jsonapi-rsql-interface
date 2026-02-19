@@ -83,3 +83,20 @@ test("plan cache key changes when policy version changes", () => {
   );
   assert.notEqual(a.meta.plan_cache_key, b.meta.plan_cache_key);
 });
+
+test("plan cache key is stable JSON tuple encoding (no delimiter concatenation)", () => {
+  const out = compileRequest(
+    makeInput({
+      context: {
+        tenant_context_present: true,
+        auth_context_hash: "role:admin|trace:sample",
+        security_predicate: {
+          field: "tenant_id",
+          operator: "==",
+          bound_parameter_key: "tenant_scope"
+        }
+      }
+    })
+  );
+  assert.equal(out.meta.plan_cache_key.startsWith("["), true);
+});

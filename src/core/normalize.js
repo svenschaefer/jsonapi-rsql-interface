@@ -6,7 +6,13 @@ function normalizeQuery(params) {
 
   for (const [key, value] of entries) {
     if (Array.isArray(value)) {
-      out[key] = sortStrings(value.map((item) => String(item)));
+      if (key === "sort") {
+        out[key] = value
+          .map((item) => String(item).trim())
+          .filter(Boolean);
+      } else {
+        out[key] = sortStrings(value.map((item) => String(item)));
+      }
       continue;
     }
 
@@ -15,7 +21,15 @@ function normalizeQuery(params) {
       continue;
     }
 
-    if (key === "sort" || key === "include" || key.startsWith("fields[")) {
+    if (key === "sort") {
+      out[key] = value
+        .split(",")
+        .map((part) => part.trim())
+        .filter(Boolean);
+      continue;
+    }
+
+    if (key === "include" || key.startsWith("fields[")) {
       out[key] = sortStrings(
         value
           .split(",")

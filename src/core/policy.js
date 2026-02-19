@@ -42,6 +42,21 @@ function enforceStringLimits(rawQuery, limits) {
   }
 }
 
+function enforceRawParameterPairEstimate(rawQuery, limits) {
+  if (!rawQuery) return;
+  const maxPairs = asLimit(limits.max_key_value_pairs, 64);
+  const queryText = rawQuery.startsWith("?") ? rawQuery.slice(1) : rawQuery;
+  const pairEstimate = queryText.length === 0 ? 0 : queryText.split("&").length;
+  if (pairEstimate > maxPairs) {
+    throwCompilationError(
+      "invalid_query_string",
+      `Raw query pair estimate exceeds limit ${maxPairs}.`,
+      { parameter: "query" },
+      { limit: "max_key_value_pairs", estimated_count: pairEstimate, stage: "pre_parse" }
+    );
+  }
+}
+
 function parsePositiveIntPageValue(parameter, value, maxValue) {
   const text = String(value);
   if (!/^[1-9]\d*$/.test(text)) {
@@ -149,11 +164,12 @@ function enforceDuplicatePolicy(params) {
 }
 
 function enforceRootFieldFilterScope(filter) {
-  if (typeof filter !== "string" || filter.trim().length === 0) return;
-  if (/\b[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*\b/.test(filter)) {
+  for (const clause of filter || []) {
+    if (!clause || typeof clause.field !== "string") continue;
+    if (!clause.field.includes(".")) continue;
     throwCompilationError(
       "invalid_filter_syntax",
-      "Relationship-path filtering is not supported in v1.",
+      "Relationship-path filtering is not supported.",
       { parameter: "filter" }
     );
   }
@@ -168,17 +184,6 @@ function enforceFilterLiteralLength(filter, limits) {
       `Filter literal length exceeds limit ${maxLen}.`,
       { parameter: "filter" },
       { limit: "max_filter_literal_length", value: filter.length }
-    );
-  }
-}
-
-function enforceEmptyInListRule(filter) {
-  if (typeof filter !== "string" || filter.trim().length === 0) return;
-  if (/=in=\(\s*\)|=out=\(\s*\)/.test(filter)) {
-    throwCompilationError(
-      "empty_in_list_not_allowed",
-      "Empty =in=() or =out=() is not allowed.",
-      { parameter: "filter" }
     );
   }
 }
@@ -334,12 +339,11 @@ function enforceFieldsAllowlist(normalizedQuery, policy) {
 
 function enforceNoWildcardSemantics(clauses) {
   for (const clause of clauses || []) {
-    if (clause.operator !== "==" && clause.operator !== "!=") continue;
     for (const raw of clause.raw_values || []) {
       if (String(raw).includes("*")) {
         throwCompilationError(
           "invalid_filter_syntax",
-          "Wildcard semantics are not supported in v1.",
+          "Wildcard semantics are not supported.",
           { parameter: "filter" }
         );
       }
@@ -448,7 +452,6 @@ function enforceSecurityPredicate(context) {
 
 module.exports = {
   enforceDuplicatePolicy,
-  enforceEmptyInListRule,
   enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
   enforceFilterComplexityLimits,
@@ -459,6 +462,7 @@ module.exports = {
   enforceNoWildcardSemantics,
   enforcePageParameters,
   enforceParameterSurfaceLimits,
+  enforceRawParameterPairEstimate,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
   enforceSortAllowlist,

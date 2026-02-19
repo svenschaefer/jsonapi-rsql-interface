@@ -15,6 +15,7 @@ function baseInput(rawQuery, extraPolicy = {}) {
         created: { type: "date", filterable: true, operators: ["==", ">=", "<="] },
         seen_at: { type: "datetime", filterable: true, operators: ["==", ">=", "<="] },
         uid: { type: "uuid", filterable: true, operators: ["==", "!="] },
+        name: { type: "string", filterable: true, operators: ["==", "!="] },
         status: {
           type: "enum",
           filterable: true,
@@ -121,4 +122,15 @@ test("wildcard semantics are rejected", () => {
   const result = compileRequestSafe(baseInput("filter=status==act*"));
   assert.equal(result.ok, false);
   assert.equal(result.errors[0].code, "invalid_filter_syntax");
+});
+
+test("wildcard semantics are rejected for membership operators", () => {
+  const result = compileRequestSafe(baseInput("filter=status=in=(active,act*)"));
+  assert.equal(result.ok, false);
+  assert.equal(result.errors[0].code, "invalid_filter_syntax");
+});
+
+test("dot in string literal value is allowed", () => {
+  const result = compileRequestSafe(baseInput("filter=name==foo.bar"));
+  assert.equal(result.ok, true);
 });

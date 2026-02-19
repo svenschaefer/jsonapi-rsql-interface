@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v0.9.3` (pre-GA evidence closure).
+- Current roadmap phase: `v0.9.4` (filter/parser semantic correctness hardening).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -25,6 +25,13 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - malformed percent-encoding deterministically maps to `invalid_query_string`
   - canonical `page[size]` / `page[number]` validation with `page_parameter_invalid`
   - validated page values compile into numeric plan fields
+- `v0.9.4` progress implemented:
+  - relationship-path checks now run on parsed fields (no dot-literal false positives)
+  - wildcard rejection is consistent across operators
+  - empty in-list rejection is enforced via structural parsed checks
+  - sort precedence is preserved in normalized plan semantics
+  - cache key format moved to collision-safe tuple encoding
+  - `compileRequestSafe` now returns deterministic query-shape errors
 
 ## Quality status
 

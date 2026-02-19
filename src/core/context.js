@@ -11,14 +11,13 @@ function stableStringify(value) {
 }
 
 function createContextFingerprint(context) {
+  const predicate = (context && context.security_predicate) || {};
   const safeContext = {
     tenant_context_present: Boolean(context && context.tenant_context_present === true),
     security_predicate: {
-      field: String(context && context.security_predicate && context.security_predicate.field),
-      operator: String(context && context.security_predicate && context.security_predicate.operator),
-      bound_parameter_key: String(
-        (context && context.security_predicate && context.security_predicate.bound_parameter_key) || ""
-      )
+      field: String(predicate.field || ""),
+      operator: String(predicate.operator || ""),
+      bound_parameter_key: String(predicate.bound_parameter_key || "")
     },
     auth_context_hash: String((context && context.auth_context_hash) || "")
   };
@@ -27,7 +26,11 @@ function createContextFingerprint(context) {
 }
 
 function createPlanCacheKey(policyVersion, contextFingerprint, normalizedQueryKey) {
-  return `${policyVersion}|${contextFingerprint}|${normalizedQueryKey}`;
+  return stableStringify([
+    String(policyVersion || ""),
+    String(contextFingerprint || ""),
+    String(normalizedQueryKey || "")
+  ]);
 }
 
 module.exports = {

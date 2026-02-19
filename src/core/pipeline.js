@@ -7,7 +7,6 @@ const { createContextFingerprint, createPlanCacheKey } = require("./context");
 const { validatePolicySecurityArtifacts } = require("./security");
 const {
   enforceDuplicatePolicy,
-  enforceEmptyInListRule,
   enforceFieldsAllowlist,
   enforceFieldSelectionLimits,
   enforceFilterComplexityLimits,
@@ -18,6 +17,7 @@ const {
   enforceNoWildcardSemantics,
   enforcePageParameters,
   enforceParameterSurfaceLimits,
+  enforceRawParameterPairEstimate,
   enforceRootFieldFilterScope,
   enforceSecurityPredicate,
   enforceSortAllowlist,
@@ -29,7 +29,12 @@ const { compilePlan } = require("./compile");
 
 function ensureObject(value, label) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
-    throw new Error(`${label} must be an object.`);
+    throwCompilationError(
+      "invalid_query_string",
+      `${label} must be an object.`,
+      { parameter: "query" },
+      { input_shape: label }
+    );
   }
 }
 
@@ -41,13 +46,17 @@ function compileRequest(input) {
 
   const rawQuery = typeof input.raw_query === "string" ? input.raw_query : "";
   const queryObject = input.query && typeof input.query === "object" ? input.query : null;
-  const params = queryObject || parseQueryString(rawQuery);
   const limits = (input.policy && input.policy.limits) || {};
 
   validatePolicySecurityArtifacts(input.policy);
-  enforceStringLimits(rawQuery, limits);
+  if (!queryObject) {
+    enforceStringLimits(rawQuery, limits);
+    enforceRawParameterPairEstimate(rawQuery, limits);
+  }
+  const params = queryObject || parseQueryString(rawQuery);
   enforceParameterSurfaceLimits(params, limits);
   enforceDuplicatePolicy(params);
+  enforceSecurityPredicate(input.context);
   const page = enforcePageParameters(params, limits);
 
   const normalizedQuery = normalizeQuery(params);
@@ -57,9 +66,8 @@ function compileRequest(input) {
   const planCacheKey = createPlanCacheKey(policyVersion, contextFingerprint, normalizedQueryKey);
   const filterParse = parseFilterExpression(normalizedQuery.filter || "");
 
-  enforceRootFieldFilterScope(normalizedQuery.filter);
+  enforceRootFieldFilterScope(filterParse.clauses);
   enforceFilterLiteralLength(normalizedQuery.filter || "", limits);
-  enforceEmptyInListRule(normalizedQuery.filter);
   enforceNoWildcardSemantics(filterParse.clauses);
   enforceFilterComplexityLimits(filterParse.complexity, limits);
   enforceInListSize(filterParse.clauses, limits);
@@ -69,8 +77,6 @@ function compileRequest(input) {
   enforceIncludeAllowlist(Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [], input.policy);
   enforceSortAllowlist(Array.isArray(normalizedQuery.sort) ? normalizedQuery.sort : [], input.policy);
   enforceFieldsAllowlist(normalizedQuery, input.policy);
-  enforceSecurityPredicate(input.context);
-
   const typedFilter = typeCheckFilterClauses(filterParse.clauses, input.policy);
 
   const compiled = compilePlan(

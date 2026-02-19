@@ -96,7 +96,7 @@ function parseClause(clauseText) {
   const field = clause.slice(0, opInfo.idx).trim();
   const raw = clause.slice(opInfo.idx + opInfo.op.length).trim();
 
-  if (!/^[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)?$/.test(field)) {
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(field)) {
     throwCompilationError("invalid_filter_syntax", `Invalid filter field: ${field}.`, {
       parameter: "filter"
     });
