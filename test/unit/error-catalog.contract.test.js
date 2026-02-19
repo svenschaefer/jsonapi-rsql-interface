@@ -16,7 +16,8 @@ function input(rawQuery, overrides = {}) {
           filterable: true,
           operators: ["==", "!="],
           enum_values: ["active", "disabled"]
-        }
+        },
+        name: { type: "string", filterable: true, operators: ["==", "!="] }
       },
       query_dimensions: {
         include_allowlist: ["groups"],
@@ -56,6 +57,10 @@ test("error catalog baseline codes remain present", () => {
     "field_not_allowed",
     "operator_not_allowed",
     "value_type_mismatch",
+    "wildcard_not_allowed",
+    "wildcard_operator_not_allowed",
+    "wildcard_type_not_supported",
+    "invalid_wildcard_pattern",
     "empty_in_list_not_allowed",
     "sort_not_allowed",
     "include_not_allowed",
@@ -147,6 +152,45 @@ test("canonical code: filter_complexity_exceeded for membership list limit", () 
   const out = compileRequestSafe(input("filter=id=in=(1,2,3,4)"));
   assert.equal(out.ok, false);
   assert.equal(out.errors[0].code, "filter_complexity_exceeded");
+});
+
+test("canonical code: wildcard_not_allowed when field has no wildcard policy", () => {
+  const out = compileRequestSafe(input("filter=name==act*"));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "wildcard_not_allowed");
+});
+
+test("canonical code: invalid_wildcard_pattern for unsupported wildcard form", () => {
+  const out = compileRequestSafe(
+    input("filter=name==a*b", {
+      policy: {
+        fields: {
+          id: { type: "int", filterable: true, operators: ["==", "!=", "=in=", "=out="] },
+          score: { type: "float", filterable: true, operators: ["=="] },
+          name: {
+            type: "string",
+            filterable: true,
+            operators: ["==", "!="],
+            wildcard: { enabled: true, modes: ["contains", "starts_with", "ends_with"] }
+          }
+        }
+      }
+    })
+  );
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "invalid_wildcard_pattern");
+});
+
+test("canonical code: wildcard_operator_not_allowed for non-== wildcard usage", () => {
+  const out = compileRequestSafe(input("filter=name!=act*"));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "wildcard_operator_not_allowed");
+});
+
+test("canonical code: wildcard_type_not_supported for non-string fields", () => {
+  const out = compileRequestSafe(input("filter=id==1*"));
+  assert.equal(out.ok, false);
+  assert.equal(out.errors[0].code, "wildcard_type_not_supported");
 });
 
 test("canonical code: security_predicate_required when context is missing predicate", () => {

@@ -53,6 +53,25 @@ function baseInput(rawQuery, extraPolicy = {}) {
   };
 }
 
+function wildcardPolicy() {
+  return {
+    fields: {
+      name: {
+        type: "string",
+        filterable: true,
+        operators: ["==", "!="],
+        wildcard: {
+          enabled: true,
+          modes: ["contains", "starts_with", "ends_with"],
+          case_sensitive: true,
+          min_value_length: 1,
+          max_value_length: 64
+        }
+      }
+    }
+  };
+}
+
 test("strict int parsing rejects scientific notation", () => {
   const result = compileRequestSafe(baseInput("filter=id==1e3"));
   assert.equal(result.ok, false);
@@ -118,16 +137,47 @@ test("sparse field allowlist is enforced", () => {
   assert.equal(result.errors[0].code, "fields_not_allowed");
 });
 
-test("wildcard semantics are rejected", () => {
-  const result = compileRequestSafe(baseInput("filter=status==act*"));
+test("wildcard semantics are rejected by default for string fields", () => {
+  const result = compileRequestSafe(baseInput("filter=name==act*"));
   assert.equal(result.ok, false);
-  assert.equal(result.errors[0].code, "invalid_filter_syntax");
+  assert.equal(result.errors[0].code, "wildcard_not_allowed");
 });
 
-test("wildcard semantics are rejected for membership operators", () => {
-  const result = compileRequestSafe(baseInput("filter=status=in=(active,act*)"));
+test("wildcard semantics are rejected for non-== operators", () => {
+  const result = compileRequestSafe(baseInput("filter=name!=act*"));
   assert.equal(result.ok, false);
-  assert.equal(result.errors[0].code, "invalid_filter_syntax");
+  assert.equal(result.errors[0].code, "wildcard_operator_not_allowed");
+});
+
+test("wildcard semantics are opt-in and supported for string equality", () => {
+  const result = compileRequestSafe(
+    baseInput("filter=name==*anna*", wildcardPolicy())
+  );
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.plan.filter.clauses[0].wildcard, {
+    mode: "contains",
+    value: "anna",
+    case_sensitive: true
+  });
+  assert.equal(result.plan.filter.clauses[0].values[0], "anna");
+});
+
+test("wildcard supports starts_with and ends_with", () => {
+  const start = compileRequestSafe(baseInput("filter=name==anna*", wildcardPolicy()));
+  const end = compileRequestSafe(baseInput("filter=name==*anna", wildcardPolicy()));
+  assert.equal(start.ok, true);
+  assert.equal(start.plan.filter.clauses[0].wildcard.mode, "starts_with");
+  assert.equal(end.ok, true);
+  assert.equal(end.plan.filter.clauses[0].wildcard.mode, "ends_with");
+});
+
+test("wildcard rejects middle and empty-only forms", () => {
+  const middle = compileRequestSafe(baseInput("filter=name==a*b", wildcardPolicy()));
+  const empty = compileRequestSafe(baseInput("filter=name==**", wildcardPolicy()));
+  assert.equal(middle.ok, false);
+  assert.equal(middle.errors[0].code, "invalid_wildcard_pattern");
+  assert.equal(empty.ok, false);
+  assert.equal(empty.errors[0].code, "invalid_wildcard_pattern");
 });
 
 test("dot in string literal value is allowed", () => {

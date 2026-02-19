@@ -261,6 +261,10 @@
 
 ## 10) Post-GA (1.x) planned topic: string wildcard semantics in RSQL
 
+Progress (`v1.1.x`):
+- Core policy-gated wildcard behavior and deterministic wildcard error codes are implemented and test-covered.
+- Remaining: final docs/evidence closure for the complete `v1.1.x` cycle.
+
 - Scope:
   - only after `v1.0.0`
   - not enabled in `v0.x` or v1.0 baseline

@@ -84,6 +84,7 @@ Repository-level standards:
   - RSQL is a compatibility target for the filter core.
   - JSON:API is a compatibility target for query parameters only (not full server/spec compliance).
   - Execution semantics are adapter territory (for example `@jsonapi-rsql/pg`), not core interface behavior.
+  - Post-GA wildcard extension (`v1.1.x`) is policy-gated and opt-in only.
 
 ## 7) Working Conventions for Agents
 

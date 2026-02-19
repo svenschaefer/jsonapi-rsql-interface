@@ -161,6 +161,18 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - npm registry version check: `npm view jsonapi-rsql-interface@1.0.0 version` -> `1.0.0`
   - npm registry bin check: `npm view jsonapi-rsql-interface@1.0.0 bin` -> `{ "jsonapi-rsql-interface": "bin/cli.js" }`
 
+### `v1.1.1` - Wildcard Extension Core + Error Contract (in progress)
+
+- Scope:
+  - implement post-GA wildcard extension with strict policy opt-in for `string` + `==`
+  - support `contains`, `starts_with`, `ends_with` wildcard forms
+  - reject unsupported wildcard forms and disallowed usage with deterministic codes
+- Evidence:
+  - `npm test`: pass
+  - `npm run gov:check`: pass
+  - `npm run audit:runtime`: pass
+  - `npm run ci:check`: pass
+
 ### `v1.0.0.4` - Harness Provisioning Step (completed)
 
 - Scope:

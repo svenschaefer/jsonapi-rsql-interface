@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v1.1.x` (post-GA wildcard semantics).
+- Current roadmap phase: `v1.1.x` (post-GA wildcard semantics, in progress).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -114,6 +114,9 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 - `v1.0.0` release execution is complete:
   - package `jsonapi-rsql-interface@1.0.0` published to npm
   - external pre-publish and post-publish smoke checks are passing
+- `v1.1.x` wildcard extension progress:
+  - policy-gated wildcard semantics implemented for `string` + `==`
+  - deterministic wildcard error codes and contract tests added
 - Dependency tree still reports known lint-toolchain vulnerabilities in `npm audit` (dev-only path); disposition is recorded as active, expiry-bounded acceptance in `docs/DEPENDENCY_RISK_REGISTER.md`.
 - Runtime dependency audit gate is implemented in CI/release workflows via `npm run audit:runtime` (`npm audit --omit=dev`).
 - Runtime dependency audit currently passes with `0` vulnerabilities.

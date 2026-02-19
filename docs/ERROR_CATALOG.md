@@ -15,6 +15,10 @@ This catalog defines stable `code -> status -> title` mappings that are treated 
 | `field_not_allowed` | `400` | Field not allowed |
 | `operator_not_allowed` | `400` | Operator not allowed |
 | `value_type_mismatch` | `400` | Value type mismatch |
+| `wildcard_not_allowed` | `400` | Wildcard not allowed |
+| `wildcard_operator_not_allowed` | `400` | Wildcard operator not allowed |
+| `wildcard_type_not_supported` | `400` | Wildcard type not supported |
+| `invalid_wildcard_pattern` | `400` | Invalid wildcard pattern |
 | `empty_in_list_not_allowed` | `400` | Empty in-list is not allowed |
 | `sort_not_allowed` | `400` | Sort not allowed |
 | `include_not_allowed` | `400` | Include not allowed |

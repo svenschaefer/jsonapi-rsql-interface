@@ -313,8 +313,19 @@ Constraints:
 
 ### 4) Pattern Matching and Wildcards
 
-- Wildcard semantics in `==` (for example interpreting `*` implicitly) MUST NOT be supported in v1.
-- Pattern matching operators (such as `=like=`) are out of scope for v1 unless explicitly standardized with escaping and case-sensitivity rules.
+- `v1.0` baseline:
+  - Wildcard semantics in `==` are disabled by default and MUST be policy-gated.
+- `v1.1+` extension:
+  - Wildcard matching is supported only for `string` fields with `==` and explicit per-field opt-in policy.
+  - Supported forms:
+    - `*value*` (contains)
+    - `value*` (starts_with)
+    - `*value` (ends_with)
+  - Rejected forms:
+    - `a*b`
+    - `*a*b*`
+    - empty-only wildcard forms (for example `*`, `**`)
+- Pattern matching operators (such as `=like=`) remain out of scope unless explicitly standardized with escaping and case-sensitivity rules.
 
 ### 5) Include Behavior
 

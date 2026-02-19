@@ -337,18 +337,121 @@ function enforceFieldsAllowlist(normalizedQuery, policy) {
   }
 }
 
-function enforceNoWildcardSemantics(clauses) {
-  for (const clause of clauses || []) {
-    for (const raw of clause.raw_values || []) {
-      if (String(raw).includes("*")) {
-        throwCompilationError(
-          "invalid_filter_syntax",
-          "Wildcard semantics are not supported.",
-          { parameter: "filter" }
-        );
-      }
-    }
+function classifyWildcardPattern(raw) {
+  const text = String(raw);
+  if (!text.includes("*")) return null;
+  const starCount = text.split("*").length - 1;
+  if (/^\*+$/.test(text)) {
+    throwCompilationError(
+      "invalid_wildcard_pattern",
+      "Wildcard pattern must include non-wildcard characters.",
+      { parameter: "filter" }
+    );
   }
+  const starts = text.startsWith("*");
+  const ends = text.endsWith("*");
+
+  if (starts && ends && starCount === 2) {
+    const value = text.slice(1, -1);
+    if (!value) {
+      throwCompilationError(
+        "invalid_wildcard_pattern",
+        "Wildcard pattern must include non-wildcard characters.",
+        { parameter: "filter" }
+      );
+    }
+    return { mode: "contains", value };
+  }
+
+  if (!starts && ends && starCount === 1) {
+    const value = text.slice(0, -1);
+    if (!value) {
+      throwCompilationError(
+        "invalid_wildcard_pattern",
+        "Wildcard pattern must include non-wildcard characters.",
+        { parameter: "filter" }
+      );
+    }
+    return { mode: "starts_with", value };
+  }
+
+  if (starts && !ends && starCount === 1) {
+    const value = text.slice(1);
+    if (!value) {
+      throwCompilationError(
+        "invalid_wildcard_pattern",
+        "Wildcard pattern must include non-wildcard characters.",
+        { parameter: "filter" }
+      );
+    }
+    return { mode: "ends_with", value };
+  }
+
+  throwCompilationError(
+    "invalid_wildcard_pattern",
+    "Unsupported wildcard pattern form.",
+    { parameter: "filter" }
+  );
+}
+
+function validateWildcardPolicy(clause, fieldDef, wildcard) {
+  if (!wildcard) return null;
+  if (fieldDef.type !== "string") {
+    throwCompilationError(
+      "wildcard_type_not_supported",
+      `Wildcard matching is only supported for string fields: ${clause.field}.`,
+      { parameter: "filter" },
+      { field: clause.field, expected_type: "string" }
+    );
+  }
+  if (clause.operator !== "==") {
+    throwCompilationError(
+      "wildcard_operator_not_allowed",
+      `Wildcard matching is only supported with == operator for field ${clause.field}.`,
+      { parameter: "filter" },
+      { field: clause.field, operator: clause.operator }
+    );
+  }
+
+  const wildcardPolicy = (fieldDef && fieldDef.wildcard) || {};
+  if (wildcardPolicy.enabled !== true) {
+    throwCompilationError(
+      "wildcard_not_allowed",
+      `Wildcard matching is not enabled for field ${clause.field}.`,
+      { parameter: "filter" },
+      { field: clause.field, mode: wildcard.mode }
+    );
+  }
+
+  const allowedModes = Array.isArray(wildcardPolicy.modes)
+    ? wildcardPolicy.modes
+    : ["contains", "starts_with", "ends_with"];
+  if (!allowedModes.includes(wildcard.mode)) {
+    throwCompilationError(
+      "wildcard_not_allowed",
+      `Wildcard mode is not allowed for field ${clause.field}: ${wildcard.mode}.`,
+      { parameter: "filter" },
+      { field: clause.field, mode: wildcard.mode }
+    );
+  }
+
+  const minLen = asLimit(wildcardPolicy.min_value_length, 1);
+  const maxLen = asLimit(wildcardPolicy.max_value_length, 2048);
+  const len = wildcard.value.length;
+  if (len < minLen || len > maxLen) {
+    throwCompilationError(
+      "wildcard_not_allowed",
+      `Wildcard value length for field ${clause.field} must be between ${minLen} and ${maxLen}.`,
+      { parameter: "filter" },
+      { field: clause.field, mode: wildcard.mode, min_value_length: minLen, max_value_length: maxLen, value_length: len }
+    );
+  }
+
+  return {
+    mode: wildcard.mode,
+    value: wildcard.value,
+    case_sensitive: wildcardPolicy.case_sensitive !== false
+  };
 }
 
 function typeCheckFilterClauses(clauses, policy) {
@@ -390,7 +493,14 @@ function typeCheckFilterClauses(clauses, policy) {
 
     const parsedValues = [];
     let normalizedFromTimezone = false;
+    let wildcardMeta = null;
     for (const raw of clause.raw_values) {
+      const wildcard = classifyWildcardPattern(raw);
+      const wildcardPolicyMeta = validateWildcardPolicy(clause, fieldDef, wildcard);
+      if (wildcardPolicyMeta) {
+        wildcardMeta = wildcardPolicyMeta;
+      }
+
       if (raw === "null") {
         if (clause.operator !== "==" && clause.operator !== "!=") {
           throwCompilationError(
@@ -413,7 +523,7 @@ function typeCheckFilterClauses(clauses, policy) {
           { field: clause.field, expected_type: fieldDef.type }
         );
       }
-      parsedValues.push(parsed.value);
+      parsedValues.push(wildcard ? wildcard.value : parsed.value);
       if (parsed.normalized) normalizedFromTimezone = true;
     }
 
@@ -425,7 +535,8 @@ function typeCheckFilterClauses(clauses, policy) {
       operator: clause.operator,
       values: parsedValues,
       expected_type: fieldDef.type,
-      normalized_from_timezone: normalizedFromTimezone
+      normalized_from_timezone: normalizedFromTimezone,
+      wildcard: wildcardMeta
     });
   }
 
@@ -459,7 +570,6 @@ module.exports = {
   enforceIncludeAllowlist,
   enforceIncludeLimits,
   enforceInListSize,
-  enforceNoWildcardSemantics,
   enforcePageParameters,
   enforceParameterSurfaceLimits,
   enforceRawParameterPairEstimate,

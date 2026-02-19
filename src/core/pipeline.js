@@ -14,7 +14,6 @@ const {
   enforceIncludeAllowlist,
   enforceIncludeLimits,
   enforceInListSize,
-  enforceNoWildcardSemantics,
   enforcePageParameters,
   enforceParameterSurfaceLimits,
   enforceRawParameterPairEstimate,
@@ -68,7 +67,6 @@ function compileRequest(input) {
 
   enforceRootFieldFilterScope(filterParse.clauses);
   enforceFilterLiteralLength(normalizedQuery.filter || "", limits);
-  enforceNoWildcardSemantics(filterParse.clauses);
   enforceFilterComplexityLimits(filterParse.complexity, limits);
   enforceInListSize(filterParse.clauses, limits);
   enforceIncludeLimits(Array.isArray(normalizedQuery.include) ? normalizedQuery.include : [], limits);

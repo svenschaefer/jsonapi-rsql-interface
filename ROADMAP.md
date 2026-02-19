@@ -36,7 +36,7 @@ This roadmap schedules `TODO.md` into implementation cycles from current zero-st
 - `v0.9.7`: completed (pre-GA dependency/evidence closure)
 - `v0.9.8`: completed (final 0.x GA-readiness closure)
 - `v1.0.0`: completed (GA release execution)
-- `v1.1.x`: planned (post-GA wildcard semantics)
+- `v1.1.x`: in progress (post-GA wildcard semantics)
 - `v1.2.x`: planned (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
 
 ## Cycle Plan
@@ -358,6 +358,26 @@ Scope:
 
 Exit:
 - feature merged as opt-in `1.x` capability with no regression to v1 baseline guarantees
+
+Execution breakdown (planned before implementation):
+
+- `v1.1.1` (completed):
+  - implement policy-gated wildcard semantics for `string` fields with `==` only
+  - supported forms:
+    - contains (`*value*`)
+    - startsWith (`value*`)
+    - endsWith (`*value`)
+  - enforce deterministic rejection for:
+    - middle/multi-segment wildcard patterns (`a*b`, `*a*b*`)
+    - empty-only wildcard forms
+    - wildcard usage on non-string fields
+    - wildcard usage when field policy does not opt in
+- `v1.1.2` (completed):
+  - extend deterministic error catalog with wildcard-specific codes
+  - expand unit/contract coverage for allowed/rejected wildcard behavior and deny-by-default posture
+- `v1.1.3` (in progress):
+  - update README/docs/status/evidence artifacts for v1.1 wildcard extension contract
+  - run full quality gates and close `v1.1.x` execution block
 
 ### Cycle 11 - `v1.2.x` (Post-GA PostgreSQL Execution Adapter `@jsonapi-rsql/pg`)
 
