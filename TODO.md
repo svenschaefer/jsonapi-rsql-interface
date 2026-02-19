@@ -122,6 +122,7 @@
   - release docs must capture how to invoke and where evidence is stored
 - Ensure external smoke harness invocation is explicit/manual release workflow step (not default CI gate).
 - Capture pre-publish and post-publish smoke outcomes in release evidence for `v1.0.0`.
+- Confirm harness package install source/name/version used by provisioning command (current default `jsonapi-rsql-interface-smoke-test@<version>` may not resolve in npm registry).
 
 ## 8.1) Pre-GA stabilization (v0.9.x)
 

@@ -121,4 +121,5 @@ Short operational snapshot of `jsonapi-rsql-interface`.
   - execute external pre/post publish smoke runs for target GA version and record results
   - finalize GA evidence block with concrete release commit/tag/publish outcomes
   - use installed-harness resolution path when root harness directory is initially empty
+  - confirm external harness package source/name/version (current default install attempt returns `E404`)
 - Keep version line on `0.x` until all pre-GA checklist topics are closed.

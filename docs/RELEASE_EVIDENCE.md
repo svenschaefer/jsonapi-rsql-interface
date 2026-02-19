@@ -140,7 +140,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
   - execute external pre/post smoke runs with target GA version and capture results
 - Evidence:
   - `npm run release:check`: pass
-  - external pre-smoke (`phase=pre`): pending (runner now resolves installed harness package location)
+  - external pre-smoke (`phase=pre`): blocked (`npm install` returned `E404` for `jsonapi-rsql-interface-smoke-test@1.0.0`)
   - external post-smoke (`phase=post`): pending
 
 ### `v1.0.0.4` - Harness Provisioning Step (completed)

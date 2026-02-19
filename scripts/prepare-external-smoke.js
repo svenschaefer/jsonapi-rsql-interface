@@ -48,7 +48,7 @@ function validateOptions(options) {
 function buildInstallSpec(options) {
   const packageSpec = `${options.harnessPackage}@${options.version}`;
   if (process.platform === "win32") {
-    const command = `npm install --prefix \"${options.harnessDir}\" ${packageSpec} --no-save`;
+    const command = `npm install --prefix ${options.harnessDir} ${packageSpec} --no-save`;
     return {
       cmd: "cmd.exe",
       args: ["/d", "/s", "/c", command]

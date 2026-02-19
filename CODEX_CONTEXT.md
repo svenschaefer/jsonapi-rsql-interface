@@ -123,3 +123,5 @@ Repository-level standards:
   - `C:\code\jsonapi-rsql-interface-smoke-test` (pre-publish + post-publish).
 - External smoke runner resolution rule:
   - if harness root has no `package.json`, resolve and execute from installed harness package under `node_modules`.
+- Current release-execution caveat:
+  - default harness package install spec (`jsonapi-rsql-interface-smoke-test@<version>`) returned `E404` in this environment; source/name/version must be confirmed before final GA smoke execution.
