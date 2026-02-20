@@ -83,6 +83,7 @@ Repository-level standards:
     - `test/unit/adapter-pg-package.contract.test.js`
 - CI baseline currently green via `npm run ci:check`.
 - Package `jsonapi-rsql-interface@1.1.0` is published, with external pre/post publish smoke evidence captured.
+- Core patch release `1.1.1` is in preparation to align docs/process references with current adapter release status.
 
 ## 6) Decision Baselines (Must Hold)
 
@@ -119,6 +120,9 @@ Repository-level standards:
 - `npm run smoke:external:bootstrap -- --phase <pre|post> --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test"`
 - `npm run smoke:external -- --phase <pre|post> --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface` (release-time external harness)
 - `npm run smoke:external:prepublish -- --version <x.y.z> [--timestamp <YYYYMMDDTHHMMSSZ>] --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
+- adapter release smoke (separate harness root):
+  - `npm run smoke:external:prepublish -- --version <x.y.z> --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-pg-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface-pg`
+  - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-pg-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface-pg`
 
 ## 9) Known Follow-up
 
@@ -150,7 +154,9 @@ Repository-level standards:
   - `jsonapi-rsql-interface@1.0.0` is deprecated with upgrade guidance to `>=1.1.0`
   - external pre/post publish smoke evidence is captured in `docs/RELEASE_EVIDENCE.md`
   - active release cycle: `v1.2.7` (`jsonapi-rsql-interface-pg` first publish execution)
-  - adapter external pre-publish smoke is passing (`jsonapi-rsql-interface-pg@1.2.0` tarball)
-  - current release blocker: npm auth/OTP required (`EOTP`) for adapter publish command
+  - adapter external pre-publish smoke is passing (`jsonapi-rsql-interface-pg@1.0.0` tarball)
+  - adapter smoke harness root is separated from core:
+    - `C:\code\jsonapi-rsql-interface-pg-smoke-test`
+  - adapter publish is pending interactive npm publish/auth step, then post-publish smoke
   - next planned cycle after publish closure: `v1.3.x` (adapter/core contract-lock follow-ups)
 

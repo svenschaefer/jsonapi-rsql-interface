@@ -25,7 +25,7 @@ All notable changes to this project are documented in this file.
     - exported `ADAPTER_DIALECT_PROFILE` (`postgresql-v1-core`)
     - deterministic rejection for unsupported mapping `dialect_profile` values (`pg_feature_not_supported`)
   - adapter publish-ready package metadata:
-    - `packages/adapter-pg/package.json` set to `jsonapi-rsql-interface-pg@1.2.0`
+    - `packages/adapter-pg/package.json` set to `jsonapi-rsql-interface-pg@1.0.0`
     - `private=false` with `publishConfig.access=public`
   - adapter naming strategy updated for npm publishability:
     - moved from scoped naming plan to unscoped package name `jsonapi-rsql-interface-pg`
@@ -37,6 +37,15 @@ All notable changes to this project are documented in this file.
   - adapter smoke-check hardening:
     - explicit `getTableSql` presence assertion
     - placeholder/value alignment assertions (contiguous `$1..$n`) replace brittle fixed value-count assertion
+
+## [1.1.1] - 2026-02-20
+
+### Changed
+
+- Core docs and release/process references aligned with current adapter status:
+  - adapter package line: `jsonapi-rsql-interface-pg@1.0.0`
+  - dedicated adapter smoke harness root: `C:\code\jsonapi-rsql-interface-pg-smoke-test`
+- Core release notes/evidence context updated to reflect the core-patch release preparation before adapter publish execution.
 
 ## [1.1.0] - 2026-02-19
 

@@ -266,6 +266,7 @@ Repository workflow and release baseline documents:
 - `docs/MIGRATION_0.x_TO_1.0.0.md`
 - `docs/RELEASE_EVIDENCE.md`
 - `docs/releases/v1.0.0.md`
+- `docs/releases/v1.1.1.md`
 - `docs/DEPENDENCY_RISK_REGISTER.md`
 - `CODEX_CONTEXT.md`
 - `TODO.md`

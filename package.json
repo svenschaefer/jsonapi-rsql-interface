@@ -1,6 +1,6 @@
 {
   "name": "jsonapi-rsql-interface",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Deterministic compiler-style API from JSON:API + RSQL/FIQL query input to governed query plans.",
   "keywords": [
     "jsonapi",

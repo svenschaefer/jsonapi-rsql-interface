@@ -131,8 +131,8 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Continue `v1.2.x` closeout:
   - complete first adapter publish cycle (`v1.2.7`) for `jsonapi-rsql-interface-pg`
-  - external pre-publish smoke for adapter artifact is now passing in `C:\code\jsonapi-rsql-interface-smoke-test`
-  - current blocker: npm auth/OTP required for publish execution
+  - external pre-publish smoke for adapter artifact is now passing in `C:\code\jsonapi-rsql-interface-pg-smoke-test`
+  - adapter publish is pending interactive npm publish/auth and post-publish smoke
   - capture npm registry verification and release evidence after successful publish
   - current implemented state:
     - workspace package skeleton exists at `packages/adapter-pg`
@@ -160,10 +160,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
     - constraints baseline bound to:
       - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
     - publish-ready metadata prepared:
-      - `jsonapi-rsql-interface-pg@1.2.0`
+      - `jsonapi-rsql-interface-pg@1.0.0`
       - `private=false`
       - `publishConfig.access=public`
     - naming strategy finalized:
       - unscoped adapter package (`jsonapi-rsql-interface-pg`) is used for publishability under current account
-- Current release line is `1.1.0` (published) with `1.0.0` deprecated.
+- Current release line is `1.1.0` (published) with `1.1.1` core patch preparation in progress and `1.0.0` deprecated.
 

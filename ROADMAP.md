@@ -454,25 +454,25 @@ Execution breakdown (planned before implementation):
 - `v1.2.7` (in progress):
   - execute first adapter package release (`jsonapi-rsql-interface-pg`):
     - set publish-ready adapter package metadata/version
-    - run external pre/post publish smoke in `C:\code\jsonapi-rsql-interface-smoke-test`
+    - run external pre/post publish smoke in `C:\code\jsonapi-rsql-interface-pg-smoke-test`
     - publish to npm and verify registry metadata
     - capture adapter release evidence in docs
     - progress:
       - adapter package naming migrated from scoped plan to unscoped publishable name:
         - `jsonapi-rsql-interface-pg`
         - reason: npm scope ownership/permission constraints for `@jsonapi-rsql/*`
-      - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.2.0`, `private=false`, `publishConfig.access=public`)
+      - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.0.0`, `private=false`, `publishConfig.access=public`)
     - release gates passed (`npm run ci:check`, workspace `npm pack --dry-run`)
     - external smoke tooling extended for adapter release:
       - harness runner supports adapter contract checks for `jsonapi-rsql-interface-pg`
       - `smoke:external:prepublish` supports `--workspace` artifact packing
       - explicit `getTableSql` contract check in adapter smoke path
       - placeholder/value alignment checks replace brittle fixed value-count assertion
-    - external pre-publish smoke executed successfully for adapter artifact in `C:\code\jsonapi-rsql-interface-smoke-test`
+    - external pre-publish smoke executed successfully for adapter artifact in `C:\code\jsonapi-rsql-interface-pg-smoke-test`
     - adapter table-source hardening completed:
       - `assembleSelectSql(...)` now requires mapping-derived table value (`getTableSql(mapping)`)
-    - blocker:
-      - npm publish requires OTP (`EOTP`, account uses `auth-and-writes` 2FA)
+    - next action:
+      - run adapter npm publish with interactive auth/OTP and then execute post-publish smoke
 - `v1.2.8` (planned):
   - post-publish adapter closure:
     - run clean consumer-install validation for published `jsonapi-rsql-interface-pg` version
