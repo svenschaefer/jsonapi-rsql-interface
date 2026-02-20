@@ -1,6 +1,6 @@
-# @jsonapi-rsql/pg
+# jsonapi-rsql-interface-pg
 
-`@jsonapi-rsql/pg` is a deterministic PostgreSQL execution adapter for plans produced by `jsonapi-rsql-interface`.
+`jsonapi-rsql-interface-pg` is a deterministic PostgreSQL execution adapter for plans produced by `jsonapi-rsql-interface`.
 
 Core scope:
 - compile-only adapter surfaces:
@@ -111,3 +111,4 @@ Stable adapter error code namespace:
 
 Authoritative constraints:
 - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md` (repo root)
+

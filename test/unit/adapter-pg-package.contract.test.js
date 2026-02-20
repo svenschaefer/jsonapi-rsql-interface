@@ -3,11 +3,11 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-test("@jsonapi-rsql/pg package contract baseline", () => {
+test("jsonapi-rsql-interface-pg package contract baseline", () => {
   const pkgPath = path.resolve(__dirname, "../../packages/adapter-pg/package.json");
   const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
 
-  assert.equal(pkg.name, "@jsonapi-rsql/pg");
+  assert.equal(pkg.name, "jsonapi-rsql-interface-pg");
   assert.equal(pkg.type, "commonjs");
   assert.equal(pkg.main, "./src/index.js");
   assert.ok(pkg.exports && pkg.exports["."] === "./src/index.js");
@@ -16,12 +16,12 @@ test("@jsonapi-rsql/pg package contract baseline", () => {
   assert.equal(pkg.engines.node, ">=20.0.0");
 });
 
-test("@jsonapi-rsql/pg exports pinned dialect profile constant", () => {
+test("jsonapi-rsql-interface-pg exports pinned dialect profile constant", () => {
   const adapter = require("../../packages/adapter-pg/src");
   assert.equal(adapter.ADAPTER_DIALECT_PROFILE, "postgresql-v1-core");
 });
 
-test("@jsonapi-rsql/pg README documents assembly helper", () => {
+test("jsonapi-rsql-interface-pg README documents assembly helper", () => {
   const readmePath = path.resolve(__dirname, "../../packages/adapter-pg/README.md");
   const text = fs.readFileSync(readmePath, "utf8");
 
@@ -30,3 +30,4 @@ test("@jsonapi-rsql/pg README documents assembly helper", () => {
   assert.ok(text.includes("compileSecurityPredicate(plan, mapping, securityContext)"));
   assert.ok(text.includes("pg_security_predicate_required"));
 });
+

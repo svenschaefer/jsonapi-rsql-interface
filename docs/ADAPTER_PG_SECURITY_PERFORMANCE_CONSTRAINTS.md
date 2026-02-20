@@ -1,6 +1,6 @@
-# @jsonapi-rsql/pg – Security and Performance Constraints (Final)
+# jsonapi-rsql-interface-pg – Security and Performance Constraints (Final)
 
-This document captures the complete, consolidated list of security and performance concerns discussed for the `@jsonapi-rsql/pg` adapter, together with the locked answer/decision for each point.
+This document captures the complete, consolidated list of security and performance concerns discussed for the `jsonapi-rsql-interface-pg` adapter, together with the locked answer/decision for each point.
 These constraints are binding for `v1.2.x` implementation.
 
 ---
@@ -192,4 +192,5 @@ Decision:
 
 ## Status
 
-All items above are locked decisions and define the security and performance boundary of `@jsonapi-rsql/pg` for `v1.2.x`.
+All items above are locked decisions and define the security and performance boundary of `jsonapi-rsql-interface-pg` for `v1.2.x`.
+

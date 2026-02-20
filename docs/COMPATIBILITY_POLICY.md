@@ -24,7 +24,7 @@ The following are compatibility-critical:
 - Version gating:
   - `v1.0.x` baseline: wildcard extension is not enabled by default contract.
   - later `v1.x`: wildcard extension may be introduced explicitly with documented policy/plan semantics.
-- Boundary rule: this package owns parse/validate/compile contract; execution behavior belongs to adapter packages (for example `@jsonapi-rsql/pg`).
+- Boundary rule: this package owns parse/validate/compile contract; execution behavior belongs to adapter packages (for example `jsonapi-rsql-interface-pg`).
 
 ## JSON:API Compatibility Position
 
@@ -54,3 +54,4 @@ Any semantic breaking change requires:
 - prefer additive changes first
 - deprecate with clear migration path
 - remove only in coordinated major release windows
+

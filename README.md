@@ -39,7 +39,7 @@ Contract framing for `v1+`:
 - Core compatibility target: RSQL-style filtering syntax and semantics.
 - Intentional divergence: wildcard matching is an explicit extension, version-gated, and represented explicitly in plan/policy behavior.
 - JSON:API compatibility target: query parameter conventions only (`page[size]`, `page[number]`, `sort`, `include`, `fields[resource]`).
-- Execution boundary: this package validates/compiles into a plan; SQL execution semantics belong to execution adapters (for example `@jsonapi-rsql/pg`).
+- Execution boundary: this package validates/compiles into a plan; SQL execution semantics belong to execution adapters (for example `jsonapi-rsql-interface-pg`).
 
 Compatibility summary:
 
@@ -401,3 +401,4 @@ To avoid ambiguity in independent implementations, the following defaults are fi
 ## License
 
 MIT
+

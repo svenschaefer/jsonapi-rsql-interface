@@ -1,5 +1,5 @@
 {
-  "name": "@jsonapi-rsql/pg",
+  "name": "jsonapi-rsql-interface-pg",
   "version": "1.2.0",
   "description": "PostgreSQL execution adapter for jsonapi-rsql-interface query plans.",
   "keywords": [
@@ -35,3 +35,4 @@
   "private": false,
   "license": "MIT"
 }
+

@@ -10,7 +10,7 @@
 - Completed cycle: `v0.6.0` (Cache/context safety baseline)
 - Completed cycle: `v0.7.0` (Conformance expansion baseline)
 - Completed cycle: `v0.8.0` (Release/governance hardening baseline)
-- Current active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
+- Current active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`)
 
 ## 0) Core implementation (must exist first)
 
@@ -295,9 +295,9 @@ Progress (`v1.1.x`):
   - fuzzy search
   - implicit cross-field behavior
 
-## 11) Post-GA (1.x) planned topic: PostgreSQL execution adapter package `@jsonapi-rsql/pg`
+## 11) Post-GA (1.x) planned topic: PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`
 
-Create a separate npm package `@jsonapi-rsql/pg` that executes a `jsonapi-rsql-interface` query plan against PostgreSQL in a strictly parameterized, deterministic, and policy-respecting way.
+Create a separate npm package `jsonapi-rsql-interface-pg` that executes a `jsonapi-rsql-interface` query plan against PostgreSQL in a strictly parameterized, deterministic, and policy-respecting way.
 
 Authoritative adapter constraints for `v1.2.x`:
 - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
@@ -317,11 +317,18 @@ Progress (`v1.2.x`):
 - Added golden determinism and error-hygiene adapter tests in `test/unit/adapter-pg-golden.contract.test.js`.
 - Added adapter package/readme contract tests in `test/unit/adapter-pg-package.contract.test.js`.
 - Added explicit adapter dialect pinning baseline (`ADAPTER_DIALECT_PROFILE = postgresql-v1-core`) with deterministic rejection for unsupported mapping profiles.
-- Added adapter publish-preparation checklist to `docs/NPM_RELEASE.md` (workspace release path for `@jsonapi-rsql/pg`).
-- Prepared first adapter publish metadata (`@jsonapi-rsql/pg@1.2.0`, `private=false`, `publishConfig.access=public`); publish execution is pending npm auth/OTP.
-- Extended external smoke harness runner with adapter-specific contract checks for `@jsonapi-rsql/pg` (pre/post publish smoke coverage).
+- Added adapter publish-preparation checklist to `docs/NPM_RELEASE.md` (workspace release path for `jsonapi-rsql-interface-pg`).
+- Prepared first adapter publish metadata (`jsonapi-rsql-interface-pg@1.2.0`, `private=false`, `publishConfig.access=public`); publish execution is pending npm auth/OTP.
+- Extended external smoke harness runner with adapter-specific contract checks for `jsonapi-rsql-interface-pg` (pre/post publish smoke coverage).
 - Extended `smoke:external:prepublish` with `--workspace` to pack non-root workspace artifacts (adapter release flow).
 - Executed adapter external pre-publish smoke successfully in `C:\code\jsonapi-rsql-interface-smoke-test`; remaining blocker is npm auth/OTP for publish.
+- Adapter naming strategy changed from scoped to unscoped for publishability:
+  - from `@jsonapi-rsql/pg`
+  - to `jsonapi-rsql-interface-pg`
+  - reason: npm scope ownership/permission constraints (`Scope not found` for `@jsonapi-rsql/*`)
+- Re-executed package/pre-smoke under new name:
+  - tarball: `jsonapi-rsql-interface-pg-1.2.0.tgz`
+  - external pre-smoke: pass (`C:\code\jsonapi-rsql-interface-smoke-test\20260220T000632Z-pre-1.2.0`)
 - Added adapter table-source hardening in `assembleSelectSql(...)`: table must be mapping-derived (`getTableSql(mapping)`), with contract test coverage.
 - Track later contract locks:
   - lock/declare flat-AND filter semantics assumption for adapter `compileWhere` against current core plan shape (no boolean AST preservation in baseline)
@@ -331,7 +338,7 @@ Progress (`v1.2.x`):
   - scheduling: planned in `ROADMAP.md` as post-publish `v1.3.x` follow-up cycle
 
 - Scope:
-  - new package `@jsonapi-rsql/pg`
+  - new package `jsonapi-rsql-interface-pg`
   - depends on `jsonapi-rsql-interface` core
   - output is parameterized SQL (`text` + `values`) or deterministic compiled fragments
   - non-goal: changing interface semantics or introducing implicit DB-specific behavior into core
@@ -379,3 +386,4 @@ Progress (`v1.2.x`):
   - security predicate is mandatory in compiled execution outputs
   - adapter cannot reinterpret core interface semantics
   - unsupported features are rejected deterministically
+

@@ -69,9 +69,10 @@ Repository-level standards:
 - Baseline scaffold is implemented (`v0.1.x` complete).
 - Completed cycles: `v0.2.0` through `v0.8.0` (semantic core, error contract, security/performance/cache/context/conformance/governance baselines).
 - Completed pre-GA closure cycles: `v0.9.1` through `v0.9.8` (deep hardening, governance/tooling robustness, final `0.x` readiness closure).
-- Active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
+- Active roadmap cycle: `v1.2.x` (PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`).
 - `v1.2.x` current implementation progress:
   - workspace package exists at `packages/adapter-pg`
+  - adapter package name finalized as unscoped `jsonapi-rsql-interface-pg` for publishability
   - explicit adapter dialect/profile pinning is implemented (`postgresql-v1-core`)
   - deterministic compile surfaces implemented (`compileWhere`, `compileOrderBy`, `compileLimitOffset`, `compileSecurityPredicate`, `compileSelect`)
   - optional assembly-only helper implemented: `assembleSelectSql(...)`
@@ -94,7 +95,7 @@ Repository-level standards:
 - Compatibility framing baseline:
   - RSQL is a compatibility target for the filter core.
   - JSON:API is a compatibility target for query parameters only (not full server/spec compliance).
-  - Execution semantics are adapter territory (for example `@jsonapi-rsql/pg`), not core interface behavior.
+  - Execution semantics are adapter territory (for example `jsonapi-rsql-interface-pg`), not core interface behavior.
   - Post-GA wildcard extension (`v1.1.x`) is policy-gated and opt-in only, and released in `1.1.0`.
 
 ## 7) Working Conventions for Agents
@@ -148,7 +149,8 @@ Repository-level standards:
   - `jsonapi-rsql-interface@1.1.0` is published
   - `jsonapi-rsql-interface@1.0.0` is deprecated with upgrade guidance to `>=1.1.0`
   - external pre/post publish smoke evidence is captured in `docs/RELEASE_EVIDENCE.md`
-  - active release cycle: `v1.2.7` (`@jsonapi-rsql/pg` first publish execution)
-  - adapter external pre-publish smoke is passing (`@jsonapi-rsql/pg@1.2.0` tarball)
+  - active release cycle: `v1.2.7` (`jsonapi-rsql-interface-pg` first publish execution)
+  - adapter external pre-publish smoke is passing (`jsonapi-rsql-interface-pg@1.2.0` tarball)
   - current release blocker: npm auth/OTP required (`EOTP`) for adapter publish command
   - next planned cycle after publish closure: `v1.3.x` (adapter/core contract-lock follow-ups)
+

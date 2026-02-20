@@ -277,7 +277,7 @@ function assertAdapterContract(packageName) {
 }
 
 function assertPackageContract(packageName) {
-  if (packageName === "@jsonapi-rsql/pg") {
+  if (packageName === "jsonapi-rsql-interface-pg") {
     assertAdapterContract(packageName);
     return;
   }
@@ -415,3 +415,4 @@ module.exports = {
   parseArgs,
   run
 };
+

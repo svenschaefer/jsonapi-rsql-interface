@@ -90,7 +90,7 @@ function baseMapping() {
   };
 }
 
-test("@jsonapi-rsql/pg exports compile and assemble surfaces", () => {
+test("jsonapi-rsql-interface-pg exports compile and assemble surfaces", () => {
   assert.equal(typeof pgAdapter.compileWhere, "function");
   assert.equal(typeof pgAdapter.compileOrderBy, "function");
   assert.equal(typeof pgAdapter.compileLimitOffset, "function");
@@ -213,3 +213,4 @@ test("prepareMapping rejects unsupported dialect profile", () => {
     (error) => error && error.code === "pg_feature_not_supported"
   );
 });
+

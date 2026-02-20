@@ -6,7 +6,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 
 - Baseline scaffold is implemented and committed.
 - Branch: `main` (tracking `origin/main`).
-- Current roadmap phase: `v1.2.x` in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`).
+- Current roadmap phase: `v1.2.x` in progress (PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`).
 - Planning/state docs are active: `TODO.md`, `ROADMAP.md`, `CODEX_CONTEXT.md`.
 
 ## Runtime status
@@ -130,7 +130,7 @@ Short operational snapshot of `jsonapi-rsql-interface`.
 ## Immediate next steps
 
 - Continue `v1.2.x` closeout:
-  - complete first adapter publish cycle (`v1.2.7`) for `@jsonapi-rsql/pg`
+  - complete first adapter publish cycle (`v1.2.7`) for `jsonapi-rsql-interface-pg`
   - external pre-publish smoke for adapter artifact is now passing in `C:\code\jsonapi-rsql-interface-smoke-test`
   - current blocker: npm auth/OTP required for publish execution
   - capture npm registry verification and release evidence after successful publish
@@ -160,7 +160,10 @@ Short operational snapshot of `jsonapi-rsql-interface`.
     - constraints baseline bound to:
       - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
     - publish-ready metadata prepared:
-      - `@jsonapi-rsql/pg@1.2.0`
+      - `jsonapi-rsql-interface-pg@1.2.0`
       - `private=false`
       - `publishConfig.access=public`
+    - naming strategy finalized:
+      - unscoped adapter package (`jsonapi-rsql-interface-pg`) is used for publishability under current account
 - Current release line is `1.1.0` (published) with `1.0.0` deprecated.
+

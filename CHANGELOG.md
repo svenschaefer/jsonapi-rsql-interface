@@ -11,7 +11,7 @@ All notable changes to this project are documented in this file.
 ### Added
 
 - `v1.2.x` adapter track (in progress):
-  - workspace package scaffold for `@jsonapi-rsql/pg` at `packages/adapter-pg`
+  - workspace package scaffold for `jsonapi-rsql-interface-pg` at `packages/adapter-pg`
   - deterministic PostgreSQL compile surfaces:
     - `compileWhere`
     - `compileOrderBy`
@@ -25,10 +25,12 @@ All notable changes to this project are documented in this file.
     - exported `ADAPTER_DIALECT_PROFILE` (`postgresql-v1-core`)
     - deterministic rejection for unsupported mapping `dialect_profile` values (`pg_feature_not_supported`)
   - adapter publish-ready package metadata:
-    - `packages/adapter-pg/package.json` set to `@jsonapi-rsql/pg@1.2.0`
+    - `packages/adapter-pg/package.json` set to `jsonapi-rsql-interface-pg@1.2.0`
     - `private=false` with `publishConfig.access=public`
+  - adapter naming strategy updated for npm publishability:
+    - moved from scoped naming plan to unscoped package name `jsonapi-rsql-interface-pg`
   - external smoke tooling enhancements for adapter releases:
-    - harness runner now validates adapter contract for `@jsonapi-rsql/pg`
+    - harness runner now validates adapter contract for `jsonapi-rsql-interface-pg`
     - `smoke:external:prepublish` supports `--workspace` for non-root package artifacts
   - adapter/table-source hardening:
     - `assembleSelectSql(...)` now requires mapping-derived table value (`getTableSql(mapping)`)
@@ -95,3 +97,4 @@ All notable changes to this project are documented in this file.
 - Governance checks now enforce explicit npm toolchain pinning via `packageManager`.
 - Added deterministic helper contract tests for `sortStrings`, `stableObject`, and normalized query key stability.
 - Release docs now include external pre/post publish smoke flow via `C:\code\jsonapi-rsql-interface-smoke-test`.
+

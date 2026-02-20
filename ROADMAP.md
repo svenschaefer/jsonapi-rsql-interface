@@ -4,7 +4,7 @@ This roadmap schedules `TODO.md` into implementation cycles from baseline throug
 
 ## Current Baseline
 
-- Current status: `v1.2.x` in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
+- Current status: `v1.2.x` in progress (PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`)
 - Present: GA (`v1.0.0`) released with external pre/post smoke evidence and full baseline compiler/security/performance/governance gates
 - Not complete: `v1.2.x` implementation cycles for adapter package delivery
 - Cycle status:
@@ -38,7 +38,7 @@ This roadmap schedules `TODO.md` into implementation cycles from baseline throug
 - `v0.9.8`: completed (final 0.x GA-readiness closure)
 - `v1.0.0`: completed (GA release execution)
 - `v1.1.x`: completed (post-GA wildcard semantics, released as `1.1.0`)
-- `v1.2.x`: in progress (PostgreSQL execution adapter package `@jsonapi-rsql/pg`)
+- `v1.2.x`: in progress (PostgreSQL execution adapter package `jsonapi-rsql-interface-pg`)
 
 ## Cycle Plan
 
@@ -380,10 +380,10 @@ Execution breakdown (planned before implementation):
   - update README/docs/status/evidence artifacts for v1.1 wildcard extension contract
   - run full quality gates and close `v1.1.x` execution block
 
-### Cycle 11 - `v1.2.x` (Post-GA PostgreSQL Execution Adapter `@jsonapi-rsql/pg`)
+### Cycle 11 - `v1.2.x` (Post-GA PostgreSQL Execution Adapter `jsonapi-rsql-interface-pg`)
 
 Scope:
-- create separate package `@jsonapi-rsql/pg` (workspace package layout, independent npm package identity)
+- create separate package `jsonapi-rsql-interface-pg` (workspace package layout, independent npm package identity)
 - implement against locked security/performance constraints:
   - `docs/ADAPTER_PG_SECURITY_PERFORMANCE_CONSTRAINTS.md`
 - enforce explicit mapping contract:
@@ -440,39 +440,42 @@ Execution breakdown (planned before implementation):
   - run full repo quality gates and close `v1.2.x` phase block
 - `v1.2.4` (completed):
   - harden adapter package contract docs for publish/readiness
-  - add package-level contract tests for `@jsonapi-rsql/pg`
+  - add package-level contract tests for `jsonapi-rsql-interface-pg`
   - keep root and adapter docs synchronized for release evidence
 - `v1.2.5` (completed):
   - lock explicit PostgreSQL dialect/profile pinning in adapter contract
   - enforce deterministic adapter rejection for unpinned/unsupported dialect profile usage
   - add adapter contract tests for dialect/profile pinning behavior
 - `v1.2.6` (completed):
-  - finalize `v1.2.x` release-readiness closure for `@jsonapi-rsql/pg`:
+  - finalize `v1.2.x` release-readiness closure for `jsonapi-rsql-interface-pg`:
     - docs/evidence synchronization (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`)
     - full quality-gate execution (`npm run ci:check`, `npm run audit:runtime`)
     - publish-preparation checklist for first adapter package release
 - `v1.2.7` (in progress):
-  - execute first adapter package release (`@jsonapi-rsql/pg`):
+  - execute first adapter package release (`jsonapi-rsql-interface-pg`):
     - set publish-ready adapter package metadata/version
     - run external pre/post publish smoke in `C:\code\jsonapi-rsql-interface-smoke-test`
     - publish to npm and verify registry metadata
     - capture adapter release evidence in docs
-  - progress:
-    - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.2.0`, `private=false`, `publishConfig.access=public`)
+    - progress:
+      - adapter package naming migrated from scoped plan to unscoped publishable name:
+        - `jsonapi-rsql-interface-pg`
+        - reason: npm scope ownership/permission constraints for `@jsonapi-rsql/*`
+      - publish-ready adapter metadata/version prepared (`packages/adapter-pg/package.json`, `1.2.0`, `private=false`, `publishConfig.access=public`)
     - release gates passed (`npm run ci:check`, workspace `npm pack --dry-run`)
     - external smoke tooling extended for adapter release:
-      - harness runner supports adapter contract checks for `@jsonapi-rsql/pg`
+      - harness runner supports adapter contract checks for `jsonapi-rsql-interface-pg`
       - `smoke:external:prepublish` supports `--workspace` artifact packing
       - explicit `getTableSql` contract check in adapter smoke path
       - placeholder/value alignment checks replace brittle fixed value-count assertion
     - external pre-publish smoke executed successfully for adapter artifact in `C:\code\jsonapi-rsql-interface-smoke-test`
     - adapter table-source hardening completed:
       - `assembleSelectSql(...)` now requires mapping-derived table value (`getTableSql(mapping)`)
-  - blocker:
-    - npm publish requires renewed auth + OTP (`EOTP`, token expired/revoked)
+    - blocker:
+      - npm publish requires OTP (`EOTP`, account uses `auth-and-writes` 2FA)
 - `v1.2.8` (planned):
   - post-publish adapter closure:
-    - run clean consumer-install validation for published `@jsonapi-rsql/pg` version
+    - run clean consumer-install validation for published `jsonapi-rsql-interface-pg` version
     - sync release docs/state (`TODO`, `ROADMAP`, `STATUSQUO`, `RELEASE_EVIDENCE`, `CHANGELOG`, `CODEX_CONTEXT`)
     - close `v1.2.x` execution block and queue next `1.x` cycle planning
 - `v1.3.x` (planned):
@@ -489,3 +492,4 @@ Execution breakdown (planned before implementation):
   - updated automated tests
   - green `npm run ci:check`
 - No cycle closes with unresolved contract ambiguity in implemented scope.
+

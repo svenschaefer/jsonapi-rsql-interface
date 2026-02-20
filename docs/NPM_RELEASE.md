@@ -42,7 +42,7 @@ Both streams should point to the same version and release commit.
    - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface`
 11. record pre/post smoke outcomes in `docs/RELEASE_EVIDENCE.md`
 
-## Workspace Adapter Release (`@jsonapi-rsql/pg`)
+## Workspace Adapter Release (`jsonapi-rsql-interface-pg`)
 
 Use this checklist for first and subsequent adapter package releases.
 
@@ -56,11 +56,12 @@ Use this checklist for first and subsequent adapter package releases.
 4. validate adapter package artifact:
    - `npm pack --workspace packages/adapter-pg --dry-run`
 5. run external pre-publish smoke for adapter artifact:
-   - `npm run smoke:external:prepublish -- --version <x.y.z> --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+   - `npm run smoke:external:prepublish -- --version <x.y.z> --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface-pg`
 6. publish adapter package:
    - `npm publish --workspace packages/adapter-pg --access public`
 7. verify registry package metadata:
-   - `npm view @jsonapi-rsql/pg@<x.y.z> version peerDependencies engines`
+   - `npm view jsonapi-rsql-interface-pg@<x.y.z> version peerDependencies engines`
 8. run external post-publish smoke for adapter package:
-   - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+   - `npm run smoke:external -- --phase post --version <x.y.z> --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface-pg`
 9. record adapter release evidence in `docs/RELEASE_EVIDENCE.md`
+

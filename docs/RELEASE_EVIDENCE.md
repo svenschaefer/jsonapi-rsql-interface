@@ -187,7 +187,7 @@ Use this file (or release artifacts linked from it) to track governance evidence
 ### `v1.2.x` - PostgreSQL Adapter Execution Track (in progress)
 
 - Scope:
-  - implement `@jsonapi-rsql/pg` adapter package in workspace
+  - implement `jsonapi-rsql-interface-pg` adapter package in workspace
   - implement deterministic compile surfaces and assembly-only helper
   - enforce locked adapter security/performance constraints
 - Progress:
@@ -216,26 +216,30 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - adapter publish-preparation checklist documented in `docs/NPM_RELEASE.md`
     - cycle docs synchronized (`TODO`, `ROADMAP`, `CODEX_CONTEXT`, `STATUSQUO`, `CHANGELOG`)
   - `v1.2.7` in progress:
+    - package naming strategy updated for publishability:
+      - from scoped `@jsonapi-rsql/pg`
+      - to unscoped `jsonapi-rsql-interface-pg`
+      - reason: npm scope ownership/permission limitation (`Scope not found` for `@jsonapi-rsql/*`)
     - adapter package metadata prepared for first publish:
-      - `@jsonapi-rsql/pg@1.2.0`
+      - `jsonapi-rsql-interface-pg@1.2.0`
       - `private=false`
       - `publishConfig.access=public`
     - publish-prep gates passed:
       - `npm run ci:check`: pass
       - `npm pack --workspace packages/adapter-pg --dry-run`: pass
     - external pre-publish smoke executed:
-      - command: `npm run smoke:external:prepublish -- --version 1.2.0 --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name @jsonapi-rsql/pg`
+      - command: `npm run smoke:external:prepublish -- --version 1.2.0 --workspace packages/adapter-pg --harness-dir "C:\code\jsonapi-rsql-interface-smoke-test" --harness-package jsonapi-rsql-interface-smoke-test --package-name jsonapi-rsql-interface-pg`
       - result: pass
-      - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-pg-1.2.0.tgz`
-      - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg`
-      - resolved_entrypoint: `C:\code\jsonapi-rsql-interface-smoke-test\20260219T233628Z-pre-1.2.0\node_modules\@jsonapi-rsql\pg\src\index.js`
+      - installed_from: `C:\code\jsonapi-rsql-interface\jsonapi-rsql-interface-pg-1.2.0.tgz`
+      - resolved_package_dir: `C:\code\jsonapi-rsql-interface-smoke-test\20260220T000632Z-pre-1.2.0\node_modules\jsonapi-rsql-interface-pg`
+      - resolved_entrypoint: `C:\code\jsonapi-rsql-interface-smoke-test\20260220T000632Z-pre-1.2.0\node_modules\jsonapi-rsql-interface-pg\src\index.js`
     - adapter hardening completed before publish:
       - `assembleSelectSql(...)` table is now mapping-derived only (`getTableSql(mapping)` enforced)
       - external smoke adapter assertions hardened:
         - explicit `getTableSql` contract check
         - placeholder/value alignment checks (contiguous `$1..$n`) instead of fixed value-count assertion
-    - publish attempt blocked by npm auth/OTP:
-      - `npm publish --workspace packages/adapter-pg --access public` -> `EOTP` (token expired/revoked)
+    - publish attempt currently blocked by OTP requirement:
+      - `npm publish --workspace packages/adapter-pg --access public` -> `EOTP` (`auth-and-writes` 2FA)
 - Evidence:
   - `npm test`: pass
   - `npm run ci:check`: pass
@@ -296,3 +300,4 @@ Use this file (or release artifacts linked from it) to track governance evidence
     - `installed_from`
     - `resolved_package_dir`
     - `resolved_entrypoint`
+
